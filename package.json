@@ -1,0 +1,34 @@
+{
+  "name": "react-native-hud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/listenzz/react-native-hud.git"
+  },
+  "version": "0.0.1",
+  "nativePackage": true,
+  "description": "progress hud for react native",
+  "author": "listen <listenzz@163.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/listenzz/react-native-hud",
+  "keywords": ["react native", "progress", "hud"],
+  "main": "index.js",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-native": ">=0.50.3"
+  },
+  "devDependencies": {
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "babel-jest": "23.0.1",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "23.0.1",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

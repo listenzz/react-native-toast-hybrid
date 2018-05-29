@@ -1,0 +1,25 @@
+{
+  "name": "ProgressHUD",
+  "version": "0.0.1",
+  "summary": "progress hud for react native app",
+  "authors": {
+    "listen": "listenzz@163.com"
+  },
+  "homepage": "https://github.com/listenzz/react-native-hud",
+  "license": "MIT",
+  "platforms": {
+    "ios": "8.0"
+  },
+  "module_name": "ProgressHUD",
+  "source": {
+    "git": "https://github.com/listenzz/react-native-hud.git",
+    "tag": "v0.0.1"
+  },
+  "source_files": "ios/*.{h,m,swift}",
+  "dependencies": {
+    "React": [
+
+    ]
+  },
+  "frameworks": "UIKit"
+}
