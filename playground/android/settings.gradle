@@ -1,3 +1,5 @@
 rootProject.name = 'playground'
-
 include ':app'
+
+include ':progress-hud'
+project(':progress-hud').projectDir = new File(rootProject.projectDir, '../../android')
