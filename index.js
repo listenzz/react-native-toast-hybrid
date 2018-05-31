@@ -1,3 +1,2 @@
-
-let a = 1;
-export default { a };
+import {NativeModules} from 'react-native';
+export default NativeModules.HUD;
