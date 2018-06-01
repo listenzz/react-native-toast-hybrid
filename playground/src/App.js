@@ -12,15 +12,63 @@ const instructions = Platform.select({
 export default class App extends Component {
   componentDidMount() {}
 
-  _onPressButton = () => {
+  loading() {
     HUD.show();
-  };
+
+    setTimeout(() => {
+      HUD.hide();
+    }, 600);
+    setTimeout(() => {
+      HUD.show();
+    }, 400);
+    setTimeout(() => {
+      HUD.show();
+    }, 2000);
+    setTimeout(() => {
+      HUD.hide();
+    }, 3000);
+    setTimeout(() => {
+      HUD.hide();
+    }, 5000);
+  }
+
+  text() {
+    HUD.text('Hello World!!');
+  }
+
+  info() {
+    HUD.info('有条消息要告诉你');
+  }
+
+  done() {
+    HUD.done('任务已经完成啦！');
+  }
+
+  error() {
+    HUD.error('可能什么地方出错了！');
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this._onPressButton} activeOpacity={0.2} style={styles.button}>
-          <Text style={styles.buttonText}> 点我 </Text>
+        <TouchableOpacity onPress={this.loading} activeOpacity={0.2} style={styles.button}>
+          <Text style={styles.buttonText}> loading </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.text} activeOpacity={0.2} style={styles.button}>
+          <Text style={styles.buttonText}> text </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.info} activeOpacity={0.2} style={styles.button}>
+          <Text style={styles.buttonText}> info </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.done} activeOpacity={0.2} style={styles.button}>
+          <Text style={styles.buttonText}> done </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.error} activeOpacity={0.2} style={styles.button}>
+          <Text style={styles.buttonText}> error </Text>
         </TouchableOpacity>
       </View>
     );
