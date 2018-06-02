@@ -7,13 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		912640AC20C23E2A00D430C4 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 912640AA20C23E2A00D430C4 /* MBProgressHUD.h */; };
+		912640AD20C23E2A00D430C4 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 912640AB20C23E2A00D430C4 /* MBProgressHUD.m */; };
+		912640B020C2401300D430C4 /* ProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 912640AE20C2401300D430C4 /* ProgressHUD.h */; };
+		912640B120C2401300D430C4 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 912640AF20C2401300D430C4 /* ProgressHUD.m */; };
+		912640B420C2403700D430C4 /* ProgressHUDModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 912640B220C2403700D430C4 /* ProgressHUDModule.h */; };
+		912640B520C2403700D430C4 /* ProgressHUDModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 912640B320C2403700D430C4 /* ProgressHUDModule.m */; };
 		9179735C20BD33590086245E /* HUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 9179735A20BD33590086245E /* HUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9182349D20C24E59009EBC54 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9182349C20C24E59009EBC54 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		912640AA20C23E2A00D430C4 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		912640AB20C23E2A00D430C4 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		912640AE20C2401300D430C4 /* ProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		912640AF20C2401300D430C4 /* ProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		912640B220C2403700D430C4 /* ProgressHUDModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressHUDModule.h; sourceTree = "<group>"; };
+		912640B320C2403700D430C4 /* ProgressHUDModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressHUDModule.m; sourceTree = "<group>"; };
 		9179735720BD33590086245E /* HUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9179735A20BD33590086245E /* HUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
 		9179735B20BD33590086245E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9182349C20C24E59009EBC54 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +44,14 @@
 		9179734D20BD33590086245E = {
 			isa = PBXGroup;
 			children = (
+				9182349C20C24E59009EBC54 /* Images.xcassets */,
+				912640B220C2403700D430C4 /* ProgressHUDModule.h */,
+				912640B320C2403700D430C4 /* ProgressHUDModule.m */,
+				912640AE20C2401300D430C4 /* ProgressHUD.h */,
+				912640AF20C2401300D430C4 /* ProgressHUD.m */,
 				9179735A20BD33590086245E /* HUD.h */,
+				912640AA20C23E2A00D430C4 /* MBProgressHUD.h */,
+				912640AB20C23E2A00D430C4 /* MBProgressHUD.m */,
 				9179735B20BD33590086245E /* Info.plist */,
 				9179735820BD33590086245E /* Products */,
 			);
@@ -51,6 +72,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912640B020C2401300D430C4 /* ProgressHUD.h in Headers */,
+				912640B420C2403700D430C4 /* ProgressHUDModule.h in Headers */,
+				912640AC20C23E2A00D430C4 /* MBProgressHUD.h in Headers */,
 				9179735C20BD33590086245E /* HUD.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9182349D20C24E59009EBC54 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912640B520C2403700D430C4 /* ProgressHUDModule.m in Sources */,
+				912640B120C2401300D430C4 /* ProgressHUD.m in Sources */,
+				912640AD20C23E2A00D430C4 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

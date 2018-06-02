@@ -16,10 +16,19 @@
     "tag": "v0.0.1"
   },
   "source_files": "ios/*.{h,m,swift}",
+  "resource_bundles": {
+    "ProgressHUD": [
+      "ios/**/*.{storyboard,xib,xcassets,json,imageset,png}"
+    ]
+  },
   "dependencies": {
     "React": [
 
     ]
   },
-  "frameworks": "UIKit"
+  "frameworks": [
+    "CoreGraphics",
+    "QuartzCore"
+  ],
+  "requires_arc": true
 }

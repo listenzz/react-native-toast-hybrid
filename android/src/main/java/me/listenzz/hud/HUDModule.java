@@ -120,6 +120,10 @@ public class HUDModule extends ReactContextBaseJavaModule {
         if (config.hasKey("duration")) {
             HUDConfig.duration = config.getInt("duration");
         }
+
+        if (config.hasKey("graceTime")) {
+            HUDConfig.graceTime = config.getInt("graceTime");
+        }
     }
 
 }

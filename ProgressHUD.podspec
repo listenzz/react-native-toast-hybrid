@@ -16,7 +16,11 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/listenzz/react-native-hud.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/*.{h,m,swift}"
+  s.resource_bundles = {
+      'ProgressHUD' => ['ios/**/*.{storyboard,xib,xcassets,json,imageset,png}']
+  }
 
   s.dependency 'React'
-  s.frameworks = 'UIKit'
+  s.frameworks   = "CoreGraphics", "QuartzCore"
+  s.requires_arc = true
 end

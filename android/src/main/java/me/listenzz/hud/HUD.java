@@ -50,7 +50,6 @@ public class HUD {
         loadingCount--;
         Log.i("HUD", "hide loading:"+ loadingCount);
         if (loadingCount <= 0) {
-            loadingCount = 0;
             forceHide();
         }
         return loadingCount;
@@ -60,8 +59,8 @@ public class HUD {
         if (kProgressHUD != null) {
             kProgressHUD.dismiss();
             kProgressHUD = null;
-            loadingCount = 0;
         }
+        loadingCount = 0;
     }
 
     public void text(String text) {

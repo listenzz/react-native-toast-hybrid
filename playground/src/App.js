@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-import HUD from 'react-native-hud';
+import HUD from 'react-native-hud-hybrid';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -14,22 +14,10 @@ export default class App extends Component {
 
   loading() {
     HUD.show();
-
     setTimeout(() => {
+      HUD.done('任务已经完成啦！');
       HUD.hide();
-    }, 600);
-    setTimeout(() => {
-      HUD.show();
     }, 400);
-    setTimeout(() => {
-      HUD.show();
-    }, 2000);
-    setTimeout(() => {
-      HUD.hide();
-    }, 3000);
-    setTimeout(() => {
-      HUD.hide();
-    }, 5000);
   }
 
   text() {

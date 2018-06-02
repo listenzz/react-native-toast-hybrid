@@ -5,7 +5,7 @@ import android.graphics.Color;
 public class HUDConfig {
 
     private static int DEFAULT_DURATION = 2000;
-    private static int DEFAULT_GRACE_TIME = 0;
+    private static int DEFAULT_GRACE_TIME = 300;
     private static int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#b1000000");
     private static float DEFAULT_CORNER_RADIUS = 10;
 
