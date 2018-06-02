@@ -32,8 +32,9 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import me.listenzz.hud.R;
+import java.util.Date;
 
+import me.listenzz.hud.R;
 
 public class KProgressHUD {
 
@@ -45,6 +46,7 @@ public class KProgressHUD {
     private ProgressDialog mProgressDialog;
     private float mDimAmount;
     private int mWindowColor;
+    private int mTintColor;
     private float mCornerRadius;
     private Context mContext;
 
@@ -54,7 +56,10 @@ public class KProgressHUD {
     private boolean mIsAutoDismiss;
 
     private int mGraceTimeMs;
+    private int mMinShowTimeMs;
     private Handler mGraceTimer;
+    private Handler mMinShowTimer;
+    private Date mShowStarted;
     private boolean mFinished;
 
     public KProgressHUD(Context context) {
@@ -63,6 +68,7 @@ public class KProgressHUD {
         mDimAmount = 0;
         //noinspection deprecation
         mWindowColor = context.getResources().getColor(R.color.kprogresshud_default_color);
+        mTintColor = Color.WHITE;
         mAnimateSpeed = 1;
         mCornerRadius = 10;
         mIsAutoDismiss = true;
@@ -102,7 +108,7 @@ public class KProgressHUD {
         View view = null;
         switch (style) {
             case SPIN_INDETERMINATE:
-                view = new SpinView(mContext);
+                view = new LoadingView(mContext);
                 break;
             case PIE_DETERMINATE:
                 view = new PieView(mContext);
@@ -160,6 +166,12 @@ public class KProgressHUD {
      */
     public KProgressHUD setBackgroundColor(int color) {
         mWindowColor = color;
+        return this;
+    }
+
+
+    public KProgressHUD setTintColor(int color) {
+        mTintColor = color;
         return this;
     }
 
@@ -303,18 +315,27 @@ public class KProgressHUD {
         return this;
     }
 
+    public KProgressHUD setMinShowTime(int minShowTimeMs) {
+        mMinShowTimeMs = minShowTimeMs;
+        return this;
+    }
+
     public KProgressHUD show() {
         if (!isShowing()) {
+            if (mMinShowTimer != null) {
+                mMinShowTimer.removeCallbacksAndMessages(null);
+                mMinShowTimer = null;
+            }
             mFinished = false;
             if (mGraceTimeMs == 0) {
-                mProgressDialog.show();
+                showInternal();
             } else {
                 mGraceTimer = new Handler();
                 mGraceTimer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (mProgressDialog != null && !mFinished) {
-                            mProgressDialog.show();
+                            showInternal();
                         }
                     }
                 }, mGraceTimeMs);
@@ -323,18 +344,42 @@ public class KProgressHUD {
         return this;
     }
 
+    private void showInternal() {
+        mShowStarted = new Date();
+        mProgressDialog.show();
+    }
+
     public boolean isShowing() {
         return mProgressDialog != null && mProgressDialog.isShowing();
     }
 
     public void dismiss() {
-        mFinished = true;
-        if (mContext !=null && !((Activity)mContext).isFinishing() && mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
         if (mGraceTimer != null) {
             mGraceTimer.removeCallbacksAndMessages(null);
             mGraceTimer = null;
+        }
+        mFinished = true;
+        if ( mMinShowTimeMs > 0.0 && mShowStarted != null) {
+            Date now = new Date();
+            int interval = (int) (now.getTime() - mShowStarted.getTime());
+            if (interval < mMinShowTimeMs) {
+                mMinShowTimer = new Handler();
+                mMinShowTimer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissInternal();
+                    }
+                }, mMinShowTimeMs - interval);
+                return;
+            }
+        }
+        dismissInternal();
+    }
+
+    private void dismissInternal() {
+        if (mShowStarted != null && mContext !=null && !((Activity)mContext).isFinishing() && mProgressDialog != null && mProgressDialog.isShowing()) {
+            mShowStarted = null;
+            mProgressDialog.dismiss();
         }
     }
 
@@ -374,6 +419,16 @@ public class KProgressHUD {
             setCanceledOnTouchOutside(false);
 
             initViews();
+        }
+
+        @Override
+        public void show() {
+            if (mView != null && mView instanceof LoadingView) {
+                LoadingView loadingView = (LoadingView) mView;
+                loadingView.setColor(mTintColor);
+                loadingView.setSize(Helper.dpToPixel(32, getContext()));
+            }
+            super.show();
         }
 
         private void initViews() {

@@ -10,14 +10,24 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    HUD.config({
+      //backgroundColor: '#66000000',
+      //tintColor: '#00FF00',
+      //cornerRadius: 16,
+      //duration: 5000,
+      //graceTime: 1000,
+      //minShowTime: 3000,
+      // loadingText: '加载中...',
+    });
+  }
 
   loading() {
     HUD.show();
     setTimeout(() => {
       HUD.done('任务已经完成啦！');
       HUD.hide();
-    }, 400);
+    }, 4000);
   }
 
   text() {

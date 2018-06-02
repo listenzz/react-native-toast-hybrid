@@ -24,7 +24,7 @@
     if (self = [super init]) {
         _duration = 2.0f;
         _graceTime = 0.3;
-        _minshowTime = 0.0f;
+        _minshowTime = 0.8f;
     }
     return self;
 }

@@ -37,7 +37,7 @@ public class HUDModule extends ReactContextBaseJavaModule {
                         hud.forceHide();
                         hud = new HUD(getCurrentActivity());
                     }
-                    hud.show(null);
+                    hud.show(HUDConfig.loadingText);
                 }
             }
         });
@@ -110,19 +110,45 @@ public class HUDModule extends ReactContextBaseJavaModule {
     public void config(ReadableMap config) {
         if (config.hasKey("backgroundColor")) {
             HUDConfig.backgroundColor = Color.parseColor(config.getString("backgroundColor"));
+        } else {
+            HUDConfig.backgroundColor = HUDConfig.DEFAULT_BACKGROUND_COLOR;
+        }
+
+        if (config.hasKey("tintColor")) {
+            HUDConfig.tintColor = Color.parseColor(config.getString("tintColor"));
+        } else {
+            HUDConfig.tintColor = HUDConfig.DEFAULT_TINT_COLOR;
         }
 
         if (config.hasKey("cornerRadius")) {
             double cornerRadius = config.getDouble("cornerRadius");
             HUDConfig.cornerRadius = (float) cornerRadius;
+        } else {
+            HUDConfig.cornerRadius = HUDConfig.DEFAULT_CORNER_RADIUS;
         }
 
         if (config.hasKey("duration")) {
             HUDConfig.duration = config.getInt("duration");
+        } else {
+            HUDConfig.duration = HUDConfig.DEFAULT_DURATION;
         }
 
         if (config.hasKey("graceTime")) {
             HUDConfig.graceTime = config.getInt("graceTime");
+        } else {
+            HUDConfig.graceTime = HUDConfig.DEFAULT_GRACE_TIME;
+        }
+
+        if (config.hasKey("minShowTime")) {
+            HUDConfig.minShowTime = config.getInt("minShowTime");
+        } else {
+            HUDConfig.minShowTime = HUDConfig.DEFAULT_MIN_SHOW_TIME;
+        }
+
+        if (config.hasKey("loadingText")) {
+            HUDConfig.loadingText = config.getString("loadingText");
+        } else {
+            HUDConfig.loadingText = HUDConfig.DEFAULT_LOADING_TEXT;
         }
     }
 
