@@ -12,13 +12,14 @@ const instructions = Platform.select({
 export default class App extends Component {
   componentDidMount() {
     HUD.config({
-      //backgroundColor: '#66000000',
-      //tintColor: '#00FF00',
-      //cornerRadius: 16,
-      //duration: 5000,
-      //graceTime: 1000,
-      //minShowTime: 3000,
-      // loadingText: '加载中...',
+      // backgroundColor: '#BB000000',
+      // tintColor: '#FFFFFF',
+      // cornerRadius: 5, // only for android
+      // duration: 2000,
+      // graceTime: 300,
+      // minShowTime: 800,
+      // dimAmount: 0.0, // only for andriod
+      loadingText: '加载中...',
     });
   }
 
@@ -27,7 +28,7 @@ export default class App extends Component {
     setTimeout(() => {
       HUD.done('任务已经完成啦！');
       HUD.hide();
-    }, 4000);
+    }, 2000);
   }
 
   text() {

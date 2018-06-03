@@ -150,6 +150,12 @@ public class HUDModule extends ReactContextBaseJavaModule {
         } else {
             HUDConfig.loadingText = HUDConfig.DEFAULT_LOADING_TEXT;
         }
+
+        if (config.hasKey("dimAmount")) {
+            HUDConfig.dimAmount = (float) config.getDouble("dimAmount");
+        } else {
+            HUDConfig.dimAmount = HUDConfig.DEFAULT_DIM_AMOUNT;
+        }
     }
 
 }
