@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 
-@interface ProgressHUDModule : NSObject <RCTBridgeModule>
+@interface HUDModule : NSObject <RCTBridgeModule>
 
 @end

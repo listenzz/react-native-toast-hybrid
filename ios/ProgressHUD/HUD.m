@@ -6,7 +6,7 @@
 //  Copyright © 2018年 Listen. All rights reserved.
 //
 
-#import "ProgressHUD.h"
+#import "HUD.h"
 #import "MBProgressHUD.h"
 
 @implementation HUDConfig
@@ -68,14 +68,14 @@
 
 @end
 
-@interface ProgressHUD()
+@interface HUD()
 
 @property(nonatomic, weak) MBProgressHUD *mbHUD;
 @property(nonatomic, assign) NSInteger loadingCount;
 
 @end
 
-@implementation ProgressHUD
+@implementation HUD
 
 - (instancetype)initWithView:(UIView *) view {
     if (self = [super init]) {

@@ -51,7 +51,7 @@
 
 @end
 
-@interface ProgressHUD : NSObject
+@interface HUD : NSObject
 
 @property(nonatomic, weak) UIView *hostView;
 

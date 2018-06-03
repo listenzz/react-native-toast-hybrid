@@ -6,18 +6,18 @@
 //  Copyright © 2018年 Listen. All rights reserved.
 //
 
-#import "ProgressHUDModule.h"
+#import "HUDModule.h"
 #import <React/RCTLog.h>
-#import "ProgressHUD.h"
+#import "HUD.h"
 #import "MBProgressHUD.h"
 
-@interface ProgressHUDModule()
+@interface HUDModule()
 
-@property(nonatomic, strong) ProgressHUD *progressHUD;
+@property(nonatomic, strong) HUD *progressHUD;
 
 @end
 
-@implementation ProgressHUDModule
+@implementation HUDModule
 
 + (BOOL)requiresMainQueueSetup {
     return YES;
@@ -68,13 +68,13 @@ RCT_EXPORT_METHOD(hide) {
 
 RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
     if (options[@"backgroundColor"]) {
-        [HUDConfig sharedConfig].bezelColor = [ProgressHUDModule colorWithHexString:options[@"backgroundColor"]];
+        [HUDConfig sharedConfig].bezelColor = [HUDModule colorWithHexString:options[@"backgroundColor"]];
     } else {
         [HUDConfig sharedConfig].bezelColor = [HUDConfig defaultBezelColor];
     }
     
     if (options[@"tintColor"]) {
-        [HUDConfig sharedConfig].contentColor = [ProgressHUDModule colorWithHexString:options[@"tintColor"]];
+        [HUDConfig sharedConfig].contentColor = [HUDModule colorWithHexString:options[@"tintColor"]];
     } else {
         [HUDConfig sharedConfig].contentColor = [HUDConfig defaultContentColor];
     }
@@ -116,8 +116,8 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
     }
 }
 
-- (ProgressHUD *)createHud {
-    return [[ProgressHUD alloc] initWithView:[self currentHostView]];
+- (HUD *)createHud {
+    return [[HUD alloc] initWithView:[self currentHostView]];
 }
 
 - (UIView *)currentHostView {
@@ -125,7 +125,9 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
     if ([HUDConfig sharedConfig].hostViewProvider) {
         hostView = [[HUDConfig sharedConfig].hostViewProvider hostView];
     } else {
-        hostView = RCTPresentedViewController().view;
+        UIApplication *application = [[UIApplication class] performSelector:@selector(sharedApplication)];
+        UIViewController *controller = application.keyWindow.rootViewController;
+        hostView = controller.view;
     }
     return hostView;
 }

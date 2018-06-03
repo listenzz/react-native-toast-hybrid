@@ -6,7 +6,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.4)
-  - ProgressHUD (0.0.1):
+  - ProgressHUD (0.0.8):
     - React
   - React (0.55.4):
     - React/Core (= 0.55.4)
@@ -100,7 +100,7 @@ SPEC CHECKSUMS:
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Folly: 211775e49d8da0ca658aebc8eab89d642935755c
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
-  ProgressHUD: 6710400f28a4de73db46c0ffe219f7d1419950d2
+  ProgressHUD: b0a1bd4a82ff14eec84071a9a956e7bbe192b3f9
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
