@@ -20,11 +20,48 @@
     return config;
 }
 
++ (NSTimeInterval)defaultDuration {
+    return 2.0f;
+}
+
++ (NSTimeInterval)defaultGraceTime {
+    return 0.3f;
+}
+
++ (NSTimeInterval)defaultMinShowTime {
+    return 0.8f;
+}
+
++ (UIColor *)defaultBezelColor {
+    return nil;
+}
+
++ (UIColor *)defaultContentColor {
+    return nil;
+}
+
++ (CGFloat)defaultCornerRadius {
+    return 10.f;
+}
+
++ (CGFloat)defaultDimAmount {
+    return 0.0f;
+}
+
++ (NSString *)defaultLoadingText {
+    return nil;
+}
+
 - (instancetype)init {
     if (self = [super init]) {
-        _duration = 2.0f;
-        _graceTime = 0.3;
-        _minshowTime = 0.8f;
+        _duration = [HUDConfig defaultDuration];
+        _graceTime = [HUDConfig defaultGraceTime];
+        _minshowTime = [HUDConfig defaultMinShowTime];
+        _bezelColor = [HUDConfig defaultBezelColor];
+        _contentColor = [HUDConfig defaultContentColor];
+        _dimAmount = [HUDConfig defaultDimAmount];
+        _cornerRadius = [HUDConfig defaultCornerRadius];
+        _loadingText = [HUDConfig defaultLoadingText];
     }
     return self;
 }
@@ -118,10 +155,12 @@
 
 - (void)configHUD:(MBProgressHUD *)hud {
     if ([HUDConfig sharedConfig].bezelColor) {
+        hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
         hud.bezelView.color = [HUDConfig sharedConfig].bezelColor;
     }
-    if ([HUDConfig sharedConfig].tintColor) {
-        hud.contentColor = [HUDConfig sharedConfig].tintColor;
+    
+    if ([HUDConfig sharedConfig].contentColor) {
+        hud.contentColor = [HUDConfig sharedConfig].contentColor;
     }
 }
 

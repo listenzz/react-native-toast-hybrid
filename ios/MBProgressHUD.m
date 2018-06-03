@@ -20,7 +20,7 @@
 
 CGFloat const MBProgressMaxOffset = 1000000.f;
 
-static const CGFloat MBDefaultPadding = 4.f;
+static const CGFloat MBDefaultPadding = 12.f;
 static const CGFloat MBDefaultLabelFontSize = 16.f;
 static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 
@@ -88,7 +88,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     // Set default values for properties
     _animationType = MBProgressHUDAnimationFade;
     _mode = MBProgressHUDModeIndeterminate;
-    _margin = 20.0f;
+    _margin = 16.0f;
     _defaultMotionEffectsEnabled = YES;
 
     // Default color, depending on the current iOS version
@@ -819,7 +819,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 #pragma mark - Lifecycle
 
 - (id)init {
-    return [self initWithFrame:CGRectMake(0.f, 0.f, 37.f, 37.f)];
+    return [self initWithFrame:CGRectMake(0.f, 0.f, 32.f, 32.f)];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -838,7 +838,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 #pragma mark - Layout
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake(37.f, 37.f);
+    return CGSizeMake(32.f, 32.f);
 }
 
 #pragma mark - Properties

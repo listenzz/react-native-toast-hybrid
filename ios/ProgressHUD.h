@@ -9,9 +9,27 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@protocol HostViewProvider;
+
 @interface HUDConfig : NSObject
 
 + (instancetype)sharedConfig;
+
++ (NSTimeInterval)defaultDuration;
+
++ (NSTimeInterval)defaultGraceTime;
+
++ (NSTimeInterval)defaultMinShowTime;
+
++ (UIColor *)defaultBezelColor;
+
++ (UIColor *)defaultContentColor;
+
++ (CGFloat)defaultCornerRadius;
+
++ (CGFloat)defaultDimAmount;
+
++ (NSString *)defaultLoadingText;
 
 @property(nonatomic, assign) NSTimeInterval duration;
 
@@ -19,11 +37,17 @@
 
 @property(nonatomic, assign) NSTimeInterval minshowTime;
 
-@property(nonatomic, assign) CGFloat dim;
+@property(nonatomic, assign) CGFloat dimAmount;
 
 @property(nonatomic, strong) UIColor *bezelColor;
 
-@property(nonatomic, strong) UIColor *tintColor;
+@property(nonatomic, strong) UIColor *contentColor;
+
+@property(nonatomic, assign) CGFloat cornerRadius;
+
+@property(nonatomic, strong) NSString *loadingText;
+
+@property(nonatomic, strong) id<HostViewProvider> hostViewProvider;
 
 @end
 
@@ -48,3 +72,10 @@
 - (void)error:(NSString *)text;
 
 @end
+
+@protocol HostViewProvider <NSObject>
+
+- (UIView *)hostView;
+
+@end
+
