@@ -2,6 +2,7 @@ package me.listenzz.hud;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -43,7 +44,7 @@ public class HUD {
                     });
             configHUD(kProgressHUD);
             if (text != null) {
-                kProgressHUD.setLabel(text);
+                kProgressHUD.setLabel(text, HUDConfig.tintColor);
             }
             kProgressHUD.show();
         }
@@ -75,6 +76,7 @@ public class HUD {
         textView.setTextColor(HUDConfig.tintColor);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         textView.setText(text);
+        textView.setTypeface(null, Typeface.BOLD);
         hud.setCustomView(textView);
         hud.show();
         scheduleDismiss(hud);
@@ -125,6 +127,7 @@ public class HUD {
     private void configHUD(KProgressHUD hud) {
         hud.setCornerRadius(HUDConfig.cornerRadius);
         hud.setBackgroundColor(HUDConfig.backgroundColor);
+        hud.setDimAmount(HUDConfig.dimAmount);
     }
 
     private void scheduleDismiss(final KProgressHUD hud) {
