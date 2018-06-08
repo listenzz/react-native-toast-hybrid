@@ -1,8 +1,8 @@
 package com.playground;
 
-import com.facebook.react.ReactActivity;
+import com.navigationhybrid.ReactAppCompatActivity;
 
-public class MainActivity extends ReactActivity {
+public class MainActivity extends ReactAppCompatActivity {
 
     /**
      * Returns the name of the main component registered from JavaScript.

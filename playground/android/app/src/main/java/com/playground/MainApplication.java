@@ -7,6 +7,8 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.navigationhybrid.NavigationHybridPackage;
+import com.navigationhybrid.ReactBridgeManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(), new HUDReactPackage());
+            return Arrays.<ReactPackage>asList(new MainReactPackage(), new HUDReactPackage(), new NavigationHybridPackage());
         }
 
         @Override
@@ -41,5 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
+
+        ReactBridgeManager.instance.install(getReactNativeHost());
     }
 }

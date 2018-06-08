@@ -4271,6 +4271,10 @@ path-parse@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
 
+path-to-regexp@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.2.1.tgz#90b617025a16381a879bc82a38d4e8bdeb2bcf45"
+
 path-type@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-1.1.0.tgz#59c44f7ee491da704da415da5a4070ba4f8fe441"
@@ -4470,6 +4474,12 @@ react-devtools-core@3.1.0:
 react-is@^16.3.1:
   version "16.4.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.0.tgz#cc9fdc855ac34d2e7d9d2eb7059bbc240d35ffcf"
+
+react-native-navigation-hybrid@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-native-navigation-hybrid/-/react-native-navigation-hybrid-0.7.2.tgz#66ebd32c9935b3f51528be912d8c268a4fe5fd72"
+  dependencies:
+    path-to-regexp "^2.2.1"
 
 react-native@0.55.4:
   version "0.55.4"

@@ -10,6 +10,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTBridgeModule.h>
+#import <NavigationHybrid/NavigationHybrid.h>
+#import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
 
@@ -19,16 +21,12 @@
   
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"playground/index" fallbackResource:nil];
 
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"playground"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
+  [[HBDReactBridgeManager sharedInstance] installWithBundleURL:jsCodeLocation launchOptions:launchOptions];
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+
+  HBDViewController *vc = [[HBDReactBridgeManager sharedInstance] controllerWithModuleName:@"playground" props:nil options:nil];
+  self.window.rootViewController = [[HBDNavigationController alloc] initWithRootViewController:vc];
   [self.window makeKeyAndVisible];
   return YES;
 }

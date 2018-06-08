@@ -29,5 +29,6 @@ target 'playground' do
   # pod 'GLog', :podspec => '../../node_modules/react-native/third-party-podspecs/GLog.podspec'
   pod 'glog', :podspec => '../../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'NavigationHybrid', :path => '../../node_modules/react-native-navigation-hybrid'
 
 end
