@@ -1,4 +1,4 @@
-rootProject.name = 'playground'
+rootProject.name = 'HUD'
 include ':app'
 
 include ':progress-hud'
