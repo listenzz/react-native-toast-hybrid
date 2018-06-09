@@ -1,21 +1,56 @@
 package me.listenzz.hud;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class HUDModule extends ReactContextBaseJavaModule {
 
     private final Handler handler = new Handler(Looper.getMainLooper());
-    HUD hud;
+    private HUD loadingHUD;
 
-    public HUDModule(ReactApplicationContext reactContext) {
+    private List<HUD> huds = new LinkedList<>();
+
+    public HUDModule(final ReactApplicationContext reactContext) {
         super(reactContext);
+        reactContext.addLifecycleEventListener(new LifecycleEventListener() {
+            @Override
+            public void onHostResume() {
+
+            }
+
+            @Override
+            public void onHostPause() {
+
+            }
+
+            @Override
+            public void onHostDestroy() {
+                handler.removeCallbacksAndMessages(null);
+                if (loadingHUD != null) {
+                    loadingHUD.hide();
+                    loadingHUD = null;
+                }
+
+                Iterator<HUD> it = huds.iterator();
+                while (it.hasNext()) {
+                    HUD hud = it.next();
+                    it.remove();
+                    hud.hide();
+                }
+            }
+        });
     }
 
     @Override
@@ -29,15 +64,10 @@ public class HUDModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 if (getCurrentActivity() != null) {
-                    if (hud == null) {
-                        hud = new HUD(getCurrentActivity());
+                    if (loadingHUD == null) {
+                        loadingHUD = new HUD(getCurrentActivity());
                     }
-
-                    if (hud.context != getCurrentActivity()) {
-                        hud.forceHide();
-                        hud = new HUD(getCurrentActivity());
-                    }
-                    hud.show(HUDConfig.loadingText);
+                    loadingHUD.show(HUDConfig.loadingText);
                 }
             }
         });
@@ -48,10 +78,10 @@ public class HUDModule extends ReactContextBaseJavaModule {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (hud != null) {
-                    int result = hud.hide();
+                if (loadingHUD != null) {
+                    int result = loadingHUD.hide();
                     if (result == 0) {
-                        hud = null;
+                        loadingHUD = null;
                     }
                 }
             }
@@ -64,7 +94,9 @@ public class HUDModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 if (getCurrentActivity() != null) {
-                    new HUD(getCurrentActivity()).text(text);
+                    HUD hud = new HUD(getCurrentActivity());
+                    configureHud(hud);
+                    hud.text(text);
                 }
             }
         });
@@ -76,7 +108,9 @@ public class HUDModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 if (getCurrentActivity() != null) {
-                    new HUD(getCurrentActivity()).info(text);
+                    HUD hud = new HUD(getCurrentActivity());
+                    configureHud(hud);
+                    hud.info(text);
                 }
             }
         });
@@ -88,11 +122,14 @@ public class HUDModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 if (getCurrentActivity() != null) {
-                    new HUD(getCurrentActivity()).done(text);
+                    HUD hud = new HUD(getCurrentActivity());
+                    configureHud(hud);
+                    hud.done(text);
                 }
             }
         });
     }
+
 
     @ReactMethod
     public void error(final String text) {
@@ -100,8 +137,20 @@ public class HUDModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 if (getCurrentActivity() != null) {
-                    new HUD(getCurrentActivity()).error(text);
+                    HUD hud = new HUD(getCurrentActivity());
+                    configureHud(hud);
+                    hud.error(text);
                 }
+            }
+        });
+    }
+
+    private void configureHud(final HUD hud) {
+        huds.add(hud);
+        hud.setDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                huds.remove(hud);
             }
         });
     }

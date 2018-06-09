@@ -21,7 +21,7 @@ public class HUD {
         this.context = context;
     }
 
-    Activity context;
+    private Activity context;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -29,19 +29,20 @@ public class HUD {
 
     private int loadingCount;
 
+    private DialogInterface.OnDismissListener dismissListener;
+
+    public void setDismissListener(DialogInterface.OnDismissListener dismissListener) {
+        this.dismissListener = dismissListener;
+    }
+
     public void show(String text) {
         if (loadingCount == 0) {
             kProgressHUD = KProgressHUD.create(context)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                     .setTintColor(HUDConfig.tintColor)
                     .setGraceTime(HUDConfig.graceTime)
-                    .setMinShowTime(HUDConfig.minShowTime)
-                    .setCancellable(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialogInterface) {
-                            forceHide();
-                        }
-                    });
+                    .setMinShowTime(HUDConfig.minShowTime);
+
             configHUD(kProgressHUD);
             if (text != null) {
                 kProgressHUD.setLabel(text, HUDConfig.tintColor);
@@ -49,20 +50,19 @@ public class HUD {
             kProgressHUD.show();
         }
         loadingCount++;
-        Log.i("HUD", "show loading:"+ loadingCount);
     }
 
     public int hide() {
         loadingCount--;
-        Log.i("HUD", "hide loading:"+ loadingCount);
         if (loadingCount <= 0) {
-            forceHide();
+            hideInternal();
         }
         return loadingCount;
     }
 
-    public void forceHide() {
+    private void hideInternal() {
         if (kProgressHUD != null) {
+            handler.removeCallbacksAndMessages(null);
             kProgressHUD.dismiss();
             kProgressHUD = null;
         }
@@ -70,72 +70,80 @@ public class HUD {
     }
 
     public void text(String text) {
-        KProgressHUD hud = KProgressHUD.create(context);
-        configHUD(hud);
+        kProgressHUD = KProgressHUD.create(context);
+        configHUD(kProgressHUD);
         TextView textView = new TextView(context);
         textView.setTextColor(HUDConfig.tintColor);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         textView.setText(text);
         textView.setTypeface(null, Typeface.BOLD);
-        hud.setCustomView(textView);
-        hud.show();
-        scheduleDismiss(hud);
+        kProgressHUD.setCustomView(textView);
+        kProgressHUD.show();
+        scheduleDismiss();
     }
 
-
     public void info(String text) {
-        KProgressHUD hud = KProgressHUD.create(context);
-        configHUD(hud);
+        kProgressHUD = KProgressHUD.create(context);
+        configHUD(kProgressHUD);
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_info);
         DrawableCompat.setTint(drawable, HUDConfig.tintColor);
         imageView.setBackground(drawable);
-        hud.setCustomView(imageView);
-        hud.setLabel(text, HUDConfig.tintColor);
-        hud.show();
-        scheduleDismiss(hud);
+        kProgressHUD.setCustomView(imageView);
+        kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        kProgressHUD.show();
+        scheduleDismiss();
     }
 
 
     public void done(String text) {
-        KProgressHUD hud = KProgressHUD.create(context);
-        configHUD(hud);
+        kProgressHUD = KProgressHUD.create(context);
+        configHUD(kProgressHUD);
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_done);
         DrawableCompat.setTint(drawable, HUDConfig.tintColor);
         imageView.setBackground(drawable);
-        hud.setCustomView(imageView);
-        hud.setLabel(text, HUDConfig.tintColor);
-        hud.show();
-        scheduleDismiss(hud);
+        kProgressHUD.setCustomView(imageView);
+        kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        kProgressHUD.show();
+        scheduleDismiss();
     }
 
 
     public void error(String text) {
-        KProgressHUD hud = KProgressHUD.create(context);
-        configHUD(hud);
+        kProgressHUD = KProgressHUD.create(context);
+        configHUD(kProgressHUD);
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_error);
         DrawableCompat.setTint(drawable, HUDConfig.tintColor);
         imageView.setBackground(drawable);
-        hud.setCustomView(imageView);
-        hud.setLabel(text, HUDConfig.tintColor);
-        hud.show();
-        scheduleDismiss(hud);
+        kProgressHUD.setCustomView(imageView);
+        kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        kProgressHUD.show();
+        scheduleDismiss();
     }
 
     private void configHUD(KProgressHUD hud) {
         hud.setCornerRadius(HUDConfig.cornerRadius);
         hud.setBackgroundColor(HUDConfig.backgroundColor);
         hud.setDimAmount(HUDConfig.dimAmount);
+        hud.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (dismissListener != null) {
+                    dismissListener.onDismiss(dialogInterface);
+                }
+                hideInternal();
+            }
+        });
     }
 
-    private void scheduleDismiss(final KProgressHUD hud) {
+    private void scheduleDismiss() {
         if (handler.getLooper() == Looper.getMainLooper()) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    hud.dismiss();
+                    hideInternal();
                 }
             }, HUDConfig.duration);
         }

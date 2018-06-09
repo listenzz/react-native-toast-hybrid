@@ -16,7 +16,6 @@
 
 package com.kaopiz.kprogresshud;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,14 +35,14 @@ import java.util.Date;
 
 import me.listenzz.hud.R;
 
-public class KProgressHUD {
+public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     public enum Style {
         SPIN_INDETERMINATE, PIE_DETERMINATE, ANNULAR_DETERMINATE, BAR_DETERMINATE
     }
 
     // To avoid redundant APIs, make the HUD as a wrapper class around a Dialog
-    private ProgressDialog mProgressDialog;
+    private final ProgressDialog mProgressDialog;
     private float mDimAmount;
     private int mWindowColor;
     private int mTintColor;
@@ -62,9 +61,12 @@ public class KProgressHUD {
     private Date mShowStarted;
     private boolean mFinished;
 
+    private DialogInterface.OnDismissListener mDismissListener;
+
     public KProgressHUD(Context context) {
         mContext = context;
         mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setOnDismissListener(this);
         mDimAmount = 0;
         //noinspection deprecation
         mWindowColor = context.getResources().getColor(R.color.kprogresshud_default_color);
@@ -277,6 +279,11 @@ public class KProgressHUD {
         return this;
     }
 
+    public KProgressHUD setOnDismissListener(DialogInterface.OnDismissListener listener) {
+        mDismissListener = listener;
+        return this;
+    }
+
     /**
      * Specify a callback to run when using the back button (default is null)
      *
@@ -334,7 +341,7 @@ public class KProgressHUD {
                 mGraceTimer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (mProgressDialog != null && !mFinished) {
+                        if (!mFinished) {
                             showInternal();
                         }
                     }
@@ -350,7 +357,7 @@ public class KProgressHUD {
     }
 
     public boolean isShowing() {
-        return mProgressDialog != null && mProgressDialog.isShowing();
+        return mShowStarted != null && mProgressDialog.isShowing();
     }
 
     public void dismiss() {
@@ -377,9 +384,17 @@ public class KProgressHUD {
     }
 
     private void dismissInternal() {
-        if (mShowStarted != null && mContext !=null && !((Activity)mContext).isFinishing() && mProgressDialog != null && mProgressDialog.isShowing()) {
-            mShowStarted = null;
+        if (isShowing()) {
             mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {
+        mShowStarted = null;
+        mFinished = true;
+        if (mDismissListener != null) {
+            mDismissListener.onDismiss(dialogInterface);
         }
     }
 

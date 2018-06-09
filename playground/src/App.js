@@ -10,6 +10,11 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.push = this.push.bind(this);
+  }
+
   componentDidMount() {
     HUD.config({
       // backgroundColor: '#BB000000',
@@ -26,9 +31,9 @@ export default class App extends Component {
   loading() {
     HUD.show();
     setTimeout(() => {
-      HUD.done('任务已经完成啦！');
       HUD.hide();
-    }, 2000);
+      HUD.done('任务已经完成啦！');
+    }, 5000);
   }
 
   text() {
@@ -45,6 +50,10 @@ export default class App extends Component {
 
   error() {
     HUD.error('可能什么地方出错了！');
+  }
+
+  push() {
+    this.props.navigation.push('playground');
   }
 
   render() {
@@ -68,6 +77,10 @@ export default class App extends Component {
 
         <TouchableOpacity onPress={this.error} activeOpacity={0.2} style={styles.button}>
           <Text style={styles.buttonText}> error </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.push} activeOpacity={0.2} style={styles.button}>
+          <Text style={styles.buttonText}> push </Text>
         </TouchableOpacity>
       </View>
     );
