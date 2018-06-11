@@ -7,7 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@protocol HostViewProvider;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, HostViewProvider>
 
 @property (nonatomic, strong) UIWindow *window;
 

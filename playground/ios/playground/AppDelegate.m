@@ -12,11 +12,15 @@
 #import <React/RCTBridgeModule.h>
 #import <NavigationHybrid/NavigationHybrid.h>
 #import <React/RCTBundleURLProvider.h>
+#import <ProgressHUD/HBDProgressHUD.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  [HUDConfig sharedConfig].hostViewProvider = self;
+  
   NSURL *jsCodeLocation;
   
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"playground/index" fallbackResource:nil];
@@ -39,6 +43,30 @@
   self.window.rootViewController = tabs;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (UIView *)hostView {
+  UIApplication *application = [[UIApplication class] performSelector:@selector(sharedApplication)];
+  UIViewController *controller = application.keyWindow.rootViewController;
+  return [self controller:controller].view;
+}
+
+- (UIViewController *)controller:(UIViewController *)controller {
+  UIViewController *presentedController = controller.presentedViewController;
+  if (presentedController && ![presentedController isBeingDismissed]) {
+    return [self controller:presentedController];
+  } else if ([controller isKindOfClass:[HBDDrawerController class]]) {
+    HBDDrawerController *drawer = (HBDDrawerController *)controller;
+    if ([drawer isMenuOpened]) {
+      return drawer;
+    } else {
+      return [self controller:drawer.contentController];
+    }
+  } else if ([controller isKindOfClass:[HBDTabBarController class]]) {
+    HBDTabBarController *tabs = (HBDTabBarController *)controller;
+    return [self controller:tabs.selectedViewController];
+  }
+  return controller;
 }
 
 @end
