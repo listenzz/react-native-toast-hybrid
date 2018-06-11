@@ -18,8 +18,8 @@ export default class App extends Component {
 
   componentDidMount() {
     HUD.config({
-      backgroundColor: '#BB000000',
-      tintColor: '#FFFFFF',
+      // backgroundColor: '#BB000000',
+      // tintColor: '#FFFFFF',
       // cornerRadius: 5, // only for android
       // duration: 2000,
       // graceTime: 3000,
