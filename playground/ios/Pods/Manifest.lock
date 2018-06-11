@@ -8,7 +8,7 @@ PODS:
   - glog (0.3.4)
   - NavigationHybrid (0.7.2):
     - React
-  - ProgressHUD (0.3.0):
+  - ProgressHUD (0.6.0):
     - React
   - React (0.55.4):
     - React/Core (= 0.55.4)
@@ -110,6 +110,6 @@ SPEC CHECKSUMS:
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 7cae2a90ab1f6afba09c06711e14bc15904e8fad
+PODFILE CHECKSUM: e8bbb1679120f901abc8c80c40d174000c32e178
 
 COCOAPODS: 1.5.0
