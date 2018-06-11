@@ -436,16 +436,6 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
             initViews();
         }
 
-        @Override
-        public void show() {
-            if (mView != null && mView instanceof LoadingView) {
-                LoadingView loadingView = (LoadingView) mView;
-                loadingView.setColor(mTintColor);
-                loadingView.setSize(Helper.dpToPixel(32, getContext()));
-            }
-            super.show();
-        }
-
         private void initViews() {
             mBackgroundLayout = (BackgroundLayout) findViewById(R.id.background);
             mBackgroundLayout.setBaseColor(mWindowColor);
@@ -472,6 +462,11 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
         private void addViewToFrame(View view) {
             if (view == null) return;
+            if (view != null && view instanceof LoadingView) {
+                LoadingView loadingView = (LoadingView) view;
+                loadingView.setColor(mTintColor);
+                loadingView.setSize(Helper.dpToPixel(32, getContext()));
+            }
             int wrapParam = ViewGroup.LayoutParams.WRAP_CONTENT;
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(wrapParam, wrapParam);
             mCustomViewContainer.addView(view, params);
