@@ -25,8 +25,18 @@
   
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
-  HBDViewController *vc = [[HBDReactBridgeManager sharedInstance] controllerWithModuleName:@"playground" props:nil options:nil];
-  self.window.rootViewController = [[HBDNavigationController alloc] initWithRootViewController:vc];
+  HBDViewController *vc1 = [[HBDReactBridgeManager sharedInstance] controllerWithModuleName:@"playground" props:nil options:nil];
+   HBDViewController *vc2 = [[HBDReactBridgeManager sharedInstance] controllerWithModuleName:@"playground" props:nil options:nil];
+  HBDNavigationController *nav1 = [[HBDNavigationController alloc] initWithRootViewController:vc1];
+  nav1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tab1" image:nil selectedImage:nil];
+  HBDNavigationController *nav2 = [[HBDNavigationController alloc] initWithRootViewController:vc2];
+  nav2.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tab2" image:nil selectedImage:nil];
+  HBDTabBarController *tabs = [[HBDTabBarController alloc] init];
+  
+  [tabs setViewControllers:@[nav1, nav2]];
+
+  
+  self.window.rootViewController = tabs;
   [self.window makeKeyAndVisible];
   return YES;
 }

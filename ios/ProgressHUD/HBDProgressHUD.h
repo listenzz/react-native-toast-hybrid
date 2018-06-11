@@ -51,7 +51,7 @@
 
 @end
 
-@interface HUD : NSObject
+@interface HBDProgressHUD : NSObject
 
 @property(nonatomic, weak) UIView *hostView;
 
@@ -59,9 +59,11 @@
 
 - (void)show:(NSString *)text;
 
-- (NSInteger)hide;
+- (void)hide;
 
-- (void)forceHide;
+- (void)hideDelay:(NSTimeInterval)interval;
+
+- (void)hideDefaultDelay;
 
 - (void)text:(NSString *)text;
 

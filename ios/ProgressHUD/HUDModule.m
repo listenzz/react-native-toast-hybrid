@@ -8,16 +8,29 @@
 
 #import "HUDModule.h"
 #import <React/RCTLog.h>
-#import "HUD.h"
+#import "HBDProgressHUD.h"
 #import "MBProgressHUD.h"
+#import <React/RCTBridge.h>
 
 @interface HUDModule()
 
-@property(nonatomic, strong) HUD *progressHUD;
+@property(nonatomic, assign) NSInteger hudKeyGenerator;
+@property(nonatomic, copy) NSMutableDictionary *huds;
 
 @end
 
 @implementation HUDModule
+
+- (instancetype)init {
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleReload) name:RCTBridgeWillReloadNotification object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RCTBridgeWillReloadNotification object:nil];
+}
 
 + (BOOL)requiresMainQueueSetup {
     return YES;
@@ -30,39 +43,60 @@ RCT_EXPORT_MODULE(HUD);
 }
 
 RCT_EXPORT_METHOD(text:(NSString *)text) {
-    [[self createHud] text:text];
+    HBDProgressHUD *hud = [self createHud];
+    [hud text:text];
+    [hud hideDefaultDelay];
 }
 
 RCT_EXPORT_METHOD(info:(NSString *)text) {
-    [[self createHud] info:text];
+    HBDProgressHUD *hud = [self createHud];
+    [hud info:text];
+    [hud hideDefaultDelay];
 }
 
 RCT_EXPORT_METHOD(done:(NSString *)text) {
-    [[self createHud] done:text];
+    HBDProgressHUD *hud = [self createHud];
+    [hud done:text];
+    [hud hideDefaultDelay];
 }
 
 RCT_EXPORT_METHOD(error:(NSString *)text) {
-    [[self createHud] error:text];
+    HBDProgressHUD *hud = [self createHud];
+    [hud error:text];
+    [hud hideDefaultDelay];
 }
 
-RCT_EXPORT_METHOD(show) {
-    if (!self.progressHUD) {
-        self.progressHUD = [self createHud];
+RCT_EXPORT_METHOD(showLoading:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    if (!_huds) {
+        _huds = [[NSMutableDictionary alloc] init];
     }
-    
-    if (self.progressHUD.hostView && self.progressHUD.hostView != [self currentHostView]) {
-        [self.progressHUD forceHide];
-        self.progressHUD = [self createHud];
+    UIView *hostView = [self currentHostView];
+    if (hostView) {
+        HBDProgressHUD *hud = [self createHud];
+        [hud show:[HUDConfig sharedConfig].loadingText];
+        NSNumber *hudKey = @(++self.hudKeyGenerator);
+        [self.huds setObject:hud forKey:hudKey];
+        resolve(hudKey);
+    } else {
+        reject(@"404", @"host view missing", [NSError errorWithDomain:@"HUDModuleDomain" code:404 userInfo:nil]);
     }
-    [self.progressHUD show:[HUDConfig sharedConfig].loadingText];
 }
 
-RCT_EXPORT_METHOD(hide) {
-    if (self.progressHUD) {
-        NSInteger result = [self.progressHUD hide];
-        if (result == 0) {
-            self.progressHUD = nil;
+- (void) handleReload {
+    if (self.huds) {
+        for (NSNumber *key in self.huds) {
+            HBDProgressHUD *hud = self.huds[key];
+            [hud hide];
         }
+        [self.huds removeAllObjects];
+    }
+}
+
+RCT_EXPORT_METHOD(hideLoading:(NSNumber* __nonnull)hudKey) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [self.huds removeObjectForKey:hudKey];
+        [hud hide];
     }
 }
 
@@ -116,8 +150,8 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
     }
 }
 
-- (HUD *)createHud {
-    return [[HUD alloc] initWithView:[self currentHostView]];
+- (HBDProgressHUD *)createHud {
+    return [[HBDProgressHUD alloc] initWithView:[self currentHostView]];
 }
 
 - (UIView *)currentHostView {

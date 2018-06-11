@@ -6,7 +6,7 @@
 //  Copyright © 2018年 Listen. All rights reserved.
 //
 
-#import "HUD.h"
+#import "HBDProgressHUD.h"
 #import "MBProgressHUD.h"
 
 @implementation HUDConfig
@@ -68,14 +68,13 @@
 
 @end
 
-@interface HUD()
+@interface HBDProgressHUD()
 
-@property(nonatomic, weak) MBProgressHUD *mbHUD;
-@property(nonatomic, assign) NSInteger loadingCount;
+@property(nonatomic, weak) MBProgressHUD *mbProgressHUD;
 
 @end
 
-@implementation HUD
+@implementation HBDProgressHUD
 
 - (instancetype)initWithView:(UIView *) view {
     if (self = [super init]) {
@@ -85,72 +84,75 @@
 }
 
 - (void)show:(NSString *)text {
-    if (self.loadingCount == 0) {
+    if (self.mbProgressHUD == nil) {
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.hostView];
         hud.removeFromSuperViewOnHide = YES;
         [self.hostView addSubview:hud];
         hud.graceTime = [HUDConfig sharedConfig].graceTime;
         hud.minShowTime = [HUDConfig sharedConfig].minshowTime;
-        hud.completionBlock = ^{
-            self.mbHUD = nil;
-            self.loadingCount = 0;
-        };
-        hud.label.text = text;
         [self configHUD:hud];
-        self.mbHUD = hud;
-        [hud showAnimated:YES];
+        self.mbProgressHUD = hud;
+        [self.mbProgressHUD showAnimated:YES];
     }
-     self.loadingCount ++;
+    self.mbProgressHUD.mode = MBProgressHUDModeIndeterminate;
+    self.mbProgressHUD.label.text = text;
 }
 
-- (NSInteger)hide {
-    self.loadingCount --;
-    if (self.loadingCount <=0) {
-        [self forceHide];
+- (void)hide {
+    if (self.mbProgressHUD) {
+        [self.mbProgressHUD hideAnimated:YES];
+        self.mbProgressHUD = nil;
     }
-    return self.loadingCount;
 }
 
-- (void)forceHide {
-    if (self.mbHUD) {
-        [self.mbHUD hideAnimated:YES];
-        self.mbHUD = nil;
+- (void)hideDelay:(NSTimeInterval)interval {
+    if (self.mbProgressHUD) {
+        [self.mbProgressHUD hideAnimated:YES afterDelay:interval];
+        self.mbProgressHUD = nil;
     }
+}
+
+- (void)hideDefaultDelay {
+    [self hideDelay:[HUDConfig sharedConfig].duration];
 }
 
 - (void)text:(NSString *)text {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo: self.hostView animated:YES];
-    hud.label.text = text;
-    hud.mode = MBProgressHUDModeText;
-    [self configHUD:hud];
-    [hud hideAnimated:YES afterDelay:[HUDConfig sharedConfig].duration];
+    if (!self.mbProgressHUD) {
+        self.mbProgressHUD =  [MBProgressHUD showHUDAddedTo: self.hostView animated:YES];
+         [self configHUD:self.mbProgressHUD];
+    }
+    self.mbProgressHUD.mode = MBProgressHUDModeText;
+    self.mbProgressHUD.label.text = text;
 }
 
 - (void)info:(NSString *)text {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
-    hud.mode = MBProgressHUDModeCustomView;
-    hud.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_info"]];
-    hud.label.text = text;
-    [self configHUD:hud];
-    [hud hideAnimated:YES afterDelay:[HUDConfig sharedConfig].duration];
+    if (!self.mbProgressHUD) {
+        self.mbProgressHUD = [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
+        [self configHUD:self.mbProgressHUD];
+    }
+    self.mbProgressHUD.mode = MBProgressHUDModeCustomView;
+    self.mbProgressHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_info"]];
+    self.mbProgressHUD.label.text = text;
 }
 
 - (void)done:(NSString *)text {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
-    hud.mode = MBProgressHUDModeCustomView;
-    hud.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_done"]];
-    hud.label.text = text;
-    [self configHUD:hud];
-    [hud hideAnimated:YES afterDelay:[HUDConfig sharedConfig].duration];
+    if (!self.mbProgressHUD) {
+        self.mbProgressHUD =  [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
+        [self configHUD:self.mbProgressHUD];
+    }
+    self.mbProgressHUD.mode = MBProgressHUDModeCustomView;
+    self.mbProgressHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_done"]];
+    self.mbProgressHUD.label.text = text;
 }
 
 - (void)error:(NSString *)text {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
-    hud.mode = MBProgressHUDModeCustomView;
-    hud.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_error"]];
-    hud.label.text = text;
-    [self configHUD:hud];
-    [hud hideAnimated:YES afterDelay:[HUDConfig sharedConfig].duration];
+    if (!self.mbProgressHUD) {
+        self.mbProgressHUD =  [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
+        [self configHUD:self.mbProgressHUD];
+    }
+    self.mbProgressHUD.mode = MBProgressHUDModeCustomView;
+    self.mbProgressHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_error"]];
+    self.mbProgressHUD.label.text = text;
 }
 
 - (void)configHUD:(MBProgressHUD *)hud {
@@ -162,6 +164,10 @@
     if ([HUDConfig sharedConfig].contentColor) {
         hud.contentColor = [HUDConfig sharedConfig].contentColor;
     }
+    
+    hud.completionBlock = ^{
+        self.mbProgressHUD = nil;
+    };
 }
 
 - (UIImage *)imageWithName:(NSString *)name {
