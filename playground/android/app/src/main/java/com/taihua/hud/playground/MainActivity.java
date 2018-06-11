@@ -1,4 +1,4 @@
-package com.playground;
+package com.taihua.hud.playground;
 
 import com.navigationhybrid.HybridFragment;
 import com.navigationhybrid.ReactAppCompatActivity;

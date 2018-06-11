@@ -1,4 +1,4 @@
-package com.playground;
+package com.taihua.hud.playground;
 
 import android.app.Application;
 
@@ -13,7 +13,7 @@ import com.navigationhybrid.ReactBridgeManager;
 import java.util.Arrays;
 import java.util.List;
 
-import me.listenzz.hud.HUDReactPackage;
+import com.taihua.hud.HUDReactPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

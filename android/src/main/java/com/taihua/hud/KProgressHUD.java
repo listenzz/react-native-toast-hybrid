@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.kaopiz.kprogresshud;
+package com.taihua.hud;
 
 import android.app.Dialog;
 import android.content.Context;

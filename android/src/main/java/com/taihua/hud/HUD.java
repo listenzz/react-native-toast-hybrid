@@ -1,4 +1,4 @@
-package me.listenzz.hud;
+package com.taihua.hud;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -12,7 +12,7 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kaopiz.kprogresshud.KProgressHUD;
+import me.listenzz.hud.R;
 
 public class HUD {
 

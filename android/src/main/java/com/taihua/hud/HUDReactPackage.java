@@ -1,4 +1,4 @@
-package me.listenzz.hud;
+package com.taihua.hud;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

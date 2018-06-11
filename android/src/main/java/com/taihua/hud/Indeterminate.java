@@ -14,18 +14,13 @@
  *    limitations under the License.
  */
 
-package com.kaopiz.kprogresshud;
+package com.taihua.hud;
 
-import android.content.Context;
-
-class Helper {
-
-    private static float scale;
-
-    public static int dpToPixel(float dp, Context context) {
-        if (scale == 0) {
-            scale = context.getResources().getDisplayMetrics().density;
-        }
-        return (int) (dp * scale);
-    }
+/**
+ * If a view implements this interface passed to the HUD as a custom view, its animation
+ * speed can be change by calling setAnimationSpeed() on the HUD.
+ * This interface only provides convenience, how animation speed work depends on the view implementation.
+ */
+public interface Indeterminate {
+    void setAnimationSpeed(float scale);
 }

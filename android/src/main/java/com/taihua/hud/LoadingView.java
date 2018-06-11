@@ -1,4 +1,4 @@
-package com.kaopiz.kprogresshud;
+package com.taihua.hud;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
