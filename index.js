@@ -1,6 +1,38 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, DeviceEventEmitter, Platform } from 'react-native';
 
 const HUDModule = NativeModules.HUD;
+
+export class LoadingHUD {
+  hud = null;
+  loadingCount = 0;
+
+  show() {
+    if (this.loadingCount <= 0) {
+      this.hud = new HUD();
+      this.hud.onDismiss = () => {
+        this.hide();
+      };
+      this.loadingCount = 0;
+      this.hud.show();
+    }
+    this.loadingCount++;
+  }
+
+  hide() {
+    this.loadingCount--;
+    if (this.loadingCount <= 0) {
+      this.hideAll();
+    }
+  }
+
+  hideAll() {
+    if (this.hud) {
+      this.hud.hide();
+      this.hud = null;
+      this.loadingCount = 0;
+    }
+  }
+}
 
 export default class HUD {
   /**
@@ -17,39 +49,106 @@ export default class HUD {
   static config(options = {}) {
     HUDModule.config(options);
   }
-
-  static showLoading() {
-    return new HUD(HUDModule.showLoading());
+  constructor() {
+    this.promise = HUDModule.create();
+    if (Platform.OS === 'android') {
+      EventEmitter.addListener('ON_HUD_DISMISS', this.handleDismission);
+    }
   }
 
-  static text(text) {
-    HUDModule.text(text);
-  }
+  handleDismission = event => {
+    this.promise.then(hudKey => {
+      if (event.hudKey === hudKey) {
+        EventEmitter.removeListener('ON_HUD_DISMISS', this.handleDismission);
+        if (this.onDismiss) {
+          this.onDismiss();
+        }
+      }
+    });
+  };
 
-  static info(text) {
-    HUDModule.info(text);
-  }
-
-  static done(text) {
-    HUDModule.done(text);
-  }
-
-  static error(text) {
-    HUDModule.error(text);
-  }
-
-  constructor(promise) {
-    this.promise = promise;
-  }
-
-  // instance methoed
-  hideLoading() {
+  show(text) {
     this.promise
       .then(hudKey => {
-        HUDModule.hideLoading(hudKey);
+        HUDModule.show(hudKey, text);
       })
       .catch(e => {
         /*swallow*/
       });
+    return this;
+  }
+
+  hide() {
+    this.promise
+      .then(hudKey => {
+        HUDModule.hide(hudKey);
+      })
+      .catch(e => {
+        /*swallow*/
+      });
+  }
+
+  hideDelay(delayMs = 0) {
+    this.promise
+      .then(hudKey => {
+        HUDModule.hideDelay(hudKey, delayMs);
+      })
+      .catch(e => {
+        /*swallow*/
+      });
+  }
+
+  hideDelayDefault() {
+    this.promise
+      .then(hudKey => {
+        HUDModule.hideDelayDefault(hudKey);
+      })
+      .catch(e => {
+        /*swallow*/
+      });
+  }
+
+  text(text) {
+    this.promise
+      .then(hudKey => {
+        HUDModule.text(hudKey, text);
+      })
+      .catch(e => {
+        /*swallow*/
+      });
+    return this;
+  }
+
+  info(text) {
+    this.promise
+      .then(hudKey => {
+        HUDModule.info(hudKey, text);
+      })
+      .catch(e => {
+        /*swallow*/
+      });
+    return this;
+  }
+
+  done(text) {
+    this.promise
+      .then(hudKey => {
+        HUDModule.done(hudKey, text);
+      })
+      .catch(e => {
+        /*swallow*/
+      });
+    return this;
+  }
+
+  error(text) {
+    this.promise
+      .then(hudKey => {
+        HUDModule.error(hudKey, text);
+      })
+      .catch(e => {
+        /*swallow*/
+      });
+    return this;
   }
 }

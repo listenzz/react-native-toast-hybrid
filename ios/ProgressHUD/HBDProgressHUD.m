@@ -76,11 +76,17 @@
 
 @implementation HBDProgressHUD
 
+@dynamic completionBlock;
+
 - (instancetype)initWithView:(UIView *) view {
     if (self = [super init]) {
         _hostView = view;
     }
     return self;
+}
+
+- (void)setCompletionBlock:(HBDProgressHUDCompletionBlock)completionBlock {
+    self.mbProgressHUD.completionBlock = completionBlock;
 }
 
 - (void)show:(NSString *)text {

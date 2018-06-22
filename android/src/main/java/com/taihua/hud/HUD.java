@@ -56,6 +56,13 @@ public class HUD {
         }
     }
 
+    public void onDestroy() {
+        if (kProgressHUD != null) {
+            kProgressHUD.onDestroy();
+            hide();
+        }
+    }
+
     public void hideDelay(int delayMs) {
         if (handler.getLooper() == Looper.getMainLooper()) {
             handler.postDelayed(new Runnable() {
@@ -67,7 +74,7 @@ public class HUD {
         }
     }
 
-    public void hideDefaultDelay() {
+    public void hideDelayDefault() {
         hideDelay(HUDConfig.duration);
     }
 

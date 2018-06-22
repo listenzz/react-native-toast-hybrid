@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
 import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-
-import HUD from 'react-native-hud-hybrid';
+import HUD, { LoadingHUD } from 'react-native-hud-hybrid';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -14,6 +12,7 @@ export default class App extends Component {
     super(props);
     this.push = this.push.bind(this);
     this.loading = this.loading.bind(this);
+    this.loadingHUD = new LoadingHUD();
   }
 
   componentDidMount() {
@@ -37,34 +36,33 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    if (this.hud) {
-      console.info('will unmount ----------');
-      this.hud.hideLoading();
+    if (this.loadingHUD) {
+      this.loadingHUD.hideAll();
     }
   }
 
   loading() {
-    this.hud = HUD.showLoading();
+    this.loadingHUD.show();
     setTimeout(() => {
-      this.hud.hideLoading();
-      HUD.done('任务已经完成啦！');
+      this.loadingHUD.hide();
+      new HUD().done('任务已经完成啦！').hideDelayDefault();
     }, 5000);
   }
 
   text() {
-    HUD.text('Hello World!!');
+    new HUD().text('Hello World!!').hideDelayDefault();
   }
 
   info() {
-    HUD.info('有条消息要告诉你');
+    new HUD().info('有条消息要告诉你').hideDelayDefault();
   }
 
   done() {
-    HUD.done('任务已经完成啦！');
+    new HUD().done('任务已经完成啦！').hideDelayDefault();
   }
 
   error() {
-    HUD.error('可能什么地方出错了！');
+    new HUD().error('可能什么地方出错了！').hideDelayDefault();
   }
 
   push() {

@@ -398,6 +398,18 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         }
     }
 
+    public void onDestroy() {
+        dismissInternal();
+        if (mGraceTimer != null) {
+            mGraceTimer.removeCallbacksAndMessages(null);
+            mGraceTimer = null;
+        }
+        if (mMinShowTimer != null) {
+            mMinShowTimer.removeCallbacksAndMessages(null);
+            mMinShowTimer = null;
+        }
+    }
+
     private class ProgressDialog extends Dialog {
 
         private Determinate mDeterminateView;

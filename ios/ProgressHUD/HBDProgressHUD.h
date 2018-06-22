@@ -51,9 +51,16 @@
 
 @end
 
+typedef void (^HBDProgressHUDCompletionBlock)(void);
+
 @interface HBDProgressHUD : NSObject
 
 @property(nonatomic, weak) UIView *hostView;
+
+/**
+ * Called after the HUD is hiden.
+ */
+@property (copy, nullable) HBDProgressHUDCompletionBlock completionBlock;
 
 - (instancetype)initWithView:(UIView *) view;
 

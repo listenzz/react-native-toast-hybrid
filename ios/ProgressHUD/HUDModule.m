@@ -42,43 +42,77 @@ RCT_EXPORT_MODULE(HUD);
     return dispatch_get_main_queue();
 }
 
-RCT_EXPORT_METHOD(text:(NSString *)text) {
-    HBDProgressHUD *hud = [self createHud];
-    [hud text:text];
-    [hud hideDefaultDelay];
-}
-
-RCT_EXPORT_METHOD(info:(NSString *)text) {
-    HBDProgressHUD *hud = [self createHud];
-    [hud info:text];
-    [hud hideDefaultDelay];
-}
-
-RCT_EXPORT_METHOD(done:(NSString *)text) {
-    HBDProgressHUD *hud = [self createHud];
-    [hud done:text];
-    [hud hideDefaultDelay];
-}
-
-RCT_EXPORT_METHOD(error:(NSString *)text) {
-    HBDProgressHUD *hud = [self createHud];
-    [hud error:text];
-    [hud hideDefaultDelay];
-}
-
-RCT_EXPORT_METHOD(showLoading:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(create:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     if (!_huds) {
         _huds = [[NSMutableDictionary alloc] init];
     }
     UIView *hostView = [self currentHostView];
     if (hostView) {
         HBDProgressHUD *hud = [self createHud];
-        [hud show:[HUDConfig sharedConfig].loadingText];
         NSNumber *hudKey = @(++self.hudKeyGenerator);
         [self.huds setObject:hud forKey:hudKey];
         resolve(hudKey);
     } else {
         reject(@"404", @"host view missing", [NSError errorWithDomain:@"HUDModuleDomain" code:404 userInfo:nil]);
+    }
+}
+
+RCT_EXPORT_METHOD(show:(NSNumber * __nonnull)hudKey text:(NSString *)text) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [hud show:text ?: [HUDConfig sharedConfig].loadingText];
+    }
+}
+
+RCT_EXPORT_METHOD(hide:(NSNumber* __nonnull)hudKey) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [self.huds removeObjectForKey:hudKey];
+        [hud hide];
+    }
+}
+
+RCT_EXPORT_METHOD(hideDelay:(NSNumber* __nonnull)hudKey delay:(NSNumber *)ms) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [self.huds removeObjectForKey:hudKey];
+        [hud hideDelay:[ms floatValue] / 1000.f];
+    }
+}
+
+RCT_EXPORT_METHOD(hideDelayDefault:(NSNumber* __nonnull)hudKey) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [self.huds removeObjectForKey:hudKey];
+        [hud hideDefaultDelay];
+    }
+}
+
+RCT_EXPORT_METHOD(text:(NSNumber * __nonnull)hudKey text:(NSString *)text) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [hud text:text];
+    }
+}
+
+RCT_EXPORT_METHOD(info:(NSNumber * __nonnull)hudKey text:(NSString *)text) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [hud info:text];
+    }
+}
+
+RCT_EXPORT_METHOD(done:(NSNumber * __nonnull)hudKey text:(NSString *)text) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [hud done:text];
+    }
+}
+
+RCT_EXPORT_METHOD(error:(NSNumber * __nonnull)hudKey text:(NSString *)text) {
+    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
+    if (hud) {
+        [hud error:text];
     }
 }
 
@@ -89,14 +123,6 @@ RCT_EXPORT_METHOD(showLoading:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
             [hud hide];
         }
         [self.huds removeAllObjects];
-    }
-}
-
-RCT_EXPORT_METHOD(hideLoading:(NSNumber* __nonnull)hudKey) {
-    HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
-    if (hud) {
-        [self.huds removeObjectForKey:hudKey];
-        [hud hide];
     }
 }
 
