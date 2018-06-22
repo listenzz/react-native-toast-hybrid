@@ -462,7 +462,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
         private void addViewToFrame(View view) {
             if (view == null) return;
-            if (view != null && view instanceof LoadingView) {
+            if (view instanceof LoadingView) {
                 LoadingView loadingView = (LoadingView) view;
                 loadingView.setColor(mTintColor);
                 loadingView.setSize(Helper.dpToPixel(32, getContext()));
