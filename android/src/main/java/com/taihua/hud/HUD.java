@@ -142,7 +142,6 @@ public class HUD {
     private void configHUD(KProgressHUD hud) {
         hud.setCornerRadius(HUDConfig.cornerRadius);
         hud.setBackgroundColor(HUDConfig.backgroundColor);
-        hud.setDimAmount(HUDConfig.dimAmount);
         hud.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {

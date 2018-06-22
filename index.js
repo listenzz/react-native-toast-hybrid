@@ -42,7 +42,6 @@ export default class HUD {
    * duration: 2000,
    * graceTime: 3000,
    * minShowTime: 800,
-   * dimAmount: 0.0, // only for andriod
    * loadingText: '加载中...',```
    * @param {*} options
    */

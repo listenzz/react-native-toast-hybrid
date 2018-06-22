@@ -41,7 +41,6 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     // To avoid redundant APIs, make the HUD as a wrapper class around a Dialog
     private final ProgressDialog mProgressDialog;
-    private float mDimAmount;
     private int mWindowColor;
     private int mTintColor;
     private float mCornerRadius;
@@ -65,7 +64,6 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         mContext = context;
         mProgressDialog = new ProgressDialog(context);
         mProgressDialog.setOnDismissListener(this);
-        mDimAmount = 0;
         //noinspection deprecation
         mWindowColor = context.getResources().getColor(R.color.kprogresshud_default_color);
         mTintColor = Color.WHITE;
@@ -122,18 +120,6 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
             // No custom view style here, because view will be added later
         }
         mProgressDialog.setView(view);
-        return this;
-    }
-
-    /**
-     * Specify the dim area around the HUD, like in Dialog
-     * @param dimAmount May take value from 0 to 1. Default to 0 (no dimming)
-     * @return Current HUD
-     */
-    public KProgressHUD setDimAmount(float dimAmount) {
-        if (dimAmount >= 0 && dimAmount <= 1) {
-            mDimAmount = dimAmount;
-        }
         return this;
     }
 

@@ -163,12 +163,6 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
         [HUDConfig sharedConfig].minshowTime = [HUDConfig defaultMinShowTime];
     }
     
-    if (options[@"dimAmount"]) {
-        [HUDConfig sharedConfig].dimAmount = [options[@"dimAmount"] floatValue];
-    } else {
-        [HUDConfig sharedConfig].dimAmount = [HUDConfig defaultDimAmount];
-    }
-    
     if (options[@"loadingText"]) {
         [HUDConfig sharedConfig].loadingText = options[@"loadingText"];
     } else {

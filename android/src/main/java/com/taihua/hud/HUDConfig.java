@@ -12,7 +12,6 @@ public class HUDConfig {
     static float DEFAULT_CORNER_RADIUS = 5;
     static @ColorInt
     int DEFAULT_TINT_COLOR = Color.WHITE;
-    static float DEFAULT_DIM_AMOUNT = 0;
     static String DEFAULT_LOADING_TEXT = null;
 
     public static int duration = DEFAULT_DURATION;
@@ -23,7 +22,6 @@ public class HUDConfig {
     public static @ColorInt
     int tintColor = DEFAULT_TINT_COLOR;
     public static float cornerRadius = DEFAULT_CORNER_RADIUS;
-    public static float dimAmount = DEFAULT_DIM_AMOUNT;
     public static String loadingText = DEFAULT_LOADING_TEXT;
 
 }

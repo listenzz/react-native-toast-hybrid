@@ -27,8 +27,6 @@
 
 + (CGFloat)defaultCornerRadius;
 
-+ (CGFloat)defaultDimAmount;
-
 + (NSString *)defaultLoadingText;
 
 @property(nonatomic, assign) NSTimeInterval duration;
@@ -36,8 +34,6 @@
 @property(nonatomic, assign) NSTimeInterval graceTime;
 
 @property(nonatomic, assign) NSTimeInterval minshowTime;
-
-@property(nonatomic, assign) CGFloat dimAmount;
 
 @property(nonatomic, strong) UIColor *bezelColor;
 

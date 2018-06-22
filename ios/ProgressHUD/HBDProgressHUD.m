@@ -44,10 +44,6 @@
     return 10.f;
 }
 
-+ (CGFloat)defaultDimAmount {
-    return 0.0f;
-}
-
 + (NSString *)defaultLoadingText {
     return nil;
 }
@@ -59,7 +55,6 @@
         _minshowTime = [HUDConfig defaultMinShowTime];
         _bezelColor = [HUDConfig defaultBezelColor];
         _contentColor = [HUDConfig defaultContentColor];
-        _dimAmount = [HUDConfig defaultDimAmount];
         _cornerRadius = [HUDConfig defaultCornerRadius];
         _loadingText = [HUDConfig defaultLoadingText];
     }
