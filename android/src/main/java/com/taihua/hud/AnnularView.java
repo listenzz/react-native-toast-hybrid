@@ -24,8 +24,6 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import me.listenzz.hud.R;
-
 class AnnularView extends View implements Determinate {
 
     private Paint mWhitePaint;

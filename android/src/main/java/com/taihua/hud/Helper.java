@@ -17,6 +17,9 @@
 package com.taihua.hud;
 
 import android.content.Context;
+import android.os.Build;
+import android.view.View;
+import android.view.Window;
 
 class Helper {
 
@@ -27,5 +30,13 @@ class Helper {
             scale = context.getResources().getDisplayMetrics().density;
         }
         return (int) (dp * scale);
+    }
+
+    public static void setStatusBarStyle(Window window, boolean dark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = window.getDecorView();
+            decorView.setSystemUiVisibility(
+                    dark ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0);
+        }
     }
 }

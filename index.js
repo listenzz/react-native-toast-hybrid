@@ -6,15 +6,15 @@ export class LoadingHUD {
   hud = null;
   loadingCount = 0;
 
-  show() {
+  show(text) {
     if (this.loadingCount <= 0) {
       this.hud = new HUD();
       this.hud.onDismiss = () => {
         this.hide();
       };
       this.loadingCount = 0;
-      this.hud.show();
     }
+    this.hud.show(text);
     this.loadingCount++;
   }
 
@@ -52,14 +52,14 @@ export default class HUD {
   constructor() {
     this.promise = HUDModule.create();
     if (Platform.OS === 'android') {
-      EventEmitter.addListener('ON_HUD_DISMISS', this.handleDismission);
+      DeviceEventEmitter.addListener('ON_HUD_DISMISS', this.handleDismission);
     }
   }
 
   handleDismission = event => {
     this.promise.then(hudKey => {
       if (event.hudKey === hudKey) {
-        EventEmitter.removeListener('ON_HUD_DISMISS', this.handleDismission);
+        DeviceEventEmitter.removeListener('ON_HUD_DISMISS', this.handleDismission);
         if (this.onDismiss) {
           this.onDismiss();
         }

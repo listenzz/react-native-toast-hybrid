@@ -8,11 +8,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import me.listenzz.hud.R;
 
 public class HUD {
 
@@ -42,8 +41,10 @@ public class HUD {
             kProgressHUD.show();
         }
         kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
-        if (text != null) {
+        if (!TextUtils.isEmpty(text)) {
             kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        } else {
+            kProgressHUD.setLabel(null);
         }
         return this;
     }

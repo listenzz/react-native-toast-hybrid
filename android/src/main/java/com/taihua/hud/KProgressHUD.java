@@ -16,24 +16,22 @@
 
 package com.taihua.hud;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.Date;
 
-import me.listenzz.hud.R;
 
 public class KProgressHUD implements DialogInterface.OnDismissListener {
 
@@ -354,7 +352,15 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     private void showInternal() {
         mShowStarted = new Date();
         mProgressDialog.show();
+        Helper.setStatusBarStyle(mProgressDialog.getWindow(), isDark());
     }
+
+    @TargetApi(23)
+    private boolean isDark() {
+        Activity activity = (Activity) mContext;
+        return (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
+    }
+
 
     public boolean isShowing() {
         return mShowStarted != null && mProgressDialog.isShowing();
@@ -426,7 +432,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         private int mDetailColor = Color.WHITE;
 		
         public ProgressDialog(Context context) {
-            super(context);
+            super(context, R.style.Theme_HUD_FullScreenDialog);
         }
 
         @Override
@@ -434,17 +440,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
             super.onCreate(savedInstanceState);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             setContentView(R.layout.kprogresshud_hud);
-
-            Window window = getWindow();
-            window.setBackgroundDrawable(new ColorDrawable(0));
-            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.dimAmount = mDimAmount;
-            layoutParams.gravity = Gravity.CENTER;
-            window.setAttributes(layoutParams);
-
             setCanceledOnTouchOutside(false);
-
             initViews();
         }
 

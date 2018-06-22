@@ -23,8 +23,6 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import me.listenzz.hud.R;
-
 class BackgroundLayout extends LinearLayout {
 
     private float mCornerRadius;

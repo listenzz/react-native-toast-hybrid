@@ -42,11 +42,18 @@ export default class App extends Component {
   }
 
   loading() {
-    this.loadingHUD.show();
+    this.loadingHUD.show('');
     setTimeout(() => {
+      this.loadingHUD.show('祝你好运');
+      setTimeout(() => {
+        this.loadingHUD.show('');
+        this.loadingHUD.hide();
+        setTimeout(() => {
+          this.loadingHUD.hide();
+        }, 2000);
+      }, 2000);
       this.loadingHUD.hide();
-      new HUD().done('任务已经完成啦！').hideDelayDefault();
-    }, 5000);
+    }, 2000);
   }
 
   text() {
