@@ -42,7 +42,7 @@ export default class App extends Component {
   }
 
   loading() {
-    this.loadingHUD.show('');
+    this.loadingHUD.show();
     setTimeout(() => {
       this.loadingHUD.show('祝你好运');
       setTimeout(() => {

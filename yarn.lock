@@ -4475,9 +4475,9 @@ react-is@^16.3.1:
   version "16.4.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.0.tgz#cc9fdc855ac34d2e7d9d2eb7059bbc240d35ffcf"
 
-react-native-navigation-hybrid@0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/react-native-navigation-hybrid/-/react-native-navigation-hybrid-0.7.2.tgz#66ebd32c9935b3f51528be912d8c268a4fe5fd72"
+react-native-navigation-hybrid@0.7.10:
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/react-native-navigation-hybrid/-/react-native-navigation-hybrid-0.7.10.tgz#06b8f7d818c219cdce1549f9720790decbe6e133"
   dependencies:
     path-to-regexp "^2.2.1"
 
