@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -321,7 +322,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
             if (mGraceTimeMs == 0) {
                 showInternal();
             } else {
-                mGraceTimer = new Handler();
+                mGraceTimer = new Handler(Looper.getMainLooper());
                 mGraceTimer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -362,7 +363,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
             Date now = new Date();
             int interval = (int) (now.getTime() - mShowStarted.getTime());
             if (interval < mMinShowTimeMs) {
-                mMinShowTimer = new Handler();
+                mMinShowTimer = new Handler(Looper.getMainLooper());
                 mMinShowTimer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
