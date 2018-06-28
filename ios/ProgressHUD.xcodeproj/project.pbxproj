@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9150E87D20C3D4B600705A0E /* HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9150E87720C3D4B600705A0E /* HUD.m */; };
 		9150E87E20C3D4B600705A0E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9150E87820C3D4B600705A0E /* MBProgressHUD.m */; };
 		9150E87F20C3D4B600705A0E /* HUDModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 9150E87920C3D4B600705A0E /* HUDModule.m */; };
+		91608E4820E48A2F00D11D9F /* HBDProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 91608E4720E48A2F00D11D9F /* HBDProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,13 +26,13 @@
 
 /* Begin PBXFileReference section */
 		9150E86B20C3D3FA00705A0E /* libProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9150E87720C3D4B600705A0E /* HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUD.m; sourceTree = "<group>"; };
 		9150E87820C3D4B600705A0E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9150E87920C3D4B600705A0E /* HUDModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDModule.m; sourceTree = "<group>"; };
 		9150E87A20C3D4B600705A0E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		9150E87B20C3D4B600705A0E /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
 		9150E87C20C3D4B600705A0E /* HUDModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDModule.h; sourceTree = "<group>"; };
 		9150E90620C3DDC700705A0E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		91608E4620E48A2F00D11D9F /* HBDProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBDProgressHUD.h; sourceTree = "<group>"; };
+		91608E4720E48A2F00D11D9F /* HBDProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBDProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +67,8 @@
 			isa = PBXGroup;
 			children = (
 				9150E90620C3DDC700705A0E /* Images.xcassets */,
-				9150E87B20C3D4B600705A0E /* HUD.h */,
-				9150E87720C3D4B600705A0E /* HUD.m */,
+				91608E4620E48A2F00D11D9F /* HBDProgressHUD.h */,
+				91608E4720E48A2F00D11D9F /* HBDProgressHUD.m */,
 				9150E87C20C3D4B600705A0E /* HUDModule.h */,
 				9150E87920C3D4B600705A0E /* HUDModule.m */,
 				9150E87A20C3D4B600705A0E /* MBProgressHUD.h */,
@@ -141,8 +141,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9150E87F20C3D4B600705A0E /* HUDModule.m in Sources */,
-				9150E87D20C3D4B600705A0E /* HUD.m in Sources */,
 				9150E87E20C3D4B600705A0E /* MBProgressHUD.m in Sources */,
+				91608E4820E48A2F00D11D9F /* HBDProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
