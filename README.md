@@ -15,3 +15,5 @@ react-native link react-native-hud-hybrid
 ```
 
 on iOS, download [bundle](https://raw.githubusercontent.com/listenzz/react-native-hud-hybrid/master/screenshot/ProgressHUD.bundle.zip), unzip and drag the bundle to your ios project.
+
+![drag-bundle](./screenshot/drag-bundle.gif)
