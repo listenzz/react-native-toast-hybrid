@@ -181,6 +181,9 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
     } else {
         UIApplication *application = [[UIApplication class] performSelector:@selector(sharedApplication)];
         UIViewController *controller = application.keyWindow.rootViewController;
+        while (controller.presentedViewController && !controller.presentedViewController.isBeingDismissed) {
+            controller = controller.presentedViewController;
+        }
         hostView = controller.view;
     }
     return hostView;
