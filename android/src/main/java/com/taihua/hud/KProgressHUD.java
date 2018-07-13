@@ -22,12 +22,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -340,6 +342,9 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         mShowStarted = new Date();
         mProgressDialog.show();
         Helper.setStatusBarStyle(mProgressDialog.getWindow(), isDark());
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            Helper.setStatusBarTranslucent(mProgressDialog.getWindow(), isTranslucent());
+        }
     }
 
     @TargetApi(23)
@@ -348,6 +353,11 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         return (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
     }
 
+    @TargetApi(19)
+    private boolean isTranslucent() {
+        Activity activity = (Activity) mContext;
+        return (activity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS )!= 0;
+    }
 
     public boolean isShowing() {
         return mShowStarted != null && mProgressDialog.isShowing();

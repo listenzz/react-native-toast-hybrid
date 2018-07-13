@@ -16,10 +16,14 @@
 
 package com.taihua.hud;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowManager;
 
 class Helper {
 
@@ -37,6 +41,37 @@ class Helper {
             View decorView = window.getDecorView();
             decorView.setSystemUiVisibility(
                     dark ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0);
+        }
+    }
+
+    public static void setStatusBarTranslucent(Window window, boolean translucent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View decorView = window.getDecorView();
+            if (translucent) {
+                decorView.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                        WindowInsets defaultInsets = v.onApplyWindowInsets(insets);
+                        return defaultInsets.replaceSystemWindowInsets(
+                                defaultInsets.getSystemWindowInsetLeft(),
+                                0,
+                                defaultInsets.getSystemWindowInsetRight(),
+                                defaultInsets.getSystemWindowInsetBottom());
+                    }
+                });
+            } else {
+                decorView.setOnApplyWindowInsetsListener(null);
+            }
+
+            ViewCompat.requestApplyInsets(decorView);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (translucent) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            } else {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+            ViewCompat.requestApplyInsets(window.getDecorView());
         }
     }
 }
