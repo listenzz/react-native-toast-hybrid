@@ -72,7 +72,7 @@ RCT_EXPORT_METHOD(hide:(NSNumber* __nonnull)hudKey) {
     }
 }
 
-RCT_EXPORT_METHOD(hideDelay:(NSNumber* __nonnull)hudKey delay:(NSNumber *)ms) {
+RCT_EXPORT_METHOD(hideDelay:(NSNumber* __nonnull)hudKey delay:(NSNumber * __nonnull)ms) {
     HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
     if (hud) {
         [self.huds removeObjectForKey:hudKey];
