@@ -341,9 +341,19 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     private void showInternal() {
         mShowStarted = new Date();
         mProgressDialog.show();
-        Helper.setStatusBarStyle(mProgressDialog.getWindow(), isDark());
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            Helper.setStatusBarTranslucent(mProgressDialog.getWindow(), isTranslucent());
+        Window window = mProgressDialog.getWindow();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Helper.setStatusBarStyle(window, isDark());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Helper.setStatusBarTranslucent(window, isTranslucent());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Helper.setNavigationBarColor(window, Color.TRANSPARENT);
+            Helper.setNavigationBarStyle(window, isNavigationBarDark());
         }
     }
 
@@ -351,6 +361,12 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     private boolean isDark() {
         Activity activity = (Activity) mContext;
         return (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
+    }
+
+    @TargetApi(26)
+    private boolean isNavigationBarDark() {
+        Activity activity = (Activity) mContext;
+        return (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
     }
 
     @TargetApi(19)

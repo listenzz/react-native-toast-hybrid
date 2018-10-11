@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import HUD, { LoadingHUD } from 'react-native-hud-hybrid';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
-});
 
 export default class App extends Component {
   constructor(props) {
@@ -106,3 +101,31 @@ export default class App extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    paddingTop: 16,
+  },
+
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+  },
+
+  buttonText: {
+    backgroundColor: 'transparent',
+    color: 'rgb(34,88,220)',
+  },
+
+  text: {
+    backgroundColor: 'transparent',
+    fontSize: 16,
+    alignSelf: 'flex-start',
+    textAlign: 'left',
+    margin: 8,
+  },
+});

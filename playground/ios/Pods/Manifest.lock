@@ -1,63 +1,63 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - DoubleConversion (1.1.5)
-  - Folly (2016.09.26.00):
+  - DoubleConversion (1.1.6)
+  - Folly (2016.10.31.00):
     - boost-for-react-native
     - DoubleConversion
     - glog
-  - glog (0.3.4)
-  - NavigationHybrid (0.7.2):
+  - glog (0.3.5)
+  - NavigationHybrid (0.9.0-beta.2):
     - React
-  - ProgressHUD (0.6.0):
+  - ProgressHUD (0.16.0):
     - React
-  - React (0.55.4):
-    - React/Core (= 0.55.4)
-  - React/Core (0.55.4):
-    - yoga (= 0.55.4.React)
-  - React/CxxBridge (0.55.4):
-    - Folly (= 2016.09.26.00)
+  - React (0.57.1):
+    - React/Core (= 0.57.1)
+  - React/Core (0.57.1):
+    - yoga (= 0.57.1.React)
+  - React/CxxBridge (0.57.1):
+    - Folly (= 2016.10.31.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.55.4):
+  - React/cxxreact (0.57.1):
     - boost-for-react-native (= 1.63.0)
-    - Folly (= 2016.09.26.00)
+    - Folly (= 2016.10.31.00)
     - React/jschelpers
     - React/jsinspector
-  - React/DevSupport (0.55.4):
+  - React/DevSupport (0.57.1):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.55.4)
-  - React/jschelpers (0.55.4):
-    - Folly (= 2016.09.26.00)
+  - React/fishhook (0.57.1)
+  - React/jschelpers (0.57.1):
+    - Folly (= 2016.10.31.00)
     - React/PrivateDatabase
-  - React/jsinspector (0.55.4)
-  - React/PrivateDatabase (0.55.4)
-  - React/RCTActionSheet (0.55.4):
+  - React/jsinspector (0.57.1)
+  - React/PrivateDatabase (0.57.1)
+  - React/RCTActionSheet (0.57.1):
     - React/Core
-  - React/RCTAnimation (0.55.4):
+  - React/RCTAnimation (0.57.1):
     - React/Core
-  - React/RCTBlob (0.55.4):
+  - React/RCTBlob (0.57.1):
     - React/Core
-  - React/RCTImage (0.55.4):
+  - React/RCTImage (0.57.1):
     - React/Core
     - React/RCTNetwork
-  - React/RCTLinkingIOS (0.55.4):
+  - React/RCTLinkingIOS (0.57.1):
     - React/Core
-  - React/RCTNetwork (0.55.4):
+  - React/RCTNetwork (0.57.1):
     - React/Core
-  - React/RCTPushNotification (0.55.4):
+  - React/RCTPushNotification (0.57.1):
     - React/Core
-  - React/RCTSettings (0.55.4):
+  - React/RCTSettings (0.57.1):
     - React/Core
-  - React/RCTText (0.55.4):
+  - React/RCTText (0.57.1):
     - React/Core
-  - React/RCTVibration (0.55.4):
+  - React/RCTVibration (0.57.1):
     - React/Core
-  - React/RCTWebSocket (0.55.4):
+  - React/RCTWebSocket (0.57.1):
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - yoga (0.55.4.React)
+  - yoga (0.57.1.React)
 
 DEPENDENCIES:
   - DoubleConversion (from `../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -81,7 +81,7 @@ DEPENDENCIES:
   - yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - boost-for-react-native
 
 EXTERNAL SOURCES:
@@ -102,14 +102,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
-  Folly: 211775e49d8da0ca658aebc8eab89d642935755c
-  glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
-  NavigationHybrid: faa51481a1b2389b95c4721d7cf63779240bbd13
+  DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
+  Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
+  glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
+  NavigationHybrid: 8ee1e7c0651063c8cc8af32049507946c0180385
   ProgressHUD: b0a1bd4a82ff14eec84071a9a956e7bbe192b3f9
-  React: aa2040dbb6f317b95314968021bd2888816e03d5
-  yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
+  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
 PODFILE CHECKSUM: e8bbb1679120f901abc8c80c40d174000c32e178
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

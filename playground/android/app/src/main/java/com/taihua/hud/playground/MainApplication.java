@@ -44,6 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
 
-        ReactBridgeManager.instance.install(getReactNativeHost());
+        ReactBridgeManager.get().install(getReactNativeHost());
     }
 }

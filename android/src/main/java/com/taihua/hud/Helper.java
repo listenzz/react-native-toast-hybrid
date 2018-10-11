@@ -16,9 +16,12 @@
 
 package com.taihua.hud;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +44,30 @@ class Helper {
             View decorView = window.getDecorView();
             decorView.setSystemUiVisibility(
                     dark ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0);
+        }
+    }
+
+    public static void setNavigationBarColor(Window window, @ColorInt int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int curColor = window.getNavigationBarColor();
+            if (curColor == color) {
+                return;
+            }
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setNavigationBarColor(color);
+        }
+    }
+
+    public static void setNavigationBarStyle(Window window, boolean dark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            View decorView = window.getDecorView();
+            int systemUi = decorView.getSystemUiVisibility();
+            if (dark) {
+                systemUi |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            } else {
+                systemUi &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            }
+            decorView.setSystemUiVisibility(systemUi);
         }
     }
 

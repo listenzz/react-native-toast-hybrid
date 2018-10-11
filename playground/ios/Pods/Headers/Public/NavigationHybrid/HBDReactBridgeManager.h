@@ -1,1 +1,1 @@
-../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/HBDReactBridgeManager.h
+../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/Bridge/HBDReactBridgeManager.h

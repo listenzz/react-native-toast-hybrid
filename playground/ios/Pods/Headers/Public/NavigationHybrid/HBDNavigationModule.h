@@ -1,1 +1,1 @@
-../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/HBDNavigationModule.h
+../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/Bridge/HBDNavigationModule.h

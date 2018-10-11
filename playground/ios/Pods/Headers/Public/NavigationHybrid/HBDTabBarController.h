@@ -1,1 +1,1 @@
-../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/HBDTabBarController.h
+../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/Controller/HBDTabBarController.h
