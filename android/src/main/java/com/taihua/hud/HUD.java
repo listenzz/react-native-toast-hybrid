@@ -89,7 +89,6 @@ public class HUD {
         textView.setTextColor(HUDConfig.tintColor);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         textView.setText(text);
-        textView.setTypeface(null, Typeface.BOLD);
         kProgressHUD.setCustomView(textView);
         return this;
     }
