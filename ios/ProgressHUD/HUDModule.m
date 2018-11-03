@@ -57,10 +57,10 @@ RCT_EXPORT_METHOD(create:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRej
     }
 }
 
-RCT_EXPORT_METHOD(show:(NSNumber * __nonnull)hudKey text:(NSString *)text) {
+RCT_EXPORT_METHOD(spinner:(NSNumber * __nonnull)hudKey text:(NSString *)text) {
     HBDProgressHUD *hud = [self.huds objectForKey:hudKey];
     if (hud) {
-        [hud show:text ?: [HUDConfig sharedConfig].loadingText];
+        [hud spinner:text ?: [HUDConfig sharedConfig].loadingText];
     }
 }
 

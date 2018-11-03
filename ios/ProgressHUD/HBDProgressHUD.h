@@ -60,7 +60,7 @@ typedef void (^HBDProgressHUDCompletionBlock)(void);
 
 - (instancetype)initWithView:(UIView *) view;
 
-- (void)show:(NSString *)text;
+- (void)spinner:(NSString *)text;
 
 - (void)hide;
 

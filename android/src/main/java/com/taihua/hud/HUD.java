@@ -2,7 +2,6 @@ package com.taihua.hud;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,22 +30,11 @@ public class HUD {
         this.dismissListener = dismissListener;
     }
 
-    public HUD show(String text) {
-        if (kProgressHUD == null) {
-            kProgressHUD = KProgressHUD.create(context)
-                    .setTintColor(HUDConfig.tintColor)
-                    .setGraceTime(HUDConfig.graceTime)
-                    .setMinShowTime(HUDConfig.minShowTime);
-            configHUD(kProgressHUD);
-            kProgressHUD.show();
+    public void onDestroy() {
+        if (kProgressHUD != null) {
+            kProgressHUD.onDestroy();
+            hide();
         }
-        kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
-        if (!TextUtils.isEmpty(text)) {
-            kProgressHUD.setLabel(text, HUDConfig.tintColor);
-        } else {
-            kProgressHUD.setLabel(null);
-        }
-        return this;
     }
 
     public void hide() {
@@ -54,13 +42,6 @@ public class HUD {
             handler.removeCallbacksAndMessages(null);
             kProgressHUD.dismiss();
             kProgressHUD = null;
-        }
-    }
-
-    public void onDestroy() {
-        if (kProgressHUD != null) {
-            kProgressHUD.onDestroy();
-            hide();
         }
     }
 
@@ -79,6 +60,24 @@ public class HUD {
         hideDelay(HUDConfig.duration);
     }
 
+    public HUD spinner(String text) {
+        if (kProgressHUD == null) {
+            kProgressHUD = KProgressHUD.create(context)
+                    .setTintColor(HUDConfig.tintColor)
+                    .setGraceTime(HUDConfig.graceTime)
+                    .setMinShowTime(HUDConfig.minShowTime);
+            configHUD(kProgressHUD);
+            kProgressHUD.show();
+        }
+        kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
+        if (!TextUtils.isEmpty(text)) {
+            kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        } else {
+            kProgressHUD.setLabel(null);
+        }
+        return this;
+    }
+
     public HUD text(String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
@@ -90,6 +89,7 @@ public class HUD {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         textView.setText(text);
         kProgressHUD.setCustomView(textView);
+        kProgressHUD.setLabel(null);
         return this;
     }
 

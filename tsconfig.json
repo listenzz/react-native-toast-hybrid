@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig-strict.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "allowJs": false,
+    "target": "esnext",
+    "module": "commonjs",
+    "jsx": "react-native",
+    "declaration": true,
+    "skipLibCheck": true,
+    "types": ["jest", "react", "react-native", "react-test-renderer"]
+  },
+  "exclude": ["node_modules", "scripts", "build", "playground"]
+}

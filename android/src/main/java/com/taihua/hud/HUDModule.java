@@ -92,13 +92,13 @@ public class HUDModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void show(final int hudkey, final String text) {
+    public void spinner(final int hudkey, final String text) {
         handler.post(new Runnable() {
             @Override
             public void run() {
                 HUD hud = hudSparseArray.get(hudkey);
                 if (hud != null) {
-                    hud.show(text == null ? HUDConfig.loadingText : text);
+                    hud.spinner(text == null ? HUDConfig.loadingText : text);
                 }
             }
         });

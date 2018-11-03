@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/listenzz/react-native-hud-hybrid.git"
   },
-  "version": "0.19.0",
+  "version": "0.24.0",
   "nativePackage": true,
   "description": "progress hud for react native",
   "author": "listen <listenzz@163.com>",
@@ -15,26 +15,35 @@
     "progress",
     "hud"
   ],
-  "main": "index.js",
+  "main": "./build/index.js",
+  "typings": "./build/index.d.ts",
   "scripts": {
+    "build": "rm -rf ./build && tsc",
+    "prestart": "npm run build",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "lint": "./node_modules/.bin/eslint --fix --ext .js ./ && echo \"lint finished\" ",
-    "test": "jest"
+    "prepare": "npm run build",
+    "test": "jest",
+    "tsc": "tsc"
   },
   "peerDependencies": {
-    "react": ">=16.0.0",
-    "react-native": ">=0.50.3"
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
-    "react": "16.5.0",
-    "react-native": "0.57.1",
-    "react-native-navigation-hybrid": "0.9.0-beta.2",
-    "@babel/core": "^7.1.2",
-    "@babel/runtime": "^7.1.2",
+    "@types/jest": "^23.3.9",
+    "@types/react": "^16.4.18",
+    "@types/react-native": "^0.57.7",
+    "@types/react-test-renderer": "^16.0.3",
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.47.0",
-    "react-test-renderer": "16.5.0"
+    "metro-react-native-babel-preset": "0.49.0",
+    "react-test-renderer": "16.6.0-alpha.8af6728",
+    "typescript": "^3.1.5",
+    "@babel/core": "^7.1.2",
+    "@babel/runtime": "^7.1.2",
+    "react": "16.5.0",
+    "react-native": "0.57.1",
+    "react-native-navigation-hybrid": "^0.9.12"
   },
   "jest": {
     "preset": "react-native"

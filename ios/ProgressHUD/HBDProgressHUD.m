@@ -84,7 +84,7 @@
     self.mbProgressHUD.completionBlock = completionBlock;
 }
 
-- (void)show:(NSString *)text {
+- (void)spinner:(NSString *)text {
     if (self.mbProgressHUD == nil) {
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.hostView];
         hud.removeFromSuperViewOnHide = YES;
