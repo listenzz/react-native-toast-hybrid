@@ -559,13 +559,10 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
         [bezelConstraints addObjectsFromArray:minSizeConstraints];
     }
 
-    // Square aspect ratio, if set
-    if (self.square) {
-        NSLayoutConstraint *square = [NSLayoutConstraint constraintWithItem:bezel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:bezel attribute:NSLayoutAttributeWidth multiplier:1.f constant:0];
-        square.priority = 997.f;
-        [bezelConstraints addObject:square];
-    }
-
+    NSLayoutConstraint *square = [NSLayoutConstraint constraintWithItem:bezel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:bezel attribute:NSLayoutAttributeHeight multiplier:1.f constant:0];
+    square.priority = 997.f;
+    [bezelConstraints addObject:square];
+    
     // Top and bottom spacing
     [topSpacer addConstraint:[NSLayoutConstraint constraintWithItem:topSpacer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:margin]];
     [bottomSpacer addConstraint:[NSLayoutConstraint constraintWithItem:bottomSpacer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:margin]];

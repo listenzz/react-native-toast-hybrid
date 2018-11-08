@@ -44,6 +44,16 @@ class BackgroundLayout extends LinearLayout {
         init();
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+        if (width < height) {
+            setMeasuredDimension(getMeasuredHeight(), height);
+        }
+    }
+
     @SuppressWarnings("deprecation")
     private void init() {
         int color = getContext().getResources().getColor(R.color.kprogresshud_default_color);
@@ -72,4 +82,5 @@ class BackgroundLayout extends LinearLayout {
         mBackgroundColor = color;
         initBackground(mBackgroundColor, mCornerRadius);
     }
+
 }
