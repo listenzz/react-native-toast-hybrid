@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/listenzz/react-native-hud-hybrid.git"
   },
-  "version": "0.24.0",
+  "version": "0.25.0",
   "nativePackage": true,
   "description": "progress hud for react native",
   "author": "listen <listenzz@163.com>",
@@ -43,7 +43,7 @@
     "@babel/runtime": "^7.1.2",
     "react": "16.5.0",
     "react-native": "0.57.1",
-    "react-native-navigation-hybrid": "^0.9.12"
+    "react-native-navigation-hybrid": "^0.9.14"
   },
   "jest": {
     "preset": "react-native"
