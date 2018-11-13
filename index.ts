@@ -63,7 +63,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.spinner(hudKey, text);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
     return this;
@@ -74,7 +74,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.text(hudKey, text);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
     return this;
@@ -85,7 +85,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.info(hudKey, text);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
     return this;
@@ -96,7 +96,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.done(hudKey, text);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
     return this;
@@ -107,7 +107,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.error(hudKey, text);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
     return this;
@@ -118,7 +118,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.hide(hudKey);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
   }
@@ -128,7 +128,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.hideDelay(hudKey, delayMs);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
   }
@@ -138,7 +138,7 @@ export default class HUD {
       .then(hudKey => {
         HUDModule.hideDelayDefault(hudKey);
       })
-      .catch(e => {
+      .catch(_ => {
         /*swallow*/
       });
   }

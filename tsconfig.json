@@ -3,12 +3,13 @@
   "compilerOptions": {
     "outDir": "./build",
     "allowJs": false,
-    "target": "esnext",
-    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "jsx": "react-native",
+    "lib": ["es6"],
+    "moduleResolution": "node",
     "declaration": true,
-    "skipLibCheck": true,
-    "types": ["jest", "react", "react-native", "react-test-renderer"]
+    "target": "esnext"
   },
   "exclude": ["node_modules", "scripts", "build", "playground"]
 }
