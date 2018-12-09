@@ -12,7 +12,7 @@
 #import <React/RCTBridgeModule.h>
 #import <NavigationHybrid/NavigationHybrid.h>
 #import <React/RCTBundleURLProvider.h>
-#import <ProgressHUD/HBDProgressHUD.h>
+#import <HudHybrid/HudHybrid.h>
 
 @interface AppDelegate () <HostViewProvider>
 

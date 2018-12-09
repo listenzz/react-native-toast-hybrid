@@ -173,7 +173,7 @@
 
 - (UIImage *)imageWithName:(NSString *)name {
     NSBundle *podBundle = [NSBundle bundleForClass:self.class];
-    NSURL *bundleURL = [podBundle URLForResource:@"ProgressHUD" withExtension:@"bundle"];
+    NSURL *bundleURL = [podBundle URLForResource:@"HudHybrid" withExtension:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
     UIImage *image = [[UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     return image;

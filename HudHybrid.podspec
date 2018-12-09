@@ -3,7 +3,7 @@ require 'json'
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 Pod::Spec.new do |s|
-  s.name         = "ProgressHUD"
+  s.name         = "HudHybrid"
   s.version      = package['version']
   s.summary      = "progress hud for react native app"
 
@@ -12,12 +12,12 @@ Pod::Spec.new do |s|
   s.license      = package['license']
   s.platform     = :ios, "8.0"
 
-  s.module_name  = 'ProgressHUD'
+  s.module_name  = 'HudHybrid'
 
   s.source       = { :git => "https://github.com/listenzz/react-native-hud.git", :tag => "v#{s.version}" }
-  s.source_files  = "ios/ProgressHUD/*.{h,m,swift}"
+  s.source_files  = "ios/**/*.{h,m,swift}"
   s.resource_bundles = {
-      'ProgressHUD' => ['ios/ProgressHUD/**/*.{storyboard,xib,xcassets,json,imageset,png}']
+      'HudHybrid' => ['ios/*.{storyboard,xib,xcassets,json,imageset,png}']
   }
 
   s.dependency 'React'

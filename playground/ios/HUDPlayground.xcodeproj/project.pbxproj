@@ -189,11 +189,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HUDPlayground/Pods-HUDPlayground-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ProgressHUD/ProgressHUD.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/HudHybrid/HudHybrid.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HudHybrid.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -212,7 +212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../../node_modules/react-native/scripts/react-native-xcode.sh playground/index.js";
+			shellScript = "export NODE_BINARY=node\n../../node_modules/react-native/scripts/react-native-xcode.sh playground/index.js\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
