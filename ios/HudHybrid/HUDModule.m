@@ -53,7 +53,7 @@ RCT_EXPORT_METHOD(create:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRej
         [self.huds setObject:hud forKey:hudKey];
         resolve(hudKey);
     } else {
-        reject(@"404", @"host view missing", [NSError errorWithDomain:@"HUDModuleDomain" code:404 userInfo:nil]);
+        resolve(@(-1));
     }
 }
 

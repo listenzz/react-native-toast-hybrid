@@ -47,7 +47,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     private int mWindowColor;
     private int mTintColor;
     private float mCornerRadius;
-    private Context mContext;
+    private Activity mActivity;
 
     private int mAnimateSpeed;
 
@@ -63,12 +63,12 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     private DialogInterface.OnDismissListener mDismissListener;
 
-    public KProgressHUD(Context context) {
-        mContext = context;
-        mProgressDialog = new ProgressDialog(context);
+    public KProgressHUD(Activity activity) {
+        mActivity = activity;
+        mProgressDialog = new ProgressDialog(activity);
         mProgressDialog.setOnDismissListener(this);
         //noinspection deprecation
-        mWindowColor = context.getResources().getColor(R.color.kprogresshud_default_color);
+        mWindowColor = activity.getResources().getColor(R.color.kprogresshud_default_color);
         mTintColor = Color.WHITE;
         mAnimateSpeed = 1;
         mCornerRadius = 10;
@@ -82,26 +82,28 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     /**
      * Create a new HUD. Have the same effect as the constructor.
      * For convenient only.
-     * @param context Activity context that the HUD bound to
+     *
+     * @param activity Activity that the HUD bound to
      * @return An unique HUD instance
      */
-    public static KProgressHUD create(Context context) {
-        return new KProgressHUD(context);
+    public static KProgressHUD create(Activity activity) {
+        return new KProgressHUD(activity);
     }
 
-  /**
-   * Create a new HUD. specify the HUD style (if you use a custom view, you need {@code KProgressHUD.create(Context context)}).
-   *
-   * @param context Activity context that the HUD bound to
-   * @param style One of the KProgressHUD.Style values
-   * @return An unique HUD instance
-   */
-    public static KProgressHUD create(Context context, Style style) {
-        return new KProgressHUD(context).setStyle(style);
+    /**
+     * Create a new HUD. specify the HUD style (if you use a custom view, you need {@code KProgressHUD.create(Context context)}).
+     *
+     * @param activity Activity that the HUD bound to
+     * @param style    One of the KProgressHUD.Style values
+     * @return An unique HUD instance
+     */
+    public static KProgressHUD create(Activity activity, Style style) {
+        return new KProgressHUD(activity).setStyle(style);
     }
 
     /**
      * Specify the HUD style (not needed if you use a custom view)
+     *
      * @param style One of the KProgressHUD.Style values
      * @return Current HUD
      */
@@ -109,38 +111,52 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         View view = null;
         switch (style) {
             case SPIN_INDETERMINATE:
-                view = new LoadingView(mContext);
+                view = new LoadingView(mActivity);
                 break;
             case PIE_DETERMINATE:
-                view = new PieView(mContext);
+                view = new PieView(mActivity);
                 break;
             case ANNULAR_DETERMINATE:
-                view = new AnnularView(mContext);
+                view = new AnnularView(mActivity);
                 break;
             case BAR_DETERMINATE:
-                view = new BarView(mContext);
+                view = new BarView(mActivity);
                 break;
             // No custom view style here, because view will be added later
         }
-        mProgressDialog.setView(view);
+
+        if (isActivityValid()) {
+            mProgressDialog.setView(view);
+        }
         return this;
+    }
+
+    private boolean isActivityValid() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            return mActivity != null && !mActivity.isDestroyed() && !mActivity.isFinishing();
+        } else {
+            return mActivity != null && !mActivity.isFinishing();
+        }
     }
 
     /**
      * Set HUD size. If not the HUD view will use WRAP_CONTENT instead
-     * @param width in dp
+     *
+     * @param width  in dp
      * @param height in dp
      * @return Current HUD
      */
     public KProgressHUD setSize(int width, int height) {
-        mProgressDialog.setSize(width, height);
+        if (isActivityValid()) {
+            mProgressDialog.setSize(width, height);
+        }
         return this;
     }
 
     /**
-     * @deprecated  As of release 1.1.0, replaced by {@link #setBackgroundColor(int)}
      * @param color ARGB color
      * @return Current HUD
+     * @deprecated As of release 1.1.0, replaced by {@link #setBackgroundColor(int)}
      */
     @Deprecated
     public KProgressHUD setWindowColor(int color) {
@@ -150,6 +166,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     /**
      * Specify the HUD background color
+     *
      * @param color ARGB color
      * @return Current HUD
      */
@@ -166,6 +183,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     /**
      * Specify corner radius of the HUD (default is 10)
+     *
      * @param radius Corner radius in dp
      * @return Current HUD
      */
@@ -176,6 +194,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     /**
      * Change animation speed relative to default. Used with indeterminate style
+     *
      * @param scale Default is 1. If you want double the speed, set the param at 2.
      * @return Current HUD
      */
@@ -186,42 +205,55 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     /**
      * Optional label to be displayed.
+     *
      * @return Current HUD
      */
     public KProgressHUD setLabel(String label) {
-        mProgressDialog.setLabel(label);
+        if (isActivityValid()) {
+            mProgressDialog.setLabel(label);
+        }
         return this;
     }
 
     /**
      * Optional label to be displayed
+     *
      * @return Current HUD
      */
     public KProgressHUD setLabel(String label, int color) {
-        mProgressDialog.setLabel(label, color);
+        if (isActivityValid()) {
+            mProgressDialog.setLabel(label, color);
+        }
         return this;
     }
 
     /**
      * Optional detail description to be displayed on the HUD
+     *
      * @return Current HUD
      */
     public KProgressHUD setDetailsLabel(String detailsLabel) {
-        mProgressDialog.setDetailsLabel(detailsLabel);
+        if (isActivityValid()) {
+            mProgressDialog.setDetailsLabel(detailsLabel);
+        }
         return this;
     }
 
     /**
      * Optional detail description to be displayed
+     *
      * @return Current HUD
      */
     public KProgressHUD setDetailsLabel(String detailsLabel, int color) {
-        mProgressDialog.setDetailsLabel(detailsLabel, color);
+        if (isActivityValid()) {
+            mProgressDialog.setDetailsLabel(detailsLabel, color);
+        }
         return this;
     }
 
     /**
      * Max value for use in one of the determinate styles
+     *
      * @return Current HUD
      */
     public KProgressHUD setMaxProgress(int maxProgress) {
@@ -234,17 +266,22 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * view which implements Determinate interface.
      */
     public void setProgress(int progress) {
-        mProgressDialog.setProgress(progress);
+        if (isActivityValid()) {
+            mProgressDialog.setProgress(progress);
+        }
     }
 
     /**
      * Provide a custom view to be displayed.
+     *
      * @param view Must not be null
      * @return Current HUD
      */
     public KProgressHUD setCustomView(View view) {
         if (view != null) {
-            mProgressDialog.setView(view);
+            if (isActivityValid()) {
+                mProgressDialog.setView(view);
+            }
         } else {
             throw new RuntimeException("Custom view must not be null!");
         }
@@ -253,7 +290,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     /**
      * Specify whether this HUD can be cancelled by using back button (default is false)
-     *
+     * <p>
      * Setting a cancelable to true with this method will set a null callback,
      * clearing any callback previously set with
      * {@link #setCancellable(DialogInterface.OnCancelListener)}
@@ -261,8 +298,10 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setCancellable(boolean isCancellable) {
-        mProgressDialog.setCancelable(isCancellable);
-        mProgressDialog.setOnCancelListener(null);
+        if (isActivityValid()) {
+            mProgressDialog.setCancelable(isCancellable);
+            mProgressDialog.setOnCancelListener(null);
+        }
         return this;
     }
 
@@ -275,19 +314,21 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * Specify a callback to run when using the back button (default is null)
      *
      * @param listener The code that will run if the user presses the back
-     * button. If you pass null, the dialog won't be cancellable, just like
-     * if you had called {@link #setCancellable(boolean)} passing false.
-     *
+     *                 button. If you pass null, the dialog won't be cancellable, just like
+     *                 if you had called {@link #setCancellable(boolean)} passing false.
      * @return Current HUD
      */
     public KProgressHUD setCancellable(DialogInterface.OnCancelListener listener) {
-        mProgressDialog.setCancelable(null != listener);
-        mProgressDialog.setOnCancelListener(listener);
+        if (isActivityValid()) {
+            mProgressDialog.setCancelable(null != listener);
+            mProgressDialog.setOnCancelListener(listener);
+        }
         return this;
     }
 
     /**
      * Specify whether this HUD closes itself if progress reaches max. Default is true.
+     *
      * @return Current HUD
      */
     public KProgressHUD setAutoDismiss(boolean isAutoDismiss) {
@@ -301,6 +342,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * not be shown at all.
      * This may be used to prevent HUD display for very short tasks.
      * Defaults to 0 (no grace time).
+     *
      * @param graceTimeMs Grace time in milliseconds
      * @return Current HUD
      */
@@ -339,10 +381,13 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     }
 
     private void showInternal() {
+        if (!isActivityValid()) {
+            return;
+        }
+
         mShowStarted = new Date();
         mProgressDialog.show();
         Window window = mProgressDialog.getWindow();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Helper.setStatusBarStyle(window, isDark());
         }
@@ -359,20 +404,17 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
 
     @TargetApi(23)
     private boolean isDark() {
-        Activity activity = (Activity) mContext;
-        return (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
+        return (mActivity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
     }
 
     @TargetApi(26)
     private boolean isNavigationBarDark() {
-        Activity activity = (Activity) mContext;
-        return (activity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
+        return (mActivity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
     }
 
     @TargetApi(19)
     private boolean isTranslucent() {
-        Activity activity = (Activity) mContext;
-        return (activity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS )!= 0;
+        return (mActivity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) != 0;
     }
 
     public boolean isShowing() {
@@ -385,7 +427,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
             mGraceTimer = null;
         }
         mFinished = true;
-        if ( mMinShowTimeMs > 0.0 && mShowStarted != null) {
+        if (mMinShowTimeMs > 0.0 && mShowStarted != null) {
             Date now = new Date();
             int interval = (int) (now.getTime() - mShowStarted.getTime());
             if (interval < mMinShowTimeMs) {
@@ -403,7 +445,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     }
 
     private void dismissInternal() {
-        if (isShowing()) {
+        if (isShowing() && isActivityValid()) {
             mProgressDialog.dismiss();
         }
     }
@@ -434,7 +476,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         private Determinate mDeterminateView;
         private Indeterminate mIndeterminateView;
         private View mView;
-		private TextView mLabelText;
+        private TextView mLabelText;
         private TextView mDetailsText;
         private String mLabel;
         private String mDetailsLabel;
@@ -443,7 +485,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         private int mWidth, mHeight;
         private int mLabelColor = Color.WHITE;
         private int mDetailColor = Color.WHITE;
-		
+
         public ProgressDialog(Context context) {
             super(context, R.style.Theme_HUD_FullScreenDialog);
         }
@@ -458,14 +500,14 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         }
 
         private void initViews() {
-            mBackgroundLayout = (BackgroundLayout) findViewById(R.id.background);
+            mBackgroundLayout = findViewById(R.id.background);
             mBackgroundLayout.setBaseColor(mWindowColor);
             mBackgroundLayout.setCornerRadius(mCornerRadius);
             if (mWidth != 0) {
                 updateBackgroundSize();
             }
 
-            mCustomViewContainer = (FrameLayout) findViewById(R.id.container);
+            mCustomViewContainer = findViewById(R.id.container);
             addViewToFrame(mView);
 
             if (mDeterminateView != null) {
@@ -475,9 +517,9 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
                 mIndeterminateView.setAnimationSpeed(mAnimateSpeed);
             }
 
-            mLabelText = (TextView) findViewById(R.id.label);
+            mLabelText = findViewById(R.id.label);
             setLabel(mLabel, mLabelColor);
-            mDetailsText = (TextView) findViewById(R.id.details_label);
+            mDetailsText = findViewById(R.id.details_label);
             setDetailsLabel(mDetailsLabel, mDetailColor);
         }
 

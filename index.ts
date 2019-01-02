@@ -59,88 +59,56 @@ export default class HUD {
   }
 
   spinner(text?: string) {
-    this.promise
-      .then(hudKey => {
-        HUDModule.spinner(hudKey, text);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.spinner(hudKey, text);
+    });
     return this;
   }
 
   text(text: string) {
-    this.promise
-      .then(hudKey => {
-        HUDModule.text(hudKey, text);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.text(hudKey, text);
+    });
     return this;
   }
 
   info(text: string) {
-    this.promise
-      .then(hudKey => {
-        HUDModule.info(hudKey, text);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.info(hudKey, text);
+    });
     return this;
   }
 
   done(text: string) {
-    this.promise
-      .then(hudKey => {
-        HUDModule.done(hudKey, text);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.done(hudKey, text);
+    });
     return this;
   }
 
   error(text: string) {
-    this.promise
-      .then(hudKey => {
-        HUDModule.error(hudKey, text);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.error(hudKey, text);
+    });
     return this;
   }
 
   hide() {
-    this.promise
-      .then(hudKey => {
-        HUDModule.hide(hudKey);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.hide(hudKey);
+    });
   }
 
   hideDelay(delayMs = 0) {
-    this.promise
-      .then(hudKey => {
-        HUDModule.hideDelay(hudKey, delayMs);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.hideDelay(hudKey, delayMs);
+    });
   }
 
   hideDelayDefault() {
-    this.promise
-      .then(hudKey => {
-        HUDModule.hideDelayDefault(hudKey);
-      })
-      .catch(_ => {
-        /*swallow*/
-      });
+    this.promise.then(hudKey => {
+      HUDModule.hideDelayDefault(hudKey);
+    });
   }
 
   handleDismission = (event: { hudKey: string }) => {

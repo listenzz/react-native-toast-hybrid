@@ -65,7 +65,7 @@ public class HUDModule extends ReactContextBaseJavaModule {
                     final int hudKey = setupHud(hud);
                     promise.resolve(hudKey);
                 } else {
-                    promise.reject("404", "host is missing");
+                    promise.resolve(-1);
                 }
             }
         });

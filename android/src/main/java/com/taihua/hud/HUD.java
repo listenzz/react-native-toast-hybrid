@@ -46,14 +46,12 @@ public class HUD {
     }
 
     public void hideDelay(int delayMs) {
-        if (handler.getLooper() == Looper.getMainLooper()) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    hide();
-                }
-            }, delayMs);
-        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hide();
+            }
+        }, delayMs);
     }
 
     public void hideDelayDefault() {
