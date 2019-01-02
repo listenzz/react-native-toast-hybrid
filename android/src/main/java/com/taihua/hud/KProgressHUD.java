@@ -124,19 +124,8 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
                 break;
             // No custom view style here, because view will be added later
         }
-
-        if (isActivityValid()) {
-            mProgressDialog.setView(view);
-        }
+        mProgressDialog.setView(view);
         return this;
-    }
-
-    private boolean isActivityValid() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-            return mActivity != null && !mActivity.isDestroyed() && !mActivity.isFinishing();
-        } else {
-            return mActivity != null && !mActivity.isFinishing();
-        }
     }
 
     /**
@@ -147,9 +136,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setSize(int width, int height) {
-        if (isActivityValid()) {
-            mProgressDialog.setSize(width, height);
-        }
+        mProgressDialog.setSize(width, height);
         return this;
     }
 
@@ -209,9 +196,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setLabel(String label) {
-        if (isActivityValid()) {
-            mProgressDialog.setLabel(label);
-        }
+        mProgressDialog.setLabel(label);
         return this;
     }
 
@@ -221,9 +206,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setLabel(String label, int color) {
-        if (isActivityValid()) {
-            mProgressDialog.setLabel(label, color);
-        }
+        mProgressDialog.setLabel(label, color);
         return this;
     }
 
@@ -233,9 +216,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setDetailsLabel(String detailsLabel) {
-        if (isActivityValid()) {
-            mProgressDialog.setDetailsLabel(detailsLabel);
-        }
+        mProgressDialog.setDetailsLabel(detailsLabel);
         return this;
     }
 
@@ -245,9 +226,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setDetailsLabel(String detailsLabel, int color) {
-        if (isActivityValid()) {
-            mProgressDialog.setDetailsLabel(detailsLabel, color);
-        }
+        mProgressDialog.setDetailsLabel(detailsLabel, color);
         return this;
     }
 
@@ -266,9 +245,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * view which implements Determinate interface.
      */
     public void setProgress(int progress) {
-        if (isActivityValid()) {
-            mProgressDialog.setProgress(progress);
-        }
+        mProgressDialog.setProgress(progress);
     }
 
     /**
@@ -279,9 +256,7 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      */
     public KProgressHUD setCustomView(View view) {
         if (view != null) {
-            if (isActivityValid()) {
-                mProgressDialog.setView(view);
-            }
+            mProgressDialog.setView(view);
         } else {
             throw new RuntimeException("Custom view must not be null!");
         }
@@ -298,10 +273,8 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setCancellable(boolean isCancellable) {
-        if (isActivityValid()) {
-            mProgressDialog.setCancelable(isCancellable);
-            mProgressDialog.setOnCancelListener(null);
-        }
+        mProgressDialog.setCancelable(isCancellable);
+        mProgressDialog.setOnCancelListener(null);
         return this;
     }
 
@@ -319,10 +292,8 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
      * @return Current HUD
      */
     public KProgressHUD setCancellable(DialogInterface.OnCancelListener listener) {
-        if (isActivityValid()) {
-            mProgressDialog.setCancelable(null != listener);
-            mProgressDialog.setOnCancelListener(listener);
-        }
+        mProgressDialog.setCancelable(null != listener);
+        mProgressDialog.setOnCancelListener(listener);
         return this;
     }
 
@@ -402,25 +373,6 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         }
     }
 
-    @TargetApi(23)
-    private boolean isDark() {
-        return (mActivity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
-    }
-
-    @TargetApi(26)
-    private boolean isNavigationBarDark() {
-        return (mActivity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
-    }
-
-    @TargetApi(19)
-    private boolean isTranslucent() {
-        return (mActivity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) != 0;
-    }
-
-    public boolean isShowing() {
-        return mShowStarted != null && mProgressDialog.isShowing();
-    }
-
     public void dismiss() {
         if (mGraceTimer != null) {
             mGraceTimer.removeCallbacksAndMessages(null);
@@ -445,8 +397,14 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
     }
 
     private void dismissInternal() {
-        if (isShowing() && isActivityValid()) {
-            mProgressDialog.dismiss();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            if (isShowing() && mProgressDialog.getWindow() != null) {
+                mProgressDialog.dismiss();
+            }
+        } else {
+            if (isShowing() && isActivityValid()) {
+                mProgressDialog.dismiss();
+            }
         }
     }
 
@@ -459,16 +417,31 @@ public class KProgressHUD implements DialogInterface.OnDismissListener {
         }
     }
 
-    public void onDestroy() {
-        dismissInternal();
-        if (mGraceTimer != null) {
-            mGraceTimer.removeCallbacksAndMessages(null);
-            mGraceTimer = null;
+    private boolean isActivityValid() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            return mActivity != null && !mActivity.isDestroyed() && !mActivity.isFinishing();
+        } else {
+            return mActivity != null && !mActivity.isFinishing();
         }
-        if (mMinShowTimer != null) {
-            mMinShowTimer.removeCallbacksAndMessages(null);
-            mMinShowTimer = null;
-        }
+    }
+
+    public boolean isShowing() {
+        return mShowStarted != null && mProgressDialog.isShowing();
+    }
+
+    @TargetApi(23)
+    private boolean isDark() {
+        return (mActivity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0;
+    }
+
+    @TargetApi(26)
+    private boolean isNavigationBarDark() {
+        return (mActivity.getWindow().getDecorView().getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR) != 0;
+    }
+
+    @TargetApi(19)
+    private boolean isTranslucent() {
+        return (mActivity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) != 0;
     }
 
     private class ProgressDialog extends Dialog {

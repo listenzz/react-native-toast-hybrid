@@ -30,13 +30,6 @@ public class HUD {
         this.dismissListener = dismissListener;
     }
 
-    public void onDestroy() {
-        if (kProgressHUD != null) {
-            kProgressHUD.onDestroy();
-            hide();
-        }
-    }
-
     public void hide() {
         if (kProgressHUD != null) {
             handler.removeCallbacksAndMessages(null);

@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.SparseArray;
 
-import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -26,27 +25,6 @@ public class HUDModule extends ReactContextBaseJavaModule {
 
     public HUDModule(final ReactApplicationContext reactContext) {
         super(reactContext);
-        reactContext.addLifecycleEventListener(new LifecycleEventListener() {
-            @Override
-            public void onHostResume() {
-
-            }
-
-            @Override
-            public void onHostPause() {
-
-            }
-
-            @Override
-            public void onHostDestroy() {
-                handler.removeCallbacksAndMessages(null);
-                for (int i = hudSparseArray.size() - 1; i > -1; i--) {
-                    HUD hud = hudSparseArray.valueAt(i);
-                    hudSparseArray.removeAt(i);
-                    hud.onDestroy();
-                }
-            }
-        });
     }
 
     @Override

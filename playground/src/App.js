@@ -8,7 +8,7 @@ export default class App extends Component {
     this.push = this.push.bind(this);
     this.loading = this.loading.bind(this);
     this.loadingHUD = new LoadingHUD();
-    this.timeoutHandle = undefined;
+    this.timeoutHandler = undefined;
   }
 
   componentDidMount() {
@@ -35,19 +35,19 @@ export default class App extends Component {
     if (this.loadingHUD) {
       this.loadingHUD.hideAll();
     }
-    if (this.timeoutHandle) {
-      clearTimeout(this.timeoutHandle);
+    if (this.timeoutHandler) {
+      clearTimeout(this.timeoutHandler);
     }
   }
 
   loading() {
     this.loadingHUD.show();
-    this.timeoutHandle = setTimeout(() => {
+    this.timeoutHandler = setTimeout(() => {
       this.loadingHUD.show("祝你好运");
-      this.timeoutHandle = setTimeout(() => {
+      this.timeoutHandler = setTimeout(() => {
         this.loadingHUD.show("");
-        this.timeoutHandle = setTimeout(() => {
-          this.timeoutHandle = undefined;
+        this.timeoutHandler = setTimeout(() => {
+          this.timeoutHandler = undefined;
           this.loadingHUD.hideAll();
         }, 2000);
       }, 2000);
