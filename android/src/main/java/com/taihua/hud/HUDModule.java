@@ -1,6 +1,5 @@
 package com.taihua.hud;
 
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
@@ -51,9 +50,9 @@ public class HUDModule extends ReactContextBaseJavaModule {
 
     private int setupHud(HUD hud) {
         final int hudKey = hudKeyGenerator++;
-        hud.setDismissListener(new DialogInterface.OnDismissListener() {
+        hud.setOnHudDismissListener(new OnHudDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialogInterface) {
+            public void onDismiss() {
                 hudSparseArray.remove(hudKey);
                 ReactContext reactContext = getReactApplicationContext();
                 if (reactContext != null) {

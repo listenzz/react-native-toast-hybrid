@@ -1,16 +1,24 @@
 package com.taihua.hud;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class HUD {
 
@@ -19,15 +27,13 @@ public class HUD {
     }
 
     private Activity context;
-
     private final Handler handler = new Handler(Looper.getMainLooper());
-
     private KProgressHUD kProgressHUD;
 
-    private DialogInterface.OnDismissListener dismissListener;
+    private OnHudDismissListener mOnHudDismissListener;
 
-    public void setDismissListener(DialogInterface.OnDismissListener dismissListener) {
-        this.dismissListener = dismissListener;
+    public void setOnHudDismissListener(OnHudDismissListener listener) {
+        mOnHudDismissListener = listener;
     }
 
     public void hide() {
@@ -58,7 +64,7 @@ public class HUD {
                     .setGraceTime(HUDConfig.graceTime)
                     .setMinShowTime(HUDConfig.minShowTime);
             configHUD(kProgressHUD);
-            kProgressHUD.show();
+            kProgressHUD.show(getCurrentWindow(context));
         }
         kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
         if (!TextUtils.isEmpty(text)) {
@@ -73,7 +79,7 @@ public class HUD {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
-            kProgressHUD.show();
+            kProgressHUD.show(getCurrentWindow(context));
         }
         TextView textView = new TextView(context);
         textView.setTextColor(HUDConfig.tintColor);
@@ -88,7 +94,7 @@ public class HUD {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
-            kProgressHUD.show();
+            kProgressHUD.show(getCurrentWindow(context));
         }
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_info);
@@ -103,7 +109,7 @@ public class HUD {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
-            kProgressHUD.show();
+            kProgressHUD.show(getCurrentWindow(context));
         }
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_done);
@@ -118,7 +124,7 @@ public class HUD {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
-            kProgressHUD.show();
+            kProgressHUD.show(getCurrentWindow(context));
         }
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_error);
@@ -132,15 +138,54 @@ public class HUD {
     private void configHUD(KProgressHUD hud) {
         hud.setCornerRadius(HUDConfig.cornerRadius);
         hud.setBackgroundColor(HUDConfig.backgroundColor);
-        hud.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                if (dismissListener != null) {
-                    dismissListener.onDismiss(dialogInterface);
-                }
-                hide();
+        hud.setOnHudDismissListener(mOnHudDismissListener);
+    }
+
+    public Window getCurrentWindow(Activity activity) {
+        DialogFragment dialogFragment = null;
+        if (activity instanceof FragmentActivity) {
+            dialogFragment = getDialogFragment(((FragmentActivity) activity).getSupportFragmentManager());
+        }
+
+        if (dialogFragment != null && dialogFragment.isAdded()) {
+            return dialogFragment.getDialog().getWindow();
+        } else {
+            return activity.getWindow();
+        }
+    }
+
+    @Nullable
+    public static DialogFragment getDialogFragment(@NonNull FragmentManager fragmentManager) {
+        Fragment fragment = fragmentManager.getPrimaryNavigationFragment();
+        if (fragment instanceof DialogFragment) {
+            DialogFragment dialogFragment = (DialogFragment) fragment;
+            if (dialogFragment.getShowsDialog()) {
+                return dialogFragment;
             }
-        });
+        }
+
+        if (fragment != null) {
+            return getDialogFragment(fragment.getChildFragmentManager());
+        }
+
+        List<Fragment> fragments = fragmentManager.getFragments();
+        int count = fragments.size();
+        if (count > 0) {
+            fragment = fragments.get(count -1);
+
+            if (fragment instanceof DialogFragment) {
+                DialogFragment dialogFragment = (DialogFragment) fragment;
+                if (dialogFragment.getShowsDialog()) {
+                    return dialogFragment;
+                }
+            }
+
+            if (fragment != null) {
+                return getDialogFragment(fragment.getChildFragmentManager());
+            }
+        }
+
+        return null;
     }
 
 }

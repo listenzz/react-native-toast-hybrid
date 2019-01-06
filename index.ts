@@ -9,7 +9,7 @@ export class LoadingHUD {
     if (this.loadingCount <= 0) {
       this.hud = new HUD();
       this.hud.onDismiss = () => {
-        this.hide();
+        this.hideAll();
       };
       this.loadingCount = 0;
     }
