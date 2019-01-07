@@ -218,8 +218,10 @@ public class KProgressHUD {
     }
 
     private void dismissInternal() {
-        mHudView.hide();
-        mHudView = null;
+        if (mHudView != null) {
+            mHudView.hide();
+            mHudView = null;
+        }
     }
 
     boolean isShowing() {
