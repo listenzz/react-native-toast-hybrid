@@ -48,6 +48,22 @@ export default class HUD {
     HUDModule.config(options);
   }
 
+  static text(text: string) {
+    new HUD().text(text).hideDelayDefault();
+  }
+
+  static info(text: string) {
+    new HUD().info(text).hideDelayDefault();
+  }
+
+  static error(text: string) {
+    new HUD().error(text).hideDelayDefault();
+  }
+
+  static spinner(text?: string) {
+    return new HUD().spinner(text);
+  }
+
   private promise: Promise<string>;
   onDismiss?: () => void;
 
