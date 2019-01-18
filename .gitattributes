@@ -1,4 +1,4 @@
 *.pbxproj -text
-*.java linguist-language=javascript
-*.h linguist-language=javascript
-*.m linguist-language=javascript
+*.java -text
+*.h -text
+*.m -text
