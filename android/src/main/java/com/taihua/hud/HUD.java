@@ -164,7 +164,7 @@ public class HUD {
             }
         }
 
-        if (fragment != null) {
+        if (fragment != null && fragment.isAdded()) {
             return getDialogFragment(fragment.getChildFragmentManager());
         }
 
@@ -180,7 +180,7 @@ public class HUD {
                 }
             }
 
-            if (fragment != null) {
+            if (fragment != null && fragment.isAdded()) {
                 return getDialogFragment(fragment.getChildFragmentManager());
             }
         }
