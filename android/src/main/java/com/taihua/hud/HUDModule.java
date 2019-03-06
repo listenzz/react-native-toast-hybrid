@@ -1,5 +1,6 @@
 package com.taihua.hud;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.util.SparseArray;
 
@@ -20,7 +21,7 @@ public class HUDModule extends ReactContextBaseJavaModule {
 
     private static int hudKeyGenerator = 0;
 
-    public HUDModule(final ReactApplicationContext reactContext) {
+    public HUDModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
@@ -29,6 +30,24 @@ public class HUDModule extends ReactContextBaseJavaModule {
         return "HUD";
     }
 
+    @Override
+    public void onCatalystInstanceDestroy() {
+        final Activity activity = getCurrentActivity();
+        if (activity != null && !activity.isFinishing()) {
+            UiThreadUtil.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!activity.isFinishing()) {
+                        int size = hudSparseArray.size();
+                        for (int i = size - 1; i > -1; i--) {
+                            HUD hud = hudSparseArray.get(hudSparseArray.keyAt(i));
+                            hud.hide();
+                        }
+                    }
+                }
+            });
+        }
+    }
 
     @ReactMethod
     public void create(final Promise promise) {
