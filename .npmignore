@@ -1,5 +1,6 @@
 playground/
-.babelrc
+babel.config.js
+metro.config.js
 
 # OSX
 #
