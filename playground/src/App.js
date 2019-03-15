@@ -55,19 +55,19 @@ export default class App extends Component {
   }
 
   text() {
-    new HUD().text("Hello World!!").hideDelayDefault();
+    HUD.text("Hello World!!");
   }
 
   info() {
-    new HUD().info("有条消息要告诉你").hideDelayDefault();
+    HUD.info("有条消息要告诉你");
   }
 
   done() {
-    new HUD().done("任务已经完成啦！").hideDelayDefault();
+    HUD.done("任务已经完成啦！");
   }
 
   error() {
-    new HUD().error("可能什么地方出错了！").hideDelayDefault();
+    HUD.error("可能什么地方出错了！");
   }
 
   push() {

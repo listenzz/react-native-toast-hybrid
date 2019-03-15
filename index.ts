@@ -56,6 +56,10 @@ export default class HUD {
     new HUD().info(text).hideDelayDefault();
   }
 
+  static done(text: string) {
+    new HUD().done(text).hideDelayDefault();
+  }
+
   static error(text: string) {
     new HUD().error(text).hideDelayDefault();
   }
