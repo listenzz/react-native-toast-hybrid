@@ -1,1 +1,1 @@
-../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/Controller/UIViewController+StatusBar.h
+../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/ViewController/UIViewController+StatusBar.h

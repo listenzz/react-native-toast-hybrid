@@ -2,6 +2,7 @@ package com.taihua.hud;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.util.SparseArray;
 
 import com.facebook.react.bridge.Promise;
@@ -25,6 +26,7 @@ public class HUDModule extends ReactContextBaseJavaModule {
         super(reactContext);
     }
 
+    @NonNull
     @Override
     public String getName() {
         return "HUD";

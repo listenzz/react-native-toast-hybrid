@@ -22,10 +22,10 @@ export default class App extends Component {
       // dimAmount: 0.0, // only for andriod
       loadingText: "加载中..."
     });
-    this.props.navigation.isRoot().then(isRoot => {
+    this.props.navigator.isStackRoot().then(isRoot => {
       if (!isRoot) {
         setTimeout(() => {
-          this.props.navigation.pop();
+          this.props.navigator.pop();
         }, 2000);
       }
     });
@@ -71,7 +71,7 @@ export default class App extends Component {
   }
 
   push() {
-    this.props.navigation.push("playground");
+    this.props.navigator.push("playground");
   }
 
   render() {

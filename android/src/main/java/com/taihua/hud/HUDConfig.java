@@ -22,6 +22,6 @@ public class HUDConfig {
     public static @ColorInt
     int tintColor = DEFAULT_TINT_COLOR;
     public static float cornerRadius = DEFAULT_CORNER_RADIUS;
-    public static String loadingText = DEFAULT_LOADING_TEXT;
+    public static String loadingText = null;
 
 }
