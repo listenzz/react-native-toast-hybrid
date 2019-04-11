@@ -85,7 +85,11 @@
 }
 
 - (void)spinner:(NSString *)text {
-    if (self.mbProgressHUD == nil) {
+    if (!self.hostView) {
+        return;
+    }
+    
+    if (!self.mbProgressHUD) {
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.hostView];
         hud.removeFromSuperViewOnHide = YES;
         [self.hostView addSubview:hud];
@@ -118,6 +122,10 @@
 }
 
 - (void)text:(NSString *)text {
+    if (!self.hostView) {
+        return;
+    }
+    
     if (!self.mbProgressHUD) {
         self.mbProgressHUD =  [MBProgressHUD showHUDAddedTo: self.hostView animated:YES];
          [self configHUD:self.mbProgressHUD];
@@ -127,6 +135,10 @@
 }
 
 - (void)info:(NSString *)text {
+    if (!self.hostView) {
+        return;
+    }
+    
     if (!self.mbProgressHUD) {
         self.mbProgressHUD = [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
         [self configHUD:self.mbProgressHUD];
@@ -137,6 +149,10 @@
 }
 
 - (void)done:(NSString *)text {
+    if (!self.hostView) {
+        return;
+    }
+    
     if (!self.mbProgressHUD) {
         self.mbProgressHUD =  [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
         [self configHUD:self.mbProgressHUD];
@@ -147,6 +163,10 @@
 }
 
 - (void)error:(NSString *)text {
+    if (!self.hostView) {
+        return;
+    }
+    
     if (!self.mbProgressHUD) {
         self.mbProgressHUD =  [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
         [self configHUD:self.mbProgressHUD];
