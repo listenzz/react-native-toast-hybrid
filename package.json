@@ -42,8 +42,8 @@
     "react-test-renderer": "16.8.3",
     "typescript": "^3.3.3333",
     "react": "16.8.3",
-    "react-native": "0.59.0",
-    "react-native-navigation-hybrid": "^0.11.17"
+    "react-native": "^0.59.9",
+    "react-native-navigation-hybrid": "^0.13.4"
   },
   "jest": {
     "preset": "react-native"
