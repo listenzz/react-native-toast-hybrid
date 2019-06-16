@@ -131,7 +131,7 @@ export default class HUD {
     });
   }
 
-  handleDismission = (event: { hudKey: string }) => {
+  private handleDismission = (event: { hudKey: string }) => {
     this.promise.then(hudKey => {
       if (event.hudKey === hudKey) {
         DeviceEventEmitter.removeListener(
