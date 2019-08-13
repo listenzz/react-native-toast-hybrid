@@ -1,7 +1,7 @@
 package com.taihua.hud;
 
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 public class HUDConfig {
 
