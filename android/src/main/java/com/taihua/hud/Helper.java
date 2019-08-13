@@ -16,13 +16,11 @@
 
 package com.taihua.hud;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.ColorInt;
+import androidx.core.view.ViewCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowInsets;
