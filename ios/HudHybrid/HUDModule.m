@@ -15,7 +15,7 @@
 @interface HUDModule()
 
 @property(nonatomic, assign) NSInteger hudKeyGenerator;
-@property(nonatomic, copy) NSMutableDictionary *huds;
+@property(nonatomic, strong) NSMutableDictionary *huds;
 
 @end
 
