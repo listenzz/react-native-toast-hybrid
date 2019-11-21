@@ -1,6 +1,5 @@
-playground/
-babel.config.js
-metro.config.js
+example/
+*/build/
 
 # OSX
 #
@@ -8,7 +7,7 @@ metro.config.js
 
 # Xcode
 #
-ios/build/
+build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -28,22 +27,28 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-android/build/
+build/
 .idea
 .gradle
 local.properties
 *.iml
+
+# Visual Studio Code
+#
+.vscode/
 
 # node.js
 #
 node_modules/
 npm-debug.log
 yarn-error.log
+yarn.lock
 
 # BUCK
 buck-out/
-\.buckd/
+.buckd/
 *.keystore
+!debug.keystore
 
 # fastlane
 #
@@ -56,9 +61,5 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
-.vscode
-
-# Only apps should have lockfiles
-yarn.lock
-npm-shrinkwrap.json
-package-lock.json
+# Bundle artifact
+*.jsbundle

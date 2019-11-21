@@ -30,16 +30,22 @@ build/
 local.properties
 *.iml
 
+# Visual Studio Code
+#
+.vscode/
+
 # node.js
 #
 node_modules/
 npm-debug.log
 yarn-error.log
+yarn.lock
 
 # BUCK
 buck-out/
 \.buckd/
 *.keystore
+!debug.keystore
 
 # fastlane
 #
@@ -54,5 +60,11 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
-package-lock.json
-yarn.lock
+
+# CocoaPods
+example/ios/Pods/
+Podfile.lock
+
+# lib
+lib/
+

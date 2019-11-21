@@ -1,16 +1,7 @@
-//
-//  HudHybrid.h
-//  RNHudHybrid
-//
-//  Created by Listen on 2018/12/9.
-//  Copyright © 2018 Facebook. All rights reserved.
-//
+#import <React/RCTBridgeModule.h>
+#import "Hud.h"
+#import "HudConfig.h"
 
-#ifndef HudHybrid_h
-#define HudHybrid_h
+@interface HudHybrid : NSObject <RCTBridgeModule>
 
-#import "HBDProgressHUD.h"
-#import "HUDModule.h"
-#import "MBProgressHUD.h"
-
-#endif /* HudHybrid_h */
+@end

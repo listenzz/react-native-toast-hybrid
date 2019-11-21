@@ -1,1 +1,0 @@
-../../../../../../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid/HBDNavigationBar.h
