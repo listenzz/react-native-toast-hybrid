@@ -3,7 +3,7 @@ package com.reactnative.hud;
 import android.graphics.Color;
 import androidx.annotation.ColorInt;
 
-public class HUDConfig {
+public class HudConfig {
 
     static int DEFAULT_DURATION = 2000;
     static int DEFAULT_GRACE_TIME = 300;

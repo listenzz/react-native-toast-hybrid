@@ -17,7 +17,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class HudHybridModule extends ReactContextBaseJavaModule {
 
-    private SparseArray<HUD> hudSparseArray = new SparseArray<>();
+    private SparseArray<Hud> hudSparseArray = new SparseArray<>();
 
     private static int hudKeyGenerator = 0;
 
@@ -39,7 +39,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
                 if (!activity.isFinishing()) {
                     int size = hudSparseArray.size();
                     for (int i = size - 1; i > -1; i--) {
-                        HUD hud = hudSparseArray.get(hudSparseArray.keyAt(i));
+                        Hud hud = hudSparseArray.get(hudSparseArray.keyAt(i));
                         hud.hide();
                     }
                 }
@@ -51,7 +51,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     public void create(final Promise promise) {
         UiThreadUtil.runOnUiThread(() -> {
             if (getCurrentActivity() != null) {
-                HUD hud = new HUD(getCurrentActivity());
+                Hud hud = new Hud(getCurrentActivity());
                 final int hudKey = setupHud(hud);
                 promise.resolve(hudKey);
             } else {
@@ -60,7 +60,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
         });
     }
 
-    private int setupHud(HUD hud) {
+    private int setupHud(Hud hud) {
         final int hudKey = hudKeyGenerator++;
         hud.setOnHudDismissListener(() -> {
             hudSparseArray.remove(hudKey);
@@ -80,9 +80,9 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void spinner(final int hudkey, final String text) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudkey);
+            Hud hud = hudSparseArray.get(hudkey);
             if (hud != null) {
-                hud.spinner(text == null ? HUDConfig.loadingText : text);
+                hud.spinner(text == null ? HudConfig.loadingText : text);
             }
         });
     }
@@ -90,7 +90,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void hide(final int hudID) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudID);
+            Hud hud = hudSparseArray.get(hudID);
             if (hud != null) {
                 hud.hide();
             }
@@ -100,7 +100,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void hideDelay(final int hudkey, final int delayMs) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudkey);
+            Hud hud = hudSparseArray.get(hudkey);
             if (hud != null) {
                 hud.hideDelay(delayMs);
             }
@@ -110,7 +110,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void hideDelayDefault(final int hudkey) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudkey);
+            Hud hud = hudSparseArray.get(hudkey);
             if (hud != null) {
                 hud.hideDelayDefault();
             }
@@ -120,7 +120,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void text(final int hudkey, final String text) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudkey);
+            Hud hud = hudSparseArray.get(hudkey);
             if (hud != null) {
                 hud.text(text);
             }
@@ -130,7 +130,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void info(final int hudkey, final String text) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudkey);
+            Hud hud = hudSparseArray.get(hudkey);
             if (hud != null) {
                 hud.info(text);
             }
@@ -140,7 +140,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void done(final int hudkey, final String text) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudkey);
+            Hud hud = hudSparseArray.get(hudkey);
             if (hud != null) {
                 hud.done(text);
             }
@@ -151,7 +151,7 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void error(final int hudkey, final String text) {
         UiThreadUtil.runOnUiThread(() -> {
-            HUD hud = hudSparseArray.get(hudkey);
+            Hud hud = hudSparseArray.get(hudkey);
             if (hud != null) {
                 hud.error(text);
             }
@@ -162,46 +162,46 @@ public class HudHybridModule extends ReactContextBaseJavaModule {
     public void config(final ReadableMap config) {
         UiThreadUtil.runOnUiThread(() -> {
             if (config.hasKey("backgroundColor")) {
-                HUDConfig.backgroundColor = Color.parseColor(config.getString("backgroundColor"));
+                HudConfig.backgroundColor = Color.parseColor(config.getString("backgroundColor"));
             } else {
-                HUDConfig.backgroundColor = HUDConfig.DEFAULT_BACKGROUND_COLOR;
+                HudConfig.backgroundColor = HudConfig.DEFAULT_BACKGROUND_COLOR;
             }
 
             if (config.hasKey("tintColor")) {
-                HUDConfig.tintColor = Color.parseColor(config.getString("tintColor"));
+                HudConfig.tintColor = Color.parseColor(config.getString("tintColor"));
             } else {
-                HUDConfig.tintColor = HUDConfig.DEFAULT_TINT_COLOR;
+                HudConfig.tintColor = HudConfig.DEFAULT_TINT_COLOR;
             }
 
             if (config.hasKey("cornerRadius")) {
                 double cornerRadius = config.getDouble("cornerRadius");
-                HUDConfig.cornerRadius = (float) cornerRadius;
+                HudConfig.cornerRadius = (float) cornerRadius;
             } else {
-                HUDConfig.cornerRadius = HUDConfig.DEFAULT_CORNER_RADIUS;
+                HudConfig.cornerRadius = HudConfig.DEFAULT_CORNER_RADIUS;
             }
 
             if (config.hasKey("duration")) {
-                HUDConfig.duration = config.getInt("duration");
+                HudConfig.duration = config.getInt("duration");
             } else {
-                HUDConfig.duration = HUDConfig.DEFAULT_DURATION;
+                HudConfig.duration = HudConfig.DEFAULT_DURATION;
             }
 
             if (config.hasKey("graceTime")) {
-                HUDConfig.graceTime = config.getInt("graceTime");
+                HudConfig.graceTime = config.getInt("graceTime");
             } else {
-                HUDConfig.graceTime = HUDConfig.DEFAULT_GRACE_TIME;
+                HudConfig.graceTime = HudConfig.DEFAULT_GRACE_TIME;
             }
 
             if (config.hasKey("minShowTime")) {
-                HUDConfig.minShowTime = config.getInt("minShowTime");
+                HudConfig.minShowTime = config.getInt("minShowTime");
             } else {
-                HUDConfig.minShowTime = HUDConfig.DEFAULT_MIN_SHOW_TIME;
+                HudConfig.minShowTime = HudConfig.DEFAULT_MIN_SHOW_TIME;
             }
 
             if (config.hasKey("loadingText")) {
-                HUDConfig.loadingText = config.getString("loadingText");
+                HudConfig.loadingText = config.getString("loadingText");
             } else {
-                HUDConfig.loadingText = HUDConfig.DEFAULT_LOADING_TEXT;
+                HudConfig.loadingText = HudConfig.DEFAULT_LOADING_TEXT;
             }
         });
     }

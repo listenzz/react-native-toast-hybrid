@@ -20,9 +20,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class HUD {
+public class Hud {
 
-    public HUD(Activity context) {
+    public Hud(Activity context) {
         this.context = context;
     }
 
@@ -49,35 +49,35 @@ public class HUD {
     }
 
     public void hideDelayDefault() {
-        hideDelay(HUDConfig.duration);
+        hideDelay(HudConfig.duration);
     }
 
-    public HUD spinner(String text) {
+    public Hud spinner(String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context)
-                    .setTintColor(HUDConfig.tintColor)
-                    .setGraceTime(HUDConfig.graceTime)
-                    .setMinShowTime(HUDConfig.minShowTime);
+                    .setTintColor(HudConfig.tintColor)
+                    .setGraceTime(HudConfig.graceTime)
+                    .setMinShowTime(HudConfig.minShowTime);
             configHUD(kProgressHUD);
             kProgressHUD.show(getCurrentWindow(context));
         }
         kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
         if (!TextUtils.isEmpty(text)) {
-            kProgressHUD.setLabel(text, HUDConfig.tintColor);
+            kProgressHUD.setLabel(text, HudConfig.tintColor);
         } else {
             kProgressHUD.setLabel(null);
         }
         return this;
     }
 
-    public HUD text(String text) {
+    public Hud text(String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
             kProgressHUD.show(getCurrentWindow(context));
         }
         TextView textView = new TextView(context);
-        textView.setTextColor(HUDConfig.tintColor);
+        textView.setTextColor(HudConfig.tintColor);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         textView.setText(text);
         kProgressHUD.setCustomView(textView);
@@ -85,7 +85,7 @@ public class HUD {
         return this;
     }
 
-    public HUD info(String text) {
+    public Hud info(String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
@@ -93,14 +93,14 @@ public class HUD {
         }
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_info);
-        DrawableCompat.setTint(drawable, HUDConfig.tintColor);
+        DrawableCompat.setTint(drawable, HudConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView);
-        kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        kProgressHUD.setLabel(text, HudConfig.tintColor);
         return this;
     }
 
-    public HUD done(String text) {
+    public Hud done(String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
@@ -108,14 +108,14 @@ public class HUD {
         }
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_done);
-        DrawableCompat.setTint(drawable, HUDConfig.tintColor);
+        DrawableCompat.setTint(drawable, HudConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView);
-        kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        kProgressHUD.setLabel(text, HudConfig.tintColor);
         return this;
     }
 
-    public HUD error(String text) {
+    public Hud error(String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context);
             configHUD(kProgressHUD);
@@ -123,16 +123,16 @@ public class HUD {
         }
         ImageView imageView = new ImageView(context);
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_error);
-        DrawableCompat.setTint(drawable, HUDConfig.tintColor);
+        DrawableCompat.setTint(drawable, HudConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView);
-        kProgressHUD.setLabel(text, HUDConfig.tintColor);
+        kProgressHUD.setLabel(text, HudConfig.tintColor);
         return this;
     }
 
     private void configHUD(KProgressHUD hud) {
-        hud.setCornerRadius(HUDConfig.cornerRadius);
-        hud.setBackgroundColor(HUDConfig.backgroundColor);
+        hud.setCornerRadius(HudConfig.cornerRadius);
+        hud.setBackgroundColor(HudConfig.backgroundColor);
         hud.setOnHudDismissListener(mOnHudDismissListener);
     }
 
