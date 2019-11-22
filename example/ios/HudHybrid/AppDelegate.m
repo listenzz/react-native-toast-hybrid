@@ -29,7 +29,7 @@
     NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"example/index" fallbackResource:nil];
     [[HBDReactBridgeManager get] installWithBundleURL:jsCodeLocation launchOptions:launchOptions];
     [HBDReactBridgeManager get].delegate = self;
-    // 注册原生模块
+    // 注册原生页面
     [[HBDReactBridgeManager get] registerNativeModule:@"Tab2" forController:[ViewController class]];
     
     // 闪屏

@@ -49,6 +49,10 @@ public class MainApplication extends Application implements ReactApplication {
 		initializeFlipper(this); // Remove this line if you don't want Flipper enabled
 		ReactBridgeManager bridgeManager = ReactBridgeManager.get();
 		bridgeManager.install(getReactNativeHost());
+
+		// 注册原生页面
+		bridgeManager.registerNativeModule("Tab2", DemoFragment.class);
+
 		FLog.setMinimumLoggingLevel(FLog.INFO);
 	}
 

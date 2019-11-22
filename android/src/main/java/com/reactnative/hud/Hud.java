@@ -22,6 +22,36 @@ import java.util.List;
 
 public class Hud {
 
+    public static void text(@NonNull Activity activity, @NonNull String text) {
+        Hud hud = new Hud(activity);
+        hud.text(text);
+        hud.hideDelayDefault();
+    }
+
+    public static void info(@NonNull Activity activity, @NonNull String text) {
+        Hud hud = new Hud(activity);
+        hud.info(text);
+        hud.hideDelayDefault();
+    }
+
+    public static void done(@NonNull Activity activity, @NonNull String text) {
+        Hud hud = new Hud(activity);
+        hud.done(text);
+        hud.hideDelayDefault();
+    }
+
+    public static void error(@NonNull Activity activity, @NonNull String text) {
+        Hud hud = new Hud(activity);
+        hud.error(text);
+        hud.hideDelayDefault();
+    }
+
+    public static Hud showAsLoading(@NonNull Activity activity, @Nullable String text) {
+        Hud hud = new Hud(activity);
+        hud.spinner(text);
+        return hud;
+    }
+
     public Hud(Activity context) {
         this.context = context;
     }
@@ -45,14 +75,14 @@ public class Hud {
     }
 
     public void hideDelay(int delayMs) {
-        handler.postDelayed(() -> hide(), delayMs);
+        handler.postDelayed(this::hide, delayMs);
     }
 
     public void hideDelayDefault() {
         hideDelay(HudConfig.duration);
     }
 
-    public Hud spinner(String text) {
+    public Hud spinner(@Nullable String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context)
                     .setTintColor(HudConfig.tintColor)

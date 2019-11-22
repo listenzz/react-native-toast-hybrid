@@ -71,7 +71,7 @@ export default class App extends Component {
   }
 
   push() {
-    this.props.navigator.push('HudHybrid')
+    this.props.navigator.push('Tab1')
   }
 
   render() {
