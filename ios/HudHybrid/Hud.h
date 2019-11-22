@@ -9,20 +9,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^HBDProgressHUDCompletionBlock)(void);
+typedef void (^HudCompletionBlock)(void);
 
 @interface Hud : NSObject
-
-@property(nonatomic, weak) UIView *hostView;
 
 /**
  * Called after the HUD is hiden.
  */
-@property (copy, nullable) HBDProgressHUDCompletionBlock completionBlock;
+@property (copy, nullable) HudCompletionBlock completionBlock;
 
-- (instancetype)initWithView:(UIView *) view;
++ (void)text:(NSString *)text;
 
-- (void)spinner:(NSString *)text;
++ (void)info:(NSString *)text;
+
++ (void)done:(NSString *)text;
+
++ (void)error:(NSString *)text;
+
+- (instancetype)initWithHostView:(UIView *)view;
+
+- (void)spinner:(nullable NSString *)text;
 
 - (void)hide;
 
@@ -40,10 +46,5 @@ typedef void (^HBDProgressHUDCompletionBlock)(void);
 
 @end
 
-@protocol HostViewProvider <NSObject>
-
-- (UIView *)hostView;
-
-@end
 
 NS_ASSUME_NONNULL_END

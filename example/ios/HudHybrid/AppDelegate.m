@@ -13,6 +13,7 @@
 #import <NavigationHybrid/NavigationHybrid.h>
 #import <React/RCTBundleURLProvider.h>
 #import <HudHybrid/HudHybrid.h>
+#import "ViewController.h"
 
 @interface AppDelegate () <HBDReactBridgeManagerDelegate, HostViewProvider>
 
@@ -22,13 +23,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+    // 设置 hud 的 hostView, 可以不设置
     [HudConfig sharedConfig].hostViewProvider = self;
     
     NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"example/index" fallbackResource:nil];
     [[HBDReactBridgeManager get] installWithBundleURL:jsCodeLocation launchOptions:launchOptions];
     [HBDReactBridgeManager get].delegate = self;
+    // 注册原生模块
+    [[HBDReactBridgeManager get] registerNativeModule:@"Tab2" forController:[ViewController class]];
     
+    // 闪屏
     UIStoryboard *storyboard =  [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
     UIViewController *rootViewController = [storyboard instantiateInitialViewController];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -40,13 +44,16 @@
 }
 
 - (void)reactModuleRegisterDidCompleted:(HBDReactBridgeManager *)manager {
-    HBDViewController *vc1 = [manager controllerWithModuleName:@"HudHybrid" props:nil options:@{@"titleItem":@{@"title":@"Tab1"}}];
-    HBDViewController *vc2 = [manager controllerWithModuleName:@"HudHybrid" props:nil options:@{@"titleItem":@{@"title":@"Tab2"}}];
+    
+    // Tab1 是 RN 模块
+    HBDViewController *vc1 = [manager controllerWithModuleName:@"Tab1" props:nil options:@{@"titleItem":@{@"title":@"React"}}];
+    // Tab2 是原生模块
+    HBDViewController *vc2 = [manager controllerWithModuleName:@"Tab2" props:nil options:@{@"titleItem":@{@"title":@"Native"}}];
     
     HBDNavigationController *nav1 = [[HBDNavigationController alloc] initWithRootViewController:vc1];
-    nav1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tab1" image:nil selectedImage:nil];
+    nav1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"React" image:nil selectedImage:nil];
     HBDNavigationController *nav2 = [[HBDNavigationController alloc] initWithRootViewController:vc2];
-    nav2.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tab2" image:nil selectedImage:nil];
+    nav2.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Native" image:nil selectedImage:nil];
     HBDTabBarController *tabs = [[HBDTabBarController alloc] init];
     
     [tabs setViewControllers:@[nav1, nav2]];

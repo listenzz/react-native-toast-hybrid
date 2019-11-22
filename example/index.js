@@ -1,9 +1,4 @@
-import {
-  ReactRegistry,
-  Navigator,
-  Garden,
-  BarStyleDarkContent,
-} from 'react-native-navigation-hybrid'
+import { ReactRegistry, Garden, BarStyleDarkContent } from 'react-native-navigation-hybrid'
 import App from './App'
 
 Garden.setStyle({
@@ -12,19 +7,7 @@ Garden.setStyle({
 })
 
 ReactRegistry.startRegisterComponent()
-ReactRegistry.registerComponent('HudHybrid', () => App)
+ReactRegistry.registerComponent('Tab1', () => App)
 ReactRegistry.endRegisterComponent()
 
-// boostrap from native
-
-// Navigator.setRoot({
-//   stack: {
-//     children: [
-//       {
-//         screen: {
-//           moduleName: 'HudHybrid',
-//         },
-//       },
-//     ],
-//   },
-// })
+// boostrap from native, so we don't need to call Navigator.setRoot here.

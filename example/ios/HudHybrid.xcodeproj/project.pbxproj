@@ -11,6 +11,8 @@
 		9188726F236AD545003DC79E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9188726E236AD545003DC79E /* Assets.xcassets */; };
 		91887272236AD545003DC79E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91887270236AD545003DC79E /* LaunchScreen.storyboard */; };
 		91887275236AD545003DC79E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91887274236AD545003DC79E /* main.m */; };
+		91BFA1492387CFEB00A9623E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BFA1472387CFEB00A9623E /* ViewController.m */; };
+		91BFA14A2387CFEB00A9623E /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91BFA1482387CFEB00A9623E /* ViewController.xib */; };
 		C51B2EB2D026B9852CD3E404 /* libPods-HudHybrid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7AC8F154283162168DCCDCF /* libPods-HudHybrid.a */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +26,9 @@
 		91887271236AD545003DC79E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91887273236AD545003DC79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91887274236AD545003DC79E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		91BFA1462387CFEB00A9623E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		91BFA1472387CFEB00A9623E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		91BFA1482387CFEB00A9623E /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		E7AC8F154283162168DCCDCF /* libPods-HudHybrid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HudHybrid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -53,7 +58,6 @@
 				5BF837A3C50EA714874D93C6 /* Pods-HudHybrid.debug.xcconfig */,
 				6F4C0D6F258994581B62C03C /* Pods-HudHybrid.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -84,6 +88,9 @@
 				91887270236AD545003DC79E /* LaunchScreen.storyboard */,
 				91887273236AD545003DC79E /* Info.plist */,
 				91887274236AD545003DC79E /* main.m */,
+				91BFA1462387CFEB00A9623E /* ViewController.h */,
+				91BFA1472387CFEB00A9623E /* ViewController.m */,
+				91BFA1482387CFEB00A9623E /* ViewController.xib */,
 			);
 			path = HudHybrid;
 			sourceTree = "<group>";
@@ -149,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91887272236AD545003DC79E /* LaunchScreen.storyboard in Resources */,
+				91BFA14A2387CFEB00A9623E /* ViewController.xib in Resources */,
 				9188726F236AD545003DC79E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91BFA1492387CFEB00A9623E /* ViewController.m in Sources */,
 				91887264236AD544003DC79E /* AppDelegate.m in Sources */,
 				91887275236AD545003DC79E /* main.m in Sources */,
 			);

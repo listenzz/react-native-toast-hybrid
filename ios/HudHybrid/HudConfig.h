@@ -9,7 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol HostViewProvider;
+@protocol HostViewProvider <NSObject>
+
+- (UIView *)hostView;
+
+@end
 
 @interface HudConfig : NSObject
 

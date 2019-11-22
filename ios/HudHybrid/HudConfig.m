@@ -7,6 +7,25 @@
 
 #import "HudConfig.h"
 
+
+@interface DefaultHostViewProvider : NSObject <HostViewProvider>
+
+@end
+
+@implementation DefaultHostViewProvider
+
+- (UIView *)hostView {
+    UIApplication *application = [[UIApplication class] performSelector:@selector(sharedApplication)];
+    UIViewController *controller = application.keyWindow.rootViewController;
+    while (controller.presentedViewController && !controller.presentedViewController.isBeingDismissed) {
+        controller = controller.presentedViewController;
+    }
+    return controller.view;
+}
+
+@end
+
+
 @implementation HudConfig
 
 + (instancetype)sharedConfig {
@@ -55,6 +74,7 @@
         _contentColor = [HudConfig defaultContentColor];
         _cornerRadius = [HudConfig defaultCornerRadius];
         _loadingText = [HudConfig defaultLoadingText];
+        _hostViewProvider = [[DefaultHostViewProvider alloc] init];
     }
     return self;
 }

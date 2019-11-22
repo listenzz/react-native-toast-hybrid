@@ -36,7 +36,7 @@ RCT_EXPORT_METHOD(create:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRej
     if (!_huds) {
         _huds = [[NSMutableDictionary alloc] init];
     }
-    UIView *hostView = [self currentHostView];
+    UIView *hostView = [self hostView];
     if (hostView) {
         Hud *hud = [self createHud];
         NSNumber *hudKey = @(++self.hudKeyGenerator);
@@ -161,25 +161,14 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
 }
 
 - (Hud *)createHud {
-    return [[Hud alloc] initWithView:[self currentHostView]];
+    return [[Hud alloc] initWithHostView:[self hostView]];
 }
 
-- (UIView *)currentHostView {
-    UIView *hostView;
-    if ([HudConfig sharedConfig].hostViewProvider) {
-        hostView = [[HudConfig sharedConfig].hostViewProvider hostView];
-    } else {
-        UIApplication *application = [[UIApplication class] performSelector:@selector(sharedApplication)];
-        UIViewController *controller = application.keyWindow.rootViewController;
-        while (controller.presentedViewController && !controller.presentedViewController.isBeingDismissed) {
-            controller = controller.presentedViewController;
-        }
-        hostView = controller.view;
-    }
-    return hostView;
+- (UIView *)hostView {
+    return [[HudConfig sharedConfig].hostViewProvider hostView];
 }
 
-+ (UIColor *) colorWithHexString: (NSString *) hexString {
++ (UIColor *)colorWithHexString: (NSString *) hexString {
     NSString *colorString = [[hexString stringByReplacingOccurrencesOfString:@"#" withString:@""] uppercaseString];
     CGFloat alpha, red, green, blue;
     switch ([colorString length]) {
@@ -206,7 +195,7 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
     return [UIColor colorWithRed: red green: green blue: blue alpha: alpha];
 }
 
-+ (CGFloat) colorComponentFrom: (NSString *) string start: (NSUInteger) start length: (NSUInteger) length {
++ (CGFloat)colorComponentFrom: (NSString *) string start: (NSUInteger) start length: (NSUInteger) length {
     NSString *substring = [string substringWithRange: NSMakeRange(start, length)];
     NSString *fullHex = length == 2 ? substring : [NSString stringWithFormat: @"0%@", substring];
     unsigned hexComponent;
