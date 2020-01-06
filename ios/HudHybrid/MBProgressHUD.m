@@ -328,8 +328,9 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 
     UILabel *label = [UILabel new];
     label.adjustsFontSizeToFitWidth = NO;
-    label.textAlignment = NSTextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentLeft;
     label.textColor = defaultColor;
+    label.numberOfLines = 0;
     label.font = [UIFont systemFontOfSize:MBDefaultLabelFontSize];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
