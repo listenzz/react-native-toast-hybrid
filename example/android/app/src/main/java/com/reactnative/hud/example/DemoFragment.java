@@ -19,10 +19,24 @@ public class DemoFragment extends HybridFragment {
         View root = inflater.inflate(R.layout.fragment_demo, container, false);
 
         root.findViewById(R.id.loading).setOnClickListener(v -> {
-            Hud loading = Hud.showAsLoading(requireActivity(), "正在下载...");
-            root.postDelayed(() -> loading
-                    .text("资料已经下载完成")
-                    .hideDelayDefault(), 2000);
+            Hud toast = Hud.showAsLoading(requireActivity(), "正在下载...");
+            root.postDelayed(() -> {
+                toast
+                        .text("资料已经下载完成")
+                        .hideDelayDefault();
+
+                root.postDelayed(() -> {
+                    toast.spinner("新的任务...");
+
+                    root.postDelayed(() -> {
+                        toast.done("新任务已完成").hideDelayDefault();
+
+                    }, 1000);
+
+                }, 3000);
+
+
+            }, 1000);
         });
 
         root.findViewById(R.id.text).setOnClickListener(v -> {

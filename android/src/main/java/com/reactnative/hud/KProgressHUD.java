@@ -51,7 +51,7 @@ public class KProgressHUD {
     private int mTintColor;
     private float mCornerRadius;
 
-    private OnHudDismissListener mOnHudDismissListener;
+    private OnDismissListener mOnDismissListener;
 
     public KProgressHUD(Context context) {
         mContext = context;
@@ -68,8 +68,8 @@ public class KProgressHUD {
         return new KProgressHUD(activity);
     }
 
-    public void setOnHudDismissListener(OnHudDismissListener listener) {
-        mOnHudDismissListener = listener;
+    public void setOnHudDismissListener(OnDismissListener listener) {
+        mOnDismissListener = listener;
     }
 
     public KProgressHUD setBackgroundColor(int color) {
@@ -105,11 +105,15 @@ public class KProgressHUD {
                 view = new BarView(mContext);
                 break;
         }
-        setCustomView(view);
+        setCustomView(view, true);
         return this;
     }
 
-    public KProgressHUD setCustomView(View view) {
+    public KProgressHUD setCustomView(View view, boolean fromStyle) {
+        if (!fromStyle) {
+            cancelGraceTimer();
+        }
+        cancelMinShowTimer();
         mView = view;
         if (isShowing()) {
             mHudView.setView(view);
@@ -163,10 +167,6 @@ public class KProgressHUD {
 
     public KProgressHUD show(final Window window) {
         if (!isShowing()) {
-            if (mMinShowTimer != null) {
-                mMinShowTimer.removeCallbacksAndMessages(null);
-                mMinShowTimer = null;
-            }
             mFinished = false;
             if (mGraceTimeMs == 0) {
                 showInternal(window);
@@ -191,28 +191,46 @@ public class KProgressHUD {
         mHudView.show(window);
     }
 
-    public void dismiss() {
-        if (mGraceTimer != null) {
-            mGraceTimer.removeCallbacksAndMessages(null);
-            mGraceTimer = null;
-        }
+    public void hide() {
+        cancelGraceTimer();
         mFinished = true;
         if (mMinShowTimeMs > 0.0 && mShowStarted != null) {
             Date now = new Date();
             int interval = (int) (now.getTime() - mShowStarted.getTime());
             if (interval < mMinShowTimeMs) {
                 mMinShowTimer = new Handler(Looper.getMainLooper());
-                mMinShowTimer.postDelayed(() -> dismissInternal(), mMinShowTimeMs - interval);
+                mMinShowTimer.postDelayed(this::hideInternal, mMinShowTimeMs - interval);
                 return;
             }
         }
-        dismissInternal();
+        hideInternal();
     }
 
-    private void dismissInternal() {
+    public void hideDelay(int delayMs) {
+        mMinShowTimer = new Handler(Looper.getMainLooper());
+        mMinShowTimer.postDelayed(this::hide, delayMs);
+    }
+
+    private void hideInternal() {
+        cancelGraceTimer();
+        cancelMinShowTimer();
         if (mHudView != null) {
             mHudView.hide();
             mHudView = null;
+        }
+    }
+
+    private void cancelMinShowTimer() {
+        if (mMinShowTimer != null) {
+            mMinShowTimer.removeCallbacksAndMessages(null);
+            mMinShowTimer = null;
+        }
+    }
+
+    private void cancelGraceTimer() {
+        if (mGraceTimer != null) {
+            mGraceTimer.removeCallbacksAndMessages(null);
+            mGraceTimer = null;
         }
     }
 
@@ -266,8 +284,8 @@ public class KProgressHUD {
         @Override
         protected void onDetachedFromWindow() {
             super.onDetachedFromWindow();
-            if (mOnHudDismissListener != null) {
-                mOnHudDismissListener.onDismiss();
+            if (mOnDismissListener != null) {
+                mOnDismissListener.onDismiss();
             }
         }
 

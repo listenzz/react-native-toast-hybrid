@@ -1,5 +1,5 @@
 package com.reactnative.hud;
 
-public interface OnHudDismissListener {
+public interface OnDismissListener {
     void onDismiss();
 }
