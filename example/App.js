@@ -59,7 +59,9 @@ export default class App extends Component {
   }
 
   info() {
-    HUD.info('有条消息要告诉你')
+    HUD.info(
+      '有条很长的消息要告诉你，有条很长的消息要告诉你，有条很长的消息要告诉你，重要的事情说三遍',
+    )
   }
 
   done() {
