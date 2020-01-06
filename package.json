@@ -1,18 +1,17 @@
 {
-  "name": "react-native-hud-hybrid",
-  "description": "progress hud for react native",
-  "version": "1.0.1",
+  "name": "react-native-toast-hybrid",
+  "description": "TODO",
+  "version": "1.0.0",
   "keywords": [
     "react-native",
-    "hud",
-    "progress"
+    "toast"
   ],
   "nativePackage": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/listenzz/react-native-hud-hybrid.git"
+    "url": "https://github.com/listenzz/react-native-toast-hybrid.git"
   },
-  "homepage": "https://github.com/listenzz/react-native-hud-hybrid",
+  "homepage": "https://github.com/listenzz/react-native-toast-hybrid",
   "author": "listen <listenzz@163.com>",
   "license": "MIT",
   "licenseFilename": "LICENSE",
@@ -25,7 +24,7 @@
     "tsc": "tsc",
     "start": "react-native start",
     "run:ios": "react-native run-ios --project-path ./example/ios",
-    "start:android": "adb shell am start -n com.reactnative.hud.example/.MainActivity",
+    "start:android": "adb shell am start -n com.reactnative.toast.example/.MainActivity",
     "run:android": "cd example/android && ./gradlew installDebug && npm run start:android",
     "test": "jest"
   },
@@ -48,7 +47,7 @@
     "metro-react-native-babel-preset": "^0.56.0",
     "react": "16.9.0",
     "react-native": "^0.61.3",
-    "react-native-navigation-hybrid": "^0.17.22",
+    "react-native-navigation-hybrid": "^0.17.17",
     "react-test-renderer": "16.9.0",
     "typescript": "3.5.3"
   },

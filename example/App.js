@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import HUD, { LoadingHUD } from 'react-native-hud-hybrid'
+import Toast from 'react-native-toast-hybrid'
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.push = this.push.bind(this)
     this.loading = this.loading.bind(this)
-    this.loadingHUD = new LoadingHUD()
     this.timeoutHandler = undefined
   }
 
   componentDidMount() {
-    HUD.config({
+    Toast.config({
       // backgroundColor: '#BB000000',
       // tintColor: '#FFFFFF',
       // cornerRadius: 5, // only for android
@@ -32,44 +31,41 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    if (this.loadingHUD) {
-      this.loadingHUD.hideAll()
-    }
     if (this.timeoutHandler) {
       clearTimeout(this.timeoutHandler)
     }
   }
 
   loading() {
-    this.loadingHUD.show()
+    const toast = Toast.loading('加载中...')
     this.timeoutHandler = setTimeout(() => {
-      this.loadingHUD.show('祝你好运')
+      toast.loading('祝你好运')
       this.timeoutHandler = setTimeout(() => {
-        this.loadingHUD.show('')
+        toast.loading('')
         this.timeoutHandler = setTimeout(() => {
           this.timeoutHandler = undefined
-          this.loadingHUD.hideAll()
+          toast.hide()
         }, 2000)
       }, 2000)
     }, 2000)
   }
 
   text() {
-    HUD.text('Hello World!!')
+    Toast.text('Hello World!!')
   }
 
   info() {
-    HUD.info(
+    Toast.info(
       '有条很长的消息要告诉你，有条很长的消息要告诉你，有条很长的消息要告诉你，重要的事情说三遍',
     )
   }
 
   done() {
-    HUD.done('任务已经完成啦！')
+    Toast.done('任务已经完成啦！')
   }
 
   error() {
-    HUD.error('可能什么地方出错了！')
+    Toast.error('可能什么地方出错了！')
   }
 
   push() {

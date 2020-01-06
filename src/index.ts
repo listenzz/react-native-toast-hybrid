@@ -1,39 +1,7 @@
-import { NativeModules, DeviceEventEmitter, Platform } from 'react-native'
-const { HudHybrid } = NativeModules
+import { NativeModules } from 'react-native'
+const { ToastHybrid } = NativeModules
 
-export class LoadingHUD {
-  private hud: HUD | null = null
-  private loadingCount = 0
-
-  show(text?: string) {
-    if (this.loadingCount <= 0) {
-      this.hud = new HUD()
-      this.hud.onDismiss = () => {
-        this.hideAll()
-      }
-      this.loadingCount = 0
-    }
-    this.hud!.spinner(text)
-    this.loadingCount++
-  }
-
-  hide() {
-    this.loadingCount--
-    if (this.loadingCount <= 0) {
-      this.hideAll()
-    }
-  }
-
-  hideAll() {
-    if (this.hud) {
-      this.hud.hide()
-      this.hud = null
-      this.loadingCount = 0
-    }
-  }
-}
-
-export interface HUDConfig {
+export interface ToastConfig {
   backgroundColor?: string
   tintColor?: string
   cornerRadius?: number
@@ -43,102 +11,87 @@ export interface HUDConfig {
   loadingText?: string
 }
 
-export default class HUD {
-  static config(options: HUDConfig = {}) {
-    HudHybrid.config(options)
+export default class Toast {
+  static config(options: ToastConfig = {}) {
+    ToastHybrid.config(options)
   }
 
   static text(text: string) {
-    new HUD().text(text).hideDelayDefault()
+    new Toast().text(text).hideDelayDefault()
   }
 
   static info(text: string) {
-    new HUD().info(text).hideDelayDefault()
+    new Toast().info(text).hideDelayDefault()
   }
 
   static done(text: string) {
-    new HUD().done(text).hideDelayDefault()
+    new Toast().done(text).hideDelayDefault()
   }
 
   static error(text: string) {
-    new HUD().error(text).hideDelayDefault()
+    new Toast().error(text).hideDelayDefault()
   }
 
-  static spinner(text?: string) {
-    return new HUD().spinner(text)
+  static loading(text?: string) {
+    return new Toast().loading(text)
   }
 
   private promise: Promise<string>
-  onDismiss?: () => void
 
   constructor() {
-    this.promise = HudHybrid.create()
-    if (Platform.OS === 'android') {
-      DeviceEventEmitter.addListener('ON_HUD_DISMISS', this.handleDismission)
-    }
+    this.promise = ToastHybrid.create()
   }
 
-  spinner(text?: string) {
-    this.promise.then(hudKey => {
-      HudHybrid.spinner(hudKey, text)
+  loading(text?: string) {
+    this.promise.then(key => {
+      ToastHybrid.loading(key, text)
     })
     return this
   }
 
   text(text: string) {
-    this.promise.then(hudKey => {
-      HudHybrid.text(hudKey, text)
+    this.promise.then(key => {
+      ToastHybrid.text(key, text)
     })
     return this
   }
 
   info(text: string) {
-    this.promise.then(hudKey => {
-      HudHybrid.info(hudKey, text)
+    this.promise.then(key => {
+      ToastHybrid.info(key, text)
     })
     return this
   }
 
   done(text: string) {
-    this.promise.then(hudKey => {
-      HudHybrid.done(hudKey, text)
+    this.promise.then(key => {
+      ToastHybrid.done(key, text)
     })
     return this
   }
 
   error(text: string) {
-    this.promise.then(hudKey => {
-      HudHybrid.error(hudKey, text)
+    this.promise.then(key => {
+      ToastHybrid.error(key, text)
     })
     return this
   }
 
   hide() {
-    this.promise.then(hudKey => {
-      HudHybrid.hide(hudKey)
+    this.promise.then(key => {
+      ToastHybrid.hide(key)
     })
   }
 
   hideDelay(delayMs = 0) {
-    this.promise.then(hudKey => {
-      HudHybrid.hideDelay(hudKey, delayMs)
+    this.promise.then(key => {
+      ToastHybrid.hideDelay(key, delayMs)
     })
   }
 
   hideDelayDefault() {
-    this.promise.then(hudKey => {
-      HudHybrid.hideDelayDefault(hudKey)
-    })
-  }
-
-  private handleDismission = (event: { hudKey: string }) => {
-    this.promise.then(hudKey => {
-      if (event.hudKey === hudKey) {
-        DeviceEventEmitter.removeListener('ON_HUD_DISMISS', this.handleDismission)
-        if (this.onDismiss) {
-          this.onDismiss()
-        }
-      }
+    this.promise.then(key => {
+      ToastHybrid.hideDelayDefault(key)
     })
   }
 }

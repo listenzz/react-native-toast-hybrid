@@ -26,7 +26,7 @@ android {
 	}
 
 	defaultConfig {
-		applicationId "com.reactnative.hud.example"
+		applicationId "com.reactnative.toast.example"
 		minSdkVersion rootProject.ext.minSdkVersion
 		targetSdkVersion rootProject.ext.targetSdkVersion
 		versionCode 1
@@ -71,7 +71,7 @@ dependencies {
 	} else {
 		implementation jscFlavor
 	}
-	implementation project(':react-native-hud-hybrid')
+	implementation project(':react-native-toast-hybrid')
 }
 
 task copyDownloadableDepsToLibs(type: Copy) {

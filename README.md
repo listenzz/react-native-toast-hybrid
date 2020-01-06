@@ -1,13 +1,13 @@
-# react-native-hud-hybrid
+# react-native-toast-hybrid
 
-A progerss hud that can be used for react-native, while available for native android, ios
+A toast that can be used for react-native, while available for native android, ios
 
 ![ios-hud](./screenshot/ios-hud.gif)
 
 ## Installation
 
 ```
-yarn add react-native-hud-hybrid
+yarn add react-native-toast-hybrid
 ```
 
 ## Usage
@@ -17,22 +17,22 @@ yarn add react-native-hud-hybrid
 ```js
 // 在 js 中使用
 
-import HUD, { LoadingHUD } from 'react-native-hud-hybrid'
+import Toast from 'react-native-toast-hybrid'
 
 text() {
-    HUD.text('Hello World!!')
+    Toast.text('Hello World!!')
 }
 
 info() {
-    HUD.info('有条消息要告诉你')
+    Toast.info('有条消息要告诉你')
 }
 
 done() {
-    HUD.done('任务已经完成啦！')
+    Toast.done('任务已经完成啦！')
 }
 
 error() {
-    HUD.error('可能什么地方出错了！')
+    Toast.error('可能什么地方出错了！')
 }
 ```
 
@@ -43,19 +43,19 @@ error() {
 // 在 iOS 中使用
 
 - (IBAction)showText:(UIButton *)sender {
-    [Hud text:@"Hello Native!"];
+    [Toast text:@"Hello Native!"];
 }
 
 - (IBAction)showInfo:(UIButton *)sender {
-    [Hud info:@"一条好消息，一条坏消息，你要先听哪一条？"];
+    [Toast info:@"一条好消息，一条坏消息，你要先听哪一条？"];
 }
 
 - (IBAction)showDone:(UIButton *)sender {
-    [Hud done:@"工作完成，提前下班"];
+    [Toast done:@"工作完成，提前下班"];
 }
 
 - (IBAction)showError:(UIButton *)sender {
-    [Hud error:@"哈，你又写 BUG 了！"];
+    [Toast error:@"哈，你又写 BUG 了！"];
 }
 
 ```
@@ -64,19 +64,19 @@ error() {
 // 在 Android 中使用
 
 root.findViewById(R.id.text).setOnClickListener(v -> {
-    Hud.text(requireActivity(), "Hello Native!");
+    Toast.text(requireActivity(), "Hello Native!");
 });
 
 root.findViewById(R.id.info).setOnClickListener(v -> {
-    Hud.info(requireActivity(), "一条好消息，一条坏消息，你要先听哪一条？");
+    Toast.info(requireActivity(), "一条好消息，一条坏消息，你要先听哪一条？");
 });
 
 root.findViewById(R.id.done).setOnClickListener(v -> {
-    Hud.done(requireActivity(), "工作完成，提前下班");
+    Toast.done(requireActivity(), "工作完成，提前下班");
 });
 
 root.findViewById(R.id.error).setOnClickListener(v -> {
-    Hud.error(requireActivity(), "哈，你又写 BUG 了！");
+    Toast.error(requireActivity(), "哈，你又写 BUG 了！");
 });
 
 ```
