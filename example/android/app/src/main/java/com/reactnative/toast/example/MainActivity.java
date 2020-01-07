@@ -27,10 +27,10 @@ public class MainActivity extends ReactAppCompatActivity {
         HybridFragment f2 = getReactBridgeManager().createFragment("Tab2", null, options2);
 
         ReactNavigationFragment nav1 = new ReactNavigationFragment();
-        nav1.setTabBarItem(new TabBarItem(null, "React"));
+        nav1.setTabBarItem(new TabBarItem("React"));
         nav1.setRootFragment(f1);
         ReactNavigationFragment nav2 = new ReactNavigationFragment();
-        nav2.setTabBarItem(new TabBarItem(null, "Native"));
+        nav2.setTabBarItem(new TabBarItem("Native"));
         nav2.setRootFragment(f2);
         TabBarFragment tabs = new ReactTabBarFragment();
         tabs.setChildFragments(nav1, nav2);
