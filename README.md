@@ -12,10 +12,10 @@ yarn add react-native-toast-hybrid
 
 ## Usage
 
-详情请参考 example 这个项目
+[example](https://github.com/listenzz/react-native-toast-hybrid/blob/master/example/App.js)
 
 ```js
-// 在 js 中使用
+// Use in react code.
 
 import Toast from 'react-native-toast-hybrid'
 
@@ -24,61 +24,59 @@ text() {
 }
 
 info() {
-    Toast.info('有条消息要告诉你')
+    Toast.info('A long long message to tell you.')
 }
 
 done() {
-    Toast.done('任务已经完成啦！')
+    Toast.done('Work is done!')
 }
 
 error() {
-    Toast.error('可能什么地方出错了！')
+    Toast.error('Maybe somthing is wrong!')
 }
 ```
 
-正如 hybrid 所暗示的那样，也支持在原生中使用
+As the word **Hybrid** implies, use in native is also supported.
 
 ```objc
 
-// 在 iOS 中使用
+// Use in iOS native code
 
 - (IBAction)showText:(UIButton *)sender {
     [Toast text:@"Hello Native!"];
 }
 
 - (IBAction)showInfo:(UIButton *)sender {
-    [Toast info:@"一条好消息，一条坏消息，你要先听哪一条？"];
+    [Toast info:@"A long long message to tell you."];
 }
 
 - (IBAction)showDone:(UIButton *)sender {
-    [Toast done:@"工作完成，提前下班"];
+    [Toast done:@"Work is done!"];
 }
 
 - (IBAction)showError:(UIButton *)sender {
-    [Toast error:@"哈，你又写 BUG 了！"];
+    [Toast error:@"Maybe somthing is wrong!"];
 }
 
 ```
 
 ```java
-// 在 Android 中使用
+// Use in Android native code
 
 root.findViewById(R.id.text).setOnClickListener(v -> {
     Toast.text(requireActivity(), "Hello Native!");
 });
 
 root.findViewById(R.id.info).setOnClickListener(v -> {
-    Toast.info(requireActivity(), "一条好消息，一条坏消息，你要先听哪一条？");
+    Toast.info(requireActivity(), "A long long message to tell you.");
 });
 
 root.findViewById(R.id.done).setOnClickListener(v -> {
-    Toast.done(requireActivity(), "工作完成，提前下班");
+    Toast.done(requireActivity(), "Work is done!");
 });
 
 root.findViewById(R.id.error).setOnClickListener(v -> {
-    Toast.error(requireActivity(), "哈，你又写 BUG 了！");
+    Toast.error(requireActivity(), "Maybe somthing is wrong!");
 });
 
 ```
-
-强调一次，详情请参考 example 这个项目

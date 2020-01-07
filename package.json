@@ -36,6 +36,7 @@
     "@babel/core": "^7.4.3",
     "@babel/runtime": "^7.4.3",
     "@react-native-community/eslint-config": "0.0.5",
+    "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^24.0.11",
     "@types/react": "^16.8.14",
     "@types/react-native": "^0.60.21",
@@ -61,5 +62,8 @@
       "json",
       "node"
     ]
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.3.1"
   }
 }

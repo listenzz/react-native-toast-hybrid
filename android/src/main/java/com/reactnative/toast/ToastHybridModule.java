@@ -56,6 +56,18 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
         });
     }
 
+    @ReactMethod
+    public void ensure(final int key, final Promise promise) {
+        UiThreadUtil.runOnUiThread(() -> {
+            Toast toast = toastSparseArray.get(key);
+            if (toast != null) {
+                promise.resolve(key);
+            } else {
+                create(promise);
+            }
+        });
+    }
+
     private int setupToast(Toast toast) {
         final int key = toastKeyGenerator++;
         toast.setOnDismissListener(() -> toastSparseArray.remove(key));
@@ -79,26 +91,6 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
             Toast toast = toastSparseArray.get(key);
             if (toast != null) {
                 toast.hide();
-            }
-        });
-    }
-
-    @ReactMethod
-    public void hideDelay(final int key, final int delayMs) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.hideDelay(delayMs);
-            }
-        });
-    }
-
-    @ReactMethod
-    public void hideDelayDefault(final int key) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.hideDelayDefault();
             }
         });
     }

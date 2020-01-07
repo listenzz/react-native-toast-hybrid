@@ -5,9 +5,7 @@ import Toast from 'react-native-toast-hybrid'
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.push = this.push.bind(this)
-    this.loading = this.loading.bind(this)
-    this.timeoutHandler = undefined
+    this.timer = undefined
   }
 
   componentDidMount() {
@@ -16,10 +14,10 @@ export default class App extends Component {
       // tintColor: '#FFFFFF',
       // cornerRadius: 5, // only for android
       // duration: 2000,
-      // graceTime: 3000,
+      // graceTime: 300,
       // minShowTime: 800,
       // dimAmount: 0.0, // only for andriod
-      loadingText: '加载中...',
+      loadingText: 'Loading...',
     })
     this.props.navigator.isStackRoot().then(isRoot => {
       if (!isRoot) {
@@ -31,44 +29,45 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    if (this.timeoutHandler) {
-      clearTimeout(this.timeoutHandler)
+    if (this.timer) {
+      clearTimeout(this.timer)
     }
   }
 
-  loading() {
-    const toast = Toast.loading('加载中...')
-    this.timeoutHandler = setTimeout(() => {
-      toast.loading('祝你好运')
-      this.timeoutHandler = setTimeout(() => {
-        toast.loading('')
-        this.timeoutHandler = setTimeout(() => {
-          this.timeoutHandler = undefined
-          toast.hide()
+  loading = () => {
+    this.props.toast.loading()
+    this.timer = setTimeout(() => {
+      this.props.toast.done('Work is done!')
+      this.timer = setTimeout(() => {
+        this.props.toast.loading('New task in progress...')
+        this.timer = setTimeout(() => {
+          this.timer = undefined
+          this.props.toast.hide()
         }, 2000)
-      }, 2000)
+      }, 1500)
     }, 2000)
   }
 
-  text() {
+  text = () => {
     Toast.text('Hello World!!')
+    //this.props.toast.text('Hello World!!')
   }
 
-  info() {
-    Toast.info(
-      '有条很长的消息要告诉你，有条很长的消息要告诉你，有条很长的消息要告诉你，重要的事情说三遍',
+  info = () => {
+    this.props.toast.info(
+      'A long long message to tell you, A long long message to tell you, A long long message to tell you',
     )
   }
 
-  done() {
-    Toast.done('任务已经完成啦！')
+  done = () => {
+    this.props.toast.done('Work is Done！')
   }
 
-  error() {
-    Toast.error('可能什么地方出错了！')
+  error = () => {
+    this.props.toast.error('Maybe somthing is wrong！')
   }
 
-  push() {
+  push = () => {
     this.props.navigator.push('Tab1')
   }
 

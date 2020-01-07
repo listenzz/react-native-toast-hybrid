@@ -47,6 +47,15 @@ RCT_EXPORT_METHOD(create:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRej
     }
 }
 
+RCT_EXPORT_METHOD(ensure:(NSNumber* __nonnull)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    Toast *toast = [self.toasts objectForKey:key];
+    if (toast) {
+        resolve(key);
+    } else {
+        [self create:resolve rejecter:reject];
+    }
+}
+
 RCT_EXPORT_METHOD(loading:(NSNumber * __nonnull)key text:(NSString *)text) {
     Toast *toast = [self.toasts objectForKey:key];
     if (toast) {
@@ -59,22 +68,6 @@ RCT_EXPORT_METHOD(hide:(NSNumber* __nonnull)key) {
     if (toast) {
         [self.toasts removeObjectForKey:key];
         [toast hide];
-    }
-}
-
-RCT_EXPORT_METHOD(hideDelay:(NSNumber* __nonnull)key delay:(NSNumber * __nonnull)ms) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [self.toasts removeObjectForKey:key];
-        [toast hideDelay:[ms floatValue] / 1000.f];
-    }
-}
-
-RCT_EXPORT_METHOD(hideDelayDefault:(NSNumber* __nonnull)key) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [self.toasts removeObjectForKey:key];
-        [toast hideDefaultDelay];
     }
 }
 

@@ -22,9 +22,9 @@
 
 - (IBAction)showLoading:(UIButton *)sender {
     Toast *toast = [[Toast alloc] init];
-    [toast loading:@"正在加载..."];
+    [toast loading:@"Downloading..."];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [toast text:@"资料已经下载完成"];
+        [toast text:@"Download is done."];
         [toast hideDefaultDelay];
     });
 }
@@ -34,15 +34,15 @@
 }
 
 - (IBAction)showInfo:(UIButton *)sender {
-    [Toast info:@"一条好消息，一条坏消息，你要先听哪一条？"];
+    [Toast info:@"A long long message to tell you."];
 }
 
 - (IBAction)showDone:(UIButton *)sender {
-    [Toast done:@"工作完成，提前下班"];
+    [Toast done:@"Work is done!"];
 }
 
 - (IBAction)showError:(UIButton *)sender {
-    [Toast error:@"哈，你又写 BUG 了！"];
+    [Toast error:@"Maybe somthing is wrong!"];
 }
 
 @end

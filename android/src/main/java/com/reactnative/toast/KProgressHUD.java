@@ -298,8 +298,8 @@ public class KProgressHUD {
             customViewContainer = findViewById(R.id.container);
             labelText = findViewById(R.id.label);
             detailsText = findViewById(R.id.details_label);
-            setFocusableInTouchMode(true);
-            requestFocus();
+            //setFocusableInTouchMode(true);
+            //requestFocus();
         }
 
         @Override
