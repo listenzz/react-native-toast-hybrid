@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import { NativeModules } from 'react-native'
+import { useRef, useEffect } from 'react'
+import { NativeModules, BackHandler } from 'react-native'
 const { ToastHybrid } = NativeModules
-import hoistNonReactStatics from 'hoist-non-react-statics'
 
 export interface ToastConfig {
   backgroundColor?: string
@@ -115,39 +114,37 @@ export default class Toast {
     }
   }
 
-  shutdown() {
+  private shutdown() {
     this.closed = true
     this.hide()
   }
 }
 
-/**
- * HOC for Toast
- * @param WrappedComponent
- */
-export function withToast(WrappedComponent: React.ComponentType<any>): React.ComponentType<any> {
-  class ToastProvider extends Component<any> {
-    toast = new Toast()
+export function useToast() {
+  const toastRef = useRef(new Toast())
+  useEffect(() => {
+    const toast = toastRef.current
+    return () => {
+      ;(toast as any).shutdown()
+    }
+  }, [])
 
-    constructor(props: any) {
-      super(props)
+  useEffect(() => {
+    function handleHardwareBack() {
+      const toast = toastRef.current
+      if ((toast as any).underlying !== null) {
+        toast.hide()
+        return true
+      }
+      return false
     }
 
-    componentWillUnmount() {
-      this.toast.shutdown()
-    }
+    BackHandler.addEventListener('hardwareBackPress', handleHardwareBack)
 
-    render() {
-      const { forwardedRef, ...props } = this.props
-      return <WrappedComponent toast={this.toast} {...props} ref={forwardedRef} />
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleHardwareBack)
     }
-  }
+  }, [])
 
-  const ForwardedComponent = React.forwardRef((props, ref) => {
-    return <ToastProvider {...props} forwardedRef={ref} />
-  })
-  const name = WrappedComponent.displayName || WrappedComponent.name
-  ForwardedComponent.displayName = `withToast(${name})`
-  hoistNonReactStatics(ForwardedComponent, WrappedComponent)
-  return ForwardedComponent
+  return toastRef.current
 }

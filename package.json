@@ -1,7 +1,7 @@
 {
   "name": "react-native-toast-hybrid",
   "description": "A toast that can be used for react-native, while available for native android, ios.",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "keywords": [
     "react-native",
     "toast"
@@ -35,23 +35,21 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/runtime": "^7.4.3",
-    "@react-native-community/eslint-config": "0.0.5",
-    "@types/hoist-non-react-statics": "^3.3.1",
+    "@gfez/eslint-config-react-native": "^1.0.0",
     "@types/jest": "^24.0.11",
     "@types/react": "^16.8.14",
     "@types/react-native": "^0.60.21",
     "@types/react-test-renderer": "16.9.0",
     "babel-jest": "^24.9.0",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^6.5.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
     "react": "16.9.0",
     "react-native": "^0.61.3",
-    "react-native-navigation-hybrid": "^0.18.0",
+    "react-native-navigation-hybrid": "^0.21.4",
     "react-test-renderer": "16.9.0",
-    "typescript": "3.5.3"
+    "typescript": "^3.8.3"
   },
+  "dependencies": {},
   "jest": {
     "preset": "react-native",
     "moduleFileExtensions": [
@@ -62,8 +60,5 @@
       "json",
       "node"
     ]
-  },
-  "dependencies": {
-    "hoist-non-react-statics": "^3.3.1"
   }
 }

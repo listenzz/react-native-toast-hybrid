@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -22,6 +24,7 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
         super(reactContext);
     }
 
+    @NonNull
     @Override
     public String getName() {
         return "ToastHybrid";

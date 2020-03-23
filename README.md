@@ -17,22 +17,24 @@ yarn add react-native-toast-hybrid
 ```js
 // Use in react code.
 
-import Toast from 'react-native-toast-hybrid'
+import { useToast } from 'react-native-toast-hybrid'
+
+const toast = useToast()
 
 text() {
-    Toast.text('Hello World!!')
+    toast.text('Hello World!!')
 }
 
 info() {
-    Toast.info('A long long message to tell you.')
+    toast.info('A long long message to tell you.')
 }
 
 done() {
-    Toast.done('Work is done!')
+    toast.done('Work is done!')
 }
 
 error() {
-    Toast.error('Maybe somthing is wrong!')
+    toast.error('Maybe somthing is wrong!')
 }
 ```
 

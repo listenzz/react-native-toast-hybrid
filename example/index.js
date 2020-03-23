@@ -1,13 +1,12 @@
 import { ReactRegistry, Garden, BarStyleDarkContent } from 'react-native-navigation-hybrid'
 import App from './App'
-import { withToast } from 'react-native-toast-hybrid'
 
 Garden.setStyle({
   screenBackgroundColor: '#F8F8F8',
   topBarStyle: BarStyleDarkContent,
 })
 
-ReactRegistry.startRegisterComponent(withToast)
+ReactRegistry.startRegisterComponent()
 ReactRegistry.registerComponent('Tab1', () => App)
 ReactRegistry.endRegisterComponent()
 
