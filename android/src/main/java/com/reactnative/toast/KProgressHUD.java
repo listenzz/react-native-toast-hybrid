@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -269,7 +268,7 @@ public class KProgressHUD {
 
         void show(Window window) {
             ViewGroup parent = (ViewGroup) getParent();
-            if (parent == null) {
+            if (parent == null && window.isActive()) {
                 ViewGroup decorView = (ViewGroup) window.getDecorView();
                 decorView.addView(this, MATCH_PARENT, MATCH_PARENT);
             }
@@ -298,17 +297,6 @@ public class KProgressHUD {
             customViewContainer = findViewById(R.id.container);
             labelText = findViewById(R.id.label);
             detailsText = findViewById(R.id.details_label);
-            //setFocusableInTouchMode(true);
-            //requestFocus();
-        }
-
-        @Override
-        public boolean onKeyUp(int keyCode, KeyEvent event) {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                hide();
-                return true;
-            }
-            return super.onKeyUp(keyCode, event);
         }
 
         @Override
@@ -318,7 +306,7 @@ public class KProgressHUD {
 
         public void setView(View view) {
             customViewContainer.removeAllViews();
-            if (view != null) {
+            if (view != null && view.getParent() == null) {
                 addViewToFrame(view);
             }
         }
