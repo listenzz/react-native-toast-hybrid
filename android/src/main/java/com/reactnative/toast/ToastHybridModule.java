@@ -79,11 +79,11 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void loading(final int key, final String text, double graceTime) {
+    public void loading(final int key, final String text) {
         UiThreadUtil.runOnUiThread(() -> {
             Toast toast = toastSparseArray.get(key);
             if (toast != null) {
-                toast.loading(text == null ? ToastConfig.loadingText : text, (int) graceTime);
+                toast.loading(text == null ? ToastConfig.loadingText : text);
             }
         });
     }

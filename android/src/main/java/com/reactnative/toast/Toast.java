@@ -81,14 +81,10 @@ public class Toast {
     }
 
     public Toast loading(@Nullable String text) {
-       return loading(text, -1);
-    }
-
-    public Toast loading(@Nullable String text, int graceTime) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context)
                     .setTintColor(ToastConfig.tintColor)
-                    .setGraceTime(graceTime < 0 ? ToastConfig.graceTime : graceTime)
+                    .setGraceTime(ToastConfig.graceTime)
                     .setMinShowTime(ToastConfig.minShowTime);
             configHUD(kProgressHUD);
         }

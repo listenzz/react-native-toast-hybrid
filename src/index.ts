@@ -33,17 +33,17 @@ export default class Toast {
     new Toast().error(text)
   }
 
-  static loading(text?: string, graceTime?: number) {
-    return new Toast().loading(text, graceTime)
+  static loading(text?: string) {
+    return new Toast().loading(text)
   }
 
   private underlying: Promise<number> | null = null
 
-  private async ensure(): Promise<number> {
+  private ensure(): Promise<number> {
     if (this.underlying !== null) {
-      const key = await this.underlying
-      const underlying = ToastHybrid.ensure(key)
-      return underlying
+      // const key = await this.underlying
+      // const underlying = ToastHybrid.ensure(key)
+      return this.underlying
     }
     const underlying = ToastHybrid.create()
     return underlying
@@ -52,13 +52,13 @@ export default class Toast {
   private closed = false
   private timer: number | null = null
 
-  loading(text?: string, graceTime = -1) {
+  loading(text?: string) {
     if (!this.closed) {
       this.clearTimeout()
       this.underlying = this.ensure()
       this.underlying.then(key => {
         this.clearTimeout()
-        ToastHybrid.loading(key, text, graceTime)
+        ToastHybrid.loading(key, text)
       })
     }
     return this

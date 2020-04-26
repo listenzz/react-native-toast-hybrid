@@ -30,8 +30,6 @@ typedef void (^ToastCompletionBlock)(void);
 
 - (void)loading:(nullable NSString *)text;
 
-- (void)loading:(NSString *)text graceTime:(NSInteger)graceTime;
-
 - (void)hide;
 
 - (void)hideDelay:(NSTimeInterval)interval;
