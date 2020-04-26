@@ -56,10 +56,10 @@ RCT_EXPORT_METHOD(ensure:(NSNumber* __nonnull)key resolver:(RCTPromiseResolveBlo
     }
 }
 
-RCT_EXPORT_METHOD(loading:(NSNumber * __nonnull)key text:(NSString *)text) {
+RCT_EXPORT_METHOD(loading:(NSNumber * __nonnull)key text:(NSString *)text graceTime:(NSInteger)graceTime) {
     Toast *toast = [self.toasts objectForKey:key];
     if (toast) {
-        [toast loading:text ?: [ToastConfig sharedConfig].loadingText];
+        [toast loading:text ?: [ToastConfig sharedConfig].loadingText graceTime:graceTime];
     }
 }
 

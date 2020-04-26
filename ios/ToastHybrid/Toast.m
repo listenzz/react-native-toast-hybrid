@@ -60,6 +60,10 @@
 }
 
 - (void)loading:(NSString *)text {
+    [self loading:text graceTime:-1];
+}
+
+- (void)loading:(NSString *)text graceTime:(NSInteger)graceTime {
     if (!self.hostView) {
         return;
     }
@@ -68,7 +72,7 @@
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.hostView];
         hud.removeFromSuperViewOnHide = YES;
         [self.hostView addSubview:hud];
-        hud.graceTime = [ToastConfig sharedConfig].graceTime;
+        hud.graceTime = graceTime < 0 ? [ToastConfig sharedConfig].graceTime : graceTime;
         hud.minShowTime = [ToastConfig sharedConfig].minshowTime;
         [self configHUD:hud];
         self.mbHUD = hud;
