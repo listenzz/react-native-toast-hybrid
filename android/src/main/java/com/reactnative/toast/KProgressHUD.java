@@ -171,6 +171,7 @@ public class KProgressHUD {
             if (mGraceTimeMs == 0) {
                 showInternal(window);
             } else {
+                cancelGraceTimer();
                 mGraceTimer = new Handler(Looper.getMainLooper());
                 mGraceTimer.postDelayed(() -> {
                     if (!mFinished) {
@@ -198,6 +199,7 @@ public class KProgressHUD {
             Date now = new Date();
             int interval = (int) (now.getTime() - mShowStarted.getTime());
             if (interval < mMinShowTimeMs) {
+                cancelMinShowTimer();
                 mMinShowTimer = new Handler(Looper.getMainLooper());
                 mMinShowTimer.postDelayed(this::hideInternal, mMinShowTimeMs - interval);
                 return;
@@ -207,6 +209,7 @@ public class KProgressHUD {
     }
 
     public void hideDelay(int delayMs) {
+        cancelMinShowTimer();
         mMinShowTimer = new Handler(Looper.getMainLooper());
         mMinShowTimer.postDelayed(this::hide, delayMs);
     }

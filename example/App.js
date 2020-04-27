@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useCallback } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Toast, { useToast } from 'react-native-toast-hybrid'
 
 export default function App({ navigator }) {
   const timerRef = useRef()
+
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     Toast.config({
@@ -12,7 +14,7 @@ export default function App({ navigator }) {
       // cornerRadius: 5, // only for android
       // duration: 2000,
       // graceTime: 300,
-      // minShowTime: 800,
+      // minShowTime: 500,
       // dimAmount: 0.0, // only for andriod
       loadingText: 'Loading...',
     })
@@ -22,7 +24,7 @@ export default function App({ navigator }) {
         clearTimeout(timerRef.current)
       }
     }
-  })
+  }, [])
 
   useEffect(() => {
     navigator.isStackRoot().then(isRoot => {
@@ -36,8 +38,9 @@ export default function App({ navigator }) {
 
   const toast = useToast()
 
-  const loading = useCallback(() => {
+  const loading = () => {
     toast.loading()
+    setCount(count => count + 1)
     timerRef.current = setTimeout(() => {
       toast.done('Work is done!')
       timerRef.current = setTimeout(() => {
@@ -48,7 +51,9 @@ export default function App({ navigator }) {
         }, 2000)
       }, 1500)
     }, 2000)
-  }, [toast])
+  }
+
+  console.log(`count ${count}`)
 
   const text = () => {
     Toast.text('Hello World!!')

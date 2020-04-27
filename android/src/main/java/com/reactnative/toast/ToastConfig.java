@@ -8,7 +8,7 @@ public class ToastConfig {
 
     static int DEFAULT_DURATION = 2000;
     static int DEFAULT_GRACE_TIME = 300;
-    static int DEFAULT_MIN_SHOW_TIME = 800;
+    static int DEFAULT_MIN_SHOW_TIME = 500;
     static int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#b1000000");
     static float DEFAULT_CORNER_RADIUS = 5;
     static @ColorInt
