@@ -84,7 +84,7 @@ export default class Toast {
         if (!this.closed) {
           fn(key, text)
           this.clearTimeout()
-          this.timer = setTimeout(() => this.hide(), duration)
+          this.timer = <any>setTimeout(() => this.hide(), duration)
         } else {
           this.hide()
         }
