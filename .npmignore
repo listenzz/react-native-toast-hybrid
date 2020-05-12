@@ -1,5 +1,5 @@
 example/
-*/build/
+**/*/build/
 
 # OSX
 #
@@ -32,6 +32,8 @@ build/
 .gradle
 local.properties
 *.iml
+.project
+.settings/
 
 # Visual Studio Code
 #
