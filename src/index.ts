@@ -57,7 +57,7 @@ export default class Toast {
     if (!this.closed) {
       this.clearTimeout()
       this.underlying = this.ensure()
-      this.underlying.then(key => {
+      this.underlying.then((key) => {
         this.clearTimeout()
         ToastHybrid.loading(key, text)
       })
@@ -80,7 +80,7 @@ export default class Toast {
     if (!this.closed) {
       this.clearTimeout()
       this.underlying = this.ensure()
-      this.underlying.then(key => {
+      this.underlying.then((key) => {
         if (!this.closed) {
           fn(key, text)
           this.clearTimeout()
@@ -108,7 +108,7 @@ export default class Toast {
   hide() {
     this.clearTimeout()
     if (this.underlying !== null) {
-      this.underlying.then(key => {
+      this.underlying.then((key) => {
         ToastHybrid.hide(key)
       })
       this.underlying = null
