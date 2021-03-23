@@ -4,10 +4,11 @@ import android.os.Bundle;
 
 import com.navigation.androidx.TabBarFragment;
 import com.navigation.androidx.TabBarItem;
-import com.navigationhybrid.HybridFragment;
-import com.navigationhybrid.ReactAppCompatActivity;
-import com.navigationhybrid.ReactNavigationFragment;
-import com.navigationhybrid.ReactTabBarFragment;
+import com.reactnative.hybridnavigation.HybridFragment;
+import com.reactnative.hybridnavigation.ReactAppCompatActivity;
+import com.reactnative.hybridnavigation.ReactNavigationFragment;
+import com.reactnative.hybridnavigation.ReactTabBarFragment;
+
 
 public class MainActivity extends ReactAppCompatActivity {
 

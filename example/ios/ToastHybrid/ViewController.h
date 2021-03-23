@@ -6,7 +6,7 @@
 //  Copyright © 2019 李生. All rights reserved.
 //
 
-#import <NavigationHybrid/HBDViewController.h>
+#import <HybridNavigation/HybridNavigation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

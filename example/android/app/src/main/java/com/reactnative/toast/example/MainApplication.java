@@ -9,7 +9,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.navigationhybrid.ReactBridgeManager;
+import com.reactnative.hybridnavigation.ReactBridgeManager;
 import com.reactnative.toast.ToastHybridPackage;
 
 import java.lang.reflect.InvocationTargetException;

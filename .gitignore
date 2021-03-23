@@ -21,6 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+IDEWorkspaceChecks.plist
 
 # Android/IntelliJ
 #
@@ -31,10 +32,6 @@ local.properties
 *.iml
 .project
 .settings/
-
-# Visual Studio Code
-#
-.vscode/
 
 # node.js
 #
@@ -63,7 +60,8 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-Pods/
+example/ios/Pods/
+Podfile.lock
 
 # lib
 lib/

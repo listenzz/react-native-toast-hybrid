@@ -1,4 +1,4 @@
-import { ReactRegistry, Garden, BarStyleDarkContent } from 'react-native-navigation-hybrid'
+import { ReactRegistry, Garden, BarStyleDarkContent } from 'hybrid-navigation'
 import App from './App'
 
 Garden.setStyle({

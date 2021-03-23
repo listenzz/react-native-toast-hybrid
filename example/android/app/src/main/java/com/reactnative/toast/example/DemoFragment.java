@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.navigationhybrid.HybridFragment;
+import com.reactnative.hybridnavigation.HybridFragment;
 import com.reactnative.toast.Toast;
 
 public class DemoFragment extends HybridFragment {

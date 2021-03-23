@@ -27,7 +27,7 @@ export default function App({ navigator }) {
   }, [])
 
   useEffect(() => {
-    navigator.isStackRoot().then((isRoot) => {
+    navigator.isStackRoot().then(isRoot => {
       if (!isRoot) {
         setTimeout(() => {
           navigator.pop()
@@ -40,7 +40,7 @@ export default function App({ navigator }) {
 
   const loading = () => {
     toast.loading()
-    setCount((count) => count + 1)
+    setCount(count => count + 1)
     timerRef.current = setTimeout(() => {
       toast.done('Work is done!')
       timerRef.current = setTimeout(() => {
@@ -61,9 +61,7 @@ export default function App({ navigator }) {
   }
 
   const info = () => {
-    toast.info(
-      'A long long message to tell you, A long long message to tell you, A long long message to tell you',
-    )
+    toast.info('A long long message to tell you, A long long message to tell you, A long long message to tell you')
   }
 
   const done = () => {
