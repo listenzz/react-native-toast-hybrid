@@ -269,7 +269,7 @@ PODS:
     - React-cxxreact (= 0.64.0)
     - React-jsi (= 0.64.0)
     - React-perflogger (= 0.64.0)
-  - ToastHybrid (2.3.3):
+  - ToastHybrid (2.3.4):
     - React
   - Yoga (1.14.0)
 
@@ -403,7 +403,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 0fd6b21751a33cb72fce1a4a33ab9678416d307a
   React-runtimeexecutor: cad74a1eaa53ee6e7a3620231939d8fe2c6afcf0
   ReactCommon: cfe2b7fd20e0dbd2d1185cd7d8f99633fbc5ff05
-  ToastHybrid: 57c4058c98d7959fd6fda5d932fa1058dc1b6295
+  ToastHybrid: 4f0486d95594821025f79ebf1941a9e6eae32cde
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
 
 PODFILE CHECKSUM: 7ff764dd132279c826daaa116d87c6dbeee77857
