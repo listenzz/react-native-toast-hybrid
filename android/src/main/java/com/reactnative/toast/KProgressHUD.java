@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,6 +51,7 @@ public class KProgressHUD {
     private int mWindowColor;
     private int mTintColor;
     private float mCornerRadius;
+    private int mTextSizeSP;
 
     private OnDismissListener mOnDismissListener;
 
@@ -86,6 +88,11 @@ public class KProgressHUD {
         mTintColor = color;
         mLabelColor = color;
         mDetailLabelColor = color;
+        return this;
+    }
+
+    public KProgressHUD setTextSize(int sizeSP) {
+        mTextSizeSP = sizeSP;
         return this;
     }
 
@@ -129,28 +136,10 @@ public class KProgressHUD {
         return this;
     }
 
-    public KProgressHUD setLabel(String label, int color) {
-        mLabel = label;
-        mLabelColor = color;
-        if (isShowing()) {
-            mHudView.setLabel(label, color);
-        }
-        return this;
-    }
-
     public KProgressHUD setDetailsLabel(String detailsLabel) {
         mDetailsLabel = detailsLabel;
         if (isShowing()) {
             mHudView.setDetailsLabel(detailsLabel);
-        }
-        return this;
-    }
-
-    public KProgressHUD setDetailsLabel(String detailsLabel, int color) {
-        mDetailsLabel = detailsLabel;
-        mDetailLabelColor = color;
-        if (isShowing()) {
-            mHudView.setDetailsLabel(detailsLabel, color);
         }
         return this;
     }
@@ -187,8 +176,8 @@ public class KProgressHUD {
         mShowStarted = new Date();
         mHudView = new HudView(window.getContext());
         mHudView.setView(mView);
-        mHudView.setLabel(mLabel, mLabelColor);
-        mHudView.setDetailsLabel(mDetailsLabel, mDetailLabelColor);
+        mHudView.setLabel(mLabel);
+        mHudView.setDetailsLabel(mDetailsLabel);
         mHudView.show(window);
     }
 
@@ -327,16 +316,8 @@ public class KProgressHUD {
         public void setLabel(String label) {
             if (!TextUtils.isEmpty(label)) {
                 labelText.setText(label);
-                labelText.setVisibility(View.VISIBLE);
-            } else {
-                labelText.setVisibility(View.GONE);
-            }
-        }
-
-        public void setLabel(String label, int color) {
-            if (!TextUtils.isEmpty(label)) {
-                labelText.setText(label);
-                labelText.setTextColor(color);
+                labelText.setTextColor(mLabelColor);
+                labelText.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSizeSP);
                 labelText.setVisibility(View.VISIBLE);
             } else {
                 labelText.setVisibility(View.GONE);
@@ -346,20 +327,12 @@ public class KProgressHUD {
         public void setDetailsLabel(String detailsLabel) {
             if (!TextUtils.isEmpty(detailsLabel)) {
                 detailsText.setText(detailsLabel);
+                detailsText.setTextColor(mDetailLabelColor);
                 detailsText.setVisibility(View.VISIBLE);
             } else {
                 detailsText.setVisibility(View.GONE);
             }
         }
 
-        public void setDetailsLabel(String detailsLabel, int color) {
-            if (!TextUtils.isEmpty(detailsLabel)) {
-                detailsText.setText(detailsLabel);
-                detailsText.setTextColor(color);
-                detailsText.setVisibility(View.VISIBLE);
-            } else {
-                detailsText.setVisibility(View.GONE);
-            }
-        }
     }
 }

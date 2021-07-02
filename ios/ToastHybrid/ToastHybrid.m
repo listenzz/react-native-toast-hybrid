@@ -122,6 +122,12 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
         [ToastConfig sharedConfig].contentColor = [ToastConfig defaultContentColor];
     }
     
+    if (options[@"fontSize"]) {
+        [ToastConfig sharedConfig].fontSize = [options[@"fontSize"] floatValue];
+    } else {
+        [ToastConfig sharedConfig].fontSize = [ToastConfig defaultFontSize];
+    }
+    
     if (options[@"cornerRadius"]) {
         [ToastConfig sharedConfig].cornerRadius = [options[@"cornerRadius"] floatValue];
     } else {

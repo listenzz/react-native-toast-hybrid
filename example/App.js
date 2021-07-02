@@ -11,6 +11,7 @@ export default function App({ navigator }) {
     Toast.config({
       // backgroundColor: '#BB000000',
       // tintColor: '#FFFFFF',
+      // fontSize: 16,
       // cornerRadius: 5, // only for android
       // duration: 2000,
       // graceTime: 300,

@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIColor *)defaultContentColor;
 
++ (CGFloat)defaultFontSize;
+
 + (CGFloat)defaultCornerRadius;
 
 + (NSString *)defaultLoadingText;
@@ -42,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) UIColor *bezelColor;
 
 @property(nonatomic, strong) UIColor *contentColor;
+
+@property(nonatomic, assign) CGFloat fontSize;
 
 @property(nonatomic, assign) CGFloat cornerRadius;
 

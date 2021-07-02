@@ -83,14 +83,13 @@ public class Toast {
     public Toast loading(@Nullable String text) {
         if (kProgressHUD == null) {
             kProgressHUD = KProgressHUD.create(context)
-                    .setTintColor(ToastConfig.tintColor)
                     .setGraceTime(ToastConfig.graceTime)
                     .setMinShowTime(ToastConfig.minShowTime);
             configHUD(kProgressHUD);
         }
         kProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE);
         if (!TextUtils.isEmpty(text)) {
-            kProgressHUD.setLabel(text, ToastConfig.tintColor);
+            kProgressHUD.setLabel(text);
         } else {
             kProgressHUD.setLabel(null);
         }
@@ -105,7 +104,7 @@ public class Toast {
         }
         TextView textView = new TextView(context);
         textView.setTextColor(ToastConfig.tintColor);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, ToastConfig.fontSizeSP);
         textView.setText(text);
         kProgressHUD.setCustomView(textView, false);
         kProgressHUD.setLabel(null);
@@ -123,7 +122,7 @@ public class Toast {
         DrawableCompat.setTint(drawable, ToastConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView, false);
-        kProgressHUD.setLabel(text, ToastConfig.tintColor);
+        kProgressHUD.setLabel(text);
         kProgressHUD.show(getCurrentWindow(context));
         return this;
     }
@@ -138,7 +137,7 @@ public class Toast {
         DrawableCompat.setTint(drawable, ToastConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView, false);
-        kProgressHUD.setLabel(text, ToastConfig.tintColor);
+        kProgressHUD.setLabel(text);
         kProgressHUD.show(getCurrentWindow(context));
         return this;
     }
@@ -153,7 +152,7 @@ public class Toast {
         DrawableCompat.setTint(drawable, ToastConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView, false);
-        kProgressHUD.setLabel(text, ToastConfig.tintColor);
+        kProgressHUD.setLabel(text);
         kProgressHUD.show(getCurrentWindow(context));
         return this;
     }
@@ -161,6 +160,8 @@ public class Toast {
     private void configHUD(KProgressHUD hud) {
         hud.setCornerRadius(ToastConfig.cornerRadius);
         hud.setBackgroundColor(ToastConfig.backgroundColor);
+        hud.setTextSize(ToastConfig.fontSizeSP);
+        hud.setTintColor(ToastConfig.tintColor);
         hud.setOnHudDismissListener(() -> {
             kProgressHUD = null;
             if (mOnDismissListener != null) {

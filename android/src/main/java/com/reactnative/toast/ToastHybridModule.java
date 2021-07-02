@@ -15,7 +15,7 @@ import com.facebook.react.bridge.UiThreadUtil;
 
 public class ToastHybridModule extends ReactContextBaseJavaModule {
 
-    private SparseArray<Toast> toastSparseArray = new SparseArray<>();
+    private final SparseArray<Toast> toastSparseArray = new SparseArray<>();
 
     private static int toastKeyGenerator = 0;
 
@@ -152,6 +152,12 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
                 ToastConfig.tintColor = Color.parseColor(config.getString("tintColor"));
             } else {
                 ToastConfig.tintColor = ToastConfig.DEFAULT_TINT_COLOR;
+            }
+
+            if (config.hasKey("fontSize")) {
+                ToastConfig.fontSizeSP = config.getInt("fontSize");
+            } else {
+                ToastConfig.fontSizeSP = ToastConfig.DEFAULT_FONT_SIZE_SP;
             }
 
             if (config.hasKey("cornerRadius")) {

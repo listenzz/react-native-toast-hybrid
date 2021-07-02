@@ -57,6 +57,10 @@
     return nil;
 }
 
++ (CGFloat)defaultFontSize {
+    return 0;
+}
+
 + (CGFloat)defaultCornerRadius {
     return 10.f;
 }
@@ -72,6 +76,7 @@
         _minshowTime = [ToastConfig defaultMinShowTime];
         _bezelColor = [ToastConfig defaultBezelColor];
         _contentColor = [ToastConfig defaultContentColor];
+        _fontSize = [ToastConfig defaultFontSize];
         _cornerRadius = [ToastConfig defaultCornerRadius];
         _loadingText = [ToastConfig defaultLoadingText];
         _hostViewProvider = [[DefaultHostViewProvider alloc] init];

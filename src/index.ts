@@ -5,6 +5,7 @@ const { ToastHybrid } = NativeModules
 export interface ToastConfig {
   backgroundColor?: string
   tintColor?: string
+  fontSize?: number
   cornerRadius?: number
   duration?: number
   graceTime?: number

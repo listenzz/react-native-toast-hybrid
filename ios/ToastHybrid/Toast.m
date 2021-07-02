@@ -76,6 +76,9 @@
     }
     self.mbHUD.mode = MBProgressHUDModeIndeterminate;
     self.mbHUD.label.text = text;
+    if ([ToastConfig sharedConfig].fontSize > 0) {
+        self.mbHUD.label.font = [UIFont systemFontOfSize:[ToastConfig sharedConfig].fontSize];
+    }
 }
 
 - (void)hide {
@@ -107,6 +110,9 @@
     }
     self.mbHUD.mode = MBProgressHUDModeText;
     self.mbHUD.label.text = text;
+    if ([ToastConfig sharedConfig].fontSize > 0) {
+        self.mbHUD.label.font = [UIFont systemFontOfSize:[ToastConfig sharedConfig].fontSize];
+    }
 }
 
 - (void)info:(NSString *)text {
@@ -121,6 +127,9 @@
     self.mbHUD.mode = MBProgressHUDModeCustomView;
     self.mbHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_info"]];
     self.mbHUD.label.text = text;
+    if ([ToastConfig sharedConfig].fontSize > 0) {
+        self.mbHUD.label.font = [UIFont systemFontOfSize:[ToastConfig sharedConfig].fontSize];
+    }
 }
 
 - (void)done:(NSString *)text {
@@ -135,6 +144,9 @@
     self.mbHUD.mode = MBProgressHUDModeCustomView;
     self.mbHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_done"]];
     self.mbHUD.label.text = text;
+    if ([ToastConfig sharedConfig].fontSize > 0) {
+        self.mbHUD.label.font = [UIFont systemFontOfSize:[ToastConfig sharedConfig].fontSize];
+    }
 }
 
 - (void)error:(NSString *)text {
@@ -149,6 +161,9 @@
     self.mbHUD.mode = MBProgressHUDModeCustomView;
     self.mbHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_error"]];
     self.mbHUD.label.text = text;
+    if ([ToastConfig sharedConfig].fontSize > 0) {
+        self.mbHUD.label.font = [UIFont systemFontOfSize:[ToastConfig sharedConfig].fontSize];
+    }
 }
 
 - (void)configHUD:(MBProgressHUD *)hud {
