@@ -3222,10 +3222,10 @@ human-signals@^1.1.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
-hybrid-navigation@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/hybrid-navigation/-/hybrid-navigation-1.8.0.tgz#864b1d7c943a2351a70c26b1ce005601897d640f"
-  integrity sha512-0U2g2o5SHXacCGK3nRE66NKqPty3zSB2VR8kiLO40YPJFsh1on7pUaLKUhvJhQg9aecCQH6gCF2J98VsS0cO+Q==
+hybrid-navigation@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hybrid-navigation/-/hybrid-navigation-2.0.0.tgz#98246298df2fe20aaf060877805e563862a4bf45"
+  integrity sha512-gA2VAH9fmQSyO2ppzvC+50Sm1+i8KLegnFzywliWesYgXG/D6lA4t5vvLBnV/EVrXwN1IoZkSjXg5w0w6d1c1g==
   dependencies:
     path-to-regexp "^6.1.0"
 
