@@ -1,7 +1,7 @@
 {
   "name": "react-native-toast-hybrid",
   "description": "A toast that can be used for react-native, while available for native android, ios.",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "keywords": [
     "react-native",
     "toast"
