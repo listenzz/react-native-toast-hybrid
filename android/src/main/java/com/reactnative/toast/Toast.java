@@ -176,7 +176,7 @@ public class Toast {
             dialogFragment = getDialogFragment(((FragmentActivity) activity).getSupportFragmentManager());
         }
 
-        if (dialogFragment != null && dialogFragment.isAdded()) {
+        if (dialogFragment != null) {
             return dialogFragment.getDialog().getWindow();
         } else {
             return activity.getWindow();
@@ -185,36 +185,33 @@ public class Toast {
 
     @Nullable
     public static DialogFragment getDialogFragment(@NonNull FragmentManager fragmentManager) {
-        Fragment fragment = fragmentManager.getPrimaryNavigationFragment();
-        if (fragment instanceof DialogFragment) {
-            DialogFragment dialogFragment = (DialogFragment) fragment;
-            if (dialogFragment.getShowsDialog()) {
-                return dialogFragment;
-            }
-        }
-
-        if (fragment != null && fragment.isAdded()) {
-            return getDialogFragment(fragment.getChildFragmentManager());
+        if (fragmentManager.isDestroyed()) {
+            return null;
         }
 
         List<Fragment> fragments = fragmentManager.getFragments();
         int count = fragments.size();
-        if (count > 0) {
-            fragment = fragments.get(count - 1);
 
-            if (fragment instanceof DialogFragment) {
-                DialogFragment dialogFragment = (DialogFragment) fragment;
-                if (dialogFragment.getShowsDialog()) {
-                    return dialogFragment;
+        DialogFragment dialog = null;
+
+        for (int i = count - 1; i > -1; i--) {
+            Fragment fragment = fragments.get(i);
+            if (fragment.isAdded()) {
+                if (fragment instanceof DialogFragment) {
+                    DialogFragment dialogFragment = (DialogFragment) fragment;
+                    if (dialogFragment.getShowsDialog()) {
+                        dialog = dialogFragment;
+                        break;
+                    }
                 }
-            }
 
-            if (fragment != null && fragment.isAdded()) {
-                return getDialogFragment(fragment.getChildFragmentManager());
+                if (dialog == null) {
+                    dialog = getDialogFragment(fragment.getChildFragmentManager());
+                }
             }
         }
 
-        return null;
+        return dialog;
     }
 
 }
