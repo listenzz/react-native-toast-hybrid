@@ -10,7 +10,7 @@ PODS:
     - React-jsi (= 0.64.1)
     - ReactCommon/turbomodule/core (= 0.64.1)
   - glog (0.3.5)
-  - HybridNavigation (2.0.0):
+  - HybridNavigation (2.1.0):
     - React
   - RCT-Folly (2020.01.13.00):
     - boost-for-react-native
@@ -379,7 +379,7 @@ SPEC CHECKSUMS:
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
   FBReactNativeSpec: 776ecccf164a2b22f42012e3707e57e178b85a70
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  HybridNavigation: 95d75bad24ec928e07116309d5a1ddcc39931b66
+  HybridNavigation: 95f0c6dfcbd49a6cc39f32926d77e60539c5cd55
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: ec2ebc96b7bfba3ca5c32740f5a0c6a014a274d2
   RCTTypeSafety: 22567f31e67c3e088c7ac23ea46ab6d4779c0ea5
