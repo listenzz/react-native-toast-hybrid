@@ -260,7 +260,7 @@ public class KProgressHUD {
 
         void show(Window window) {
             ViewGroup parent = (ViewGroup) getParent();
-            if (parent == null && window.isActive()) {
+            if (parent == null) {
                 ViewGroup decorView = (ViewGroup) window.getDecorView();
                 decorView.addView(this, MATCH_PARENT, MATCH_PARENT);
             }

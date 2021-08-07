@@ -192,26 +192,29 @@ public class Toast {
         List<Fragment> fragments = fragmentManager.getFragments();
         int count = fragments.size();
 
-        DialogFragment dialog = null;
-
         for (int i = count - 1; i > -1; i--) {
             Fragment fragment = fragments.get(i);
+            DialogFragment dialog = null;
+
             if (fragment.isAdded()) {
                 if (fragment instanceof DialogFragment) {
                     DialogFragment dialogFragment = (DialogFragment) fragment;
                     if (dialogFragment.getShowsDialog()) {
                         dialog = dialogFragment;
-                        break;
                     }
                 }
 
                 if (dialog == null) {
                     dialog = getDialogFragment(fragment.getChildFragmentManager());
                 }
+
+                if (dialog != null) {
+                    return dialog;
+                }
             }
         }
 
-        return dialog;
+        return null;
     }
 
 }
