@@ -51,11 +51,11 @@ public class Toast {
         return toast;
     }
 
-    public Toast(Activity context) {
-        this.context = context;
+    public Toast(Activity activity) {
+        this.activity = activity;
     }
 
-    private Activity context;
+    private Activity activity;
     private KProgressHUD kProgressHUD;
 
     private OnDismissListener mOnDismissListener;
@@ -82,7 +82,7 @@ public class Toast {
 
     public Toast loading(@Nullable String text) {
         if (kProgressHUD == null) {
-            kProgressHUD = KProgressHUD.create(context)
+            kProgressHUD = KProgressHUD.create(activity)
                     .setGraceTime(ToastConfig.graceTime)
                     .setMinShowTime(ToastConfig.minShowTime);
             configHUD(kProgressHUD);
@@ -93,67 +93,67 @@ public class Toast {
         } else {
             kProgressHUD.setLabel(null);
         }
-        kProgressHUD.show(getCurrentWindow(context));
+        kProgressHUD.show(getCurrentWindow(activity));
         return this;
     }
 
     public Toast text(String text) {
         if (kProgressHUD == null) {
-            kProgressHUD = KProgressHUD.create(context).setGraceTime(0);
+            kProgressHUD = KProgressHUD.create(activity).setGraceTime(0);
             configHUD(kProgressHUD);
         }
-        TextView textView = new TextView(context);
+        TextView textView = new TextView(activity);
         textView.setTextColor(ToastConfig.tintColor);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, ToastConfig.fontSizeSP);
         textView.setText(text);
         kProgressHUD.setCustomView(textView, false);
         kProgressHUD.setLabel(null);
-        kProgressHUD.show(getCurrentWindow(context));
+        kProgressHUD.show(getCurrentWindow(activity));
         return this;
     }
 
     public Toast info(String text) {
         if (kProgressHUD == null) {
-            kProgressHUD = KProgressHUD.create(context).setGraceTime(0);
+            kProgressHUD = KProgressHUD.create(activity).setGraceTime(0);
             configHUD(kProgressHUD);
         }
-        ImageView imageView = new ImageView(context);
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_info);
+        ImageView imageView = new ImageView(activity);
+        Drawable drawable = ContextCompat.getDrawable(activity, R.drawable.hud_info);
         DrawableCompat.setTint(drawable, ToastConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView, false);
         kProgressHUD.setLabel(text);
-        kProgressHUD.show(getCurrentWindow(context));
+        kProgressHUD.show(getCurrentWindow(activity));
         return this;
     }
 
     public Toast done(String text) {
         if (kProgressHUD == null) {
-            kProgressHUD = KProgressHUD.create(context).setGraceTime(0);
+            kProgressHUD = KProgressHUD.create(activity).setGraceTime(0);
             configHUD(kProgressHUD);
         }
-        ImageView imageView = new ImageView(context);
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_done);
+        ImageView imageView = new ImageView(activity);
+        Drawable drawable = ContextCompat.getDrawable(activity, R.drawable.hud_done);
         DrawableCompat.setTint(drawable, ToastConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView, false);
         kProgressHUD.setLabel(text);
-        kProgressHUD.show(getCurrentWindow(context));
+        kProgressHUD.show(getCurrentWindow(activity));
         return this;
     }
 
     public Toast error(String text) {
         if (kProgressHUD == null) {
-            kProgressHUD = KProgressHUD.create(context).setGraceTime(0);
+            kProgressHUD = KProgressHUD.create(activity).setGraceTime(0);
             configHUD(kProgressHUD);
         }
-        ImageView imageView = new ImageView(context);
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.hud_error);
+        ImageView imageView = new ImageView(activity);
+        Drawable drawable = ContextCompat.getDrawable(activity, R.drawable.hud_error);
         DrawableCompat.setTint(drawable, ToastConfig.tintColor);
         imageView.setBackground(drawable);
         kProgressHUD.setCustomView(imageView, false);
         kProgressHUD.setLabel(text);
-        kProgressHUD.show(getCurrentWindow(context));
+        kProgressHUD.show(getCurrentWindow(activity));
         return this;
     }
 
@@ -170,17 +170,26 @@ public class Toast {
         });
     }
 
+    @Nullable
     public Window getCurrentWindow(Activity activity) {
         DialogFragment dialogFragment = null;
         if (activity instanceof FragmentActivity) {
             dialogFragment = getDialogFragment(((FragmentActivity) activity).getSupportFragmentManager());
         }
 
+        Window window;
+
         if (dialogFragment != null) {
-            return dialogFragment.getDialog().getWindow();
+            window = dialogFragment.getDialog().getWindow();
         } else {
-            return activity.getWindow();
+            window = activity.getWindow();
         }
+
+        if (!window.getDecorView().hasWindowFocus()) {
+            return null;
+        }
+
+        return window;
     }
 
     @Nullable

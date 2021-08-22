@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -13,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -32,7 +36,7 @@ public class KProgressHUD {
         SPIN_INDETERMINATE, PIE_DETERMINATE, ANNULAR_DETERMINATE, BAR_DETERMINATE
     }
 
-    private Context mContext;
+    private Activity mActivity;
     private HudView mHudView;
     private View mView;
 
@@ -55,9 +59,9 @@ public class KProgressHUD {
 
     private OnDismissListener mOnDismissListener;
 
-    public KProgressHUD(Context context) {
-        mContext = context;
-        mWindowColor = context.getResources().getColor(R.color.kprogresshud_default_color);
+    public KProgressHUD(Activity activity) {
+        mActivity = activity;
+        mWindowColor = activity.getResources().getColor(R.color.kprogresshud_default_color);
         mTintColor = Color.WHITE;
         mLabelColor = mTintColor;
         mDetailLabelColor = mTintColor;
@@ -100,16 +104,16 @@ public class KProgressHUD {
         View view = null;
         switch (style) {
             case SPIN_INDETERMINATE:
-                view = new LoadingView(mContext);
+                view = new LoadingView(mActivity);
                 break;
             case PIE_DETERMINATE:
-                view = new PieView(mContext);
+                view = new PieView(mActivity);
                 break;
             case ANNULAR_DETERMINATE:
-                view = new AnnularView(mContext);
+                view = new AnnularView(mActivity);
                 break;
             case BAR_DETERMINATE:
-                view = new BarView(mContext);
+                view = new BarView(mActivity);
                 break;
         }
         setCustomView(view, true);
@@ -172,9 +176,9 @@ public class KProgressHUD {
         return this;
     }
 
-    private void showInternal(Window window) {
+    private void showInternal(@Nullable Window window) {
         mShowStarted = new Date();
-        mHudView = new HudView(window.getContext());
+        mHudView = new HudView(mActivity);
         mHudView.setView(mView);
         mHudView.setLabel(mLabel);
         mHudView.setDetailsLabel(mDetailsLabel);
@@ -258,18 +262,35 @@ public class KProgressHUD {
             init(context);
         }
 
-        void show(Window window) {
-            ViewGroup parent = (ViewGroup) getParent();
+        void show(@Nullable Window window) {
+            ViewParent parent = getParent();
             if (parent == null) {
-                ViewGroup decorView = (ViewGroup) window.getDecorView();
-                decorView.addView(this, MATCH_PARENT, MATCH_PARENT);
+                if (window != null) {
+                    ViewGroup decorView = (ViewGroup) window.getDecorView();
+                    decorView.addView(this, MATCH_PARENT, MATCH_PARENT);
+                } else {
+                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(-1, -1, 0, 0, PixelFormat.TRANSPARENT);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                    } else {
+                        layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+                    }
+                    layoutParams.flags =
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
+                                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                    mActivity.getWindowManager().addView(this, layoutParams);
+                }
             }
         }
 
         void hide() {
-            ViewGroup parent = (ViewGroup) getParent();
+            ViewParent parent = getParent();
             if (parent != null) {
-                parent.removeView(this);
+                if (parent instanceof ViewGroup) {
+                    ((ViewGroup) parent).removeView(this);
+                } else {
+                    mActivity.getWindowManager().removeView(this);
+                }
             }
         }
 
