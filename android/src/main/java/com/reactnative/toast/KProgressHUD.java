@@ -2,15 +2,16 @@ package com.reactnative.toast;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.os.Build;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -239,7 +240,7 @@ public class KProgressHUD {
         private TextView labelText;
         private TextView detailsText;
         private FrameLayout customViewContainer;
-        private BackgroundLayout backgroundLayout;
+        private Dialog dialog;
 
         public HudView(@NonNull Context context) {
             super(context);
@@ -269,28 +270,38 @@ public class KProgressHUD {
                     ViewGroup decorView = (ViewGroup) window.getDecorView();
                     decorView.addView(this, MATCH_PARENT, MATCH_PARENT);
                 } else {
-                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(-1, -1, 0, 0, PixelFormat.TRANSPARENT);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-                    } else {
-                        layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-                    }
-                    layoutParams.flags =
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
-                                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-                    mActivity.getWindowManager().addView(this, layoutParams);
+                    showAsDialog();
                 }
             }
         }
 
+        private void showAsDialog() {
+            Dialog dialog = new Dialog(mActivity);
+            this.dialog = dialog;
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(this);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+            Window window = dialog.getWindow();
+            window.setBackgroundDrawable(new ColorDrawable(0));
+            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.dimAmount = 0;
+            layoutParams.gravity = Gravity.CENTER;
+            window.setAttributes(layoutParams);
+        }
+
         void hide() {
-            ViewParent parent = getParent();
-            if (parent != null) {
-                if (parent instanceof ViewGroup) {
-                    ((ViewGroup) parent).removeView(this);
-                } else {
-                    mActivity.getWindowManager().removeView(this);
+            if (dialog != null) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
                 }
+                return;
+            }
+            ViewParent parent = getParent();
+            if (parent instanceof ViewGroup) {
+                ((ViewGroup) parent).removeView(this);
             }
         }
 
@@ -304,7 +315,7 @@ public class KProgressHUD {
 
         private void init(Context context) {
             LayoutInflater.from(context).inflate(R.layout.kprogresshud_hud, this);
-            backgroundLayout = findViewById(R.id.background);
+            BackgroundLayout backgroundLayout = findViewById(R.id.background);
             backgroundLayout.setBaseColor(mWindowColor);
             backgroundLayout.setCornerRadius(mCornerRadius);
             customViewContainer = findViewById(R.id.container);
