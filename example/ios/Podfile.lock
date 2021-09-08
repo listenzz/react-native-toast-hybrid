@@ -269,7 +269,7 @@ PODS:
     - React-cxxreact (= 0.64.2)
     - React-jsi (= 0.64.2)
     - React-perflogger (= 0.64.2)
-  - ToastHybrid (2.4.1):
+  - ToastHybrid (2.4.4):
     - React
   - Yoga (1.14.0)
 
@@ -375,10 +375,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
+  DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
   FBReactNativeSpec: b0bd6d33da59f970cbf5623c4526dacce328d52a
-  glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   HybridNavigation: 95f0c6dfcbd49a6cc39f32926d77e60539c5cd55
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
@@ -403,7 +403,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 24600e3b1aaa77126989bc58b6747509a1ba14f3
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
-  ToastHybrid: 675410931788836e439902fa92f6c066e239a1f3
+  ToastHybrid: fb8891ced969522e815dec936f391dc5a779e427
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
 PODFILE CHECKSUM: 7ff764dd132279c826daaa116d87c6dbeee77857
