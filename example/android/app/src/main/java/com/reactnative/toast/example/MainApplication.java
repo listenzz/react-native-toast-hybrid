@@ -1,6 +1,9 @@
 package com.reactnative.toast.example;
 
 import android.app.Application;
+
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.content.Context;
 
 import com.facebook.common.logging.FLog;
@@ -46,6 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
 		SoLoader.init(this, /* native exopackage */ false);
 		initializeFlipper(this); // Remove this line if you don't want Flipper enabled
 		ReactBridgeManager bridgeManager = ReactBridgeManager.get();
