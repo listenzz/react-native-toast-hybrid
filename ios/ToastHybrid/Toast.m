@@ -6,12 +6,12 @@
 //
 #import "Toast.h"
 #import "ToastConfig.h"
-#import "MBProgressHUD.h"
+#import "HBDProgressHUD.h"
 
 @interface Toast()
 
 @property(nonatomic, weak) UIView *hostView;
-@property(nonatomic, weak) MBProgressHUD *mbHUD;
+@property(nonatomic, weak) HBDProgressHUD *mbHUD;
 
 @end
 
@@ -65,7 +65,7 @@
     }
     
     if (!self.mbHUD) {
-        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.hostView];
+        HBDProgressHUD *hud = [[HBDProgressHUD alloc] initWithView:self.hostView];
         hud.removeFromSuperViewOnHide = YES;
         [self.hostView addSubview:hud];
         hud.graceTime = [ToastConfig sharedConfig].graceTime;
@@ -74,7 +74,7 @@
         self.mbHUD = hud;
         [self.mbHUD showAnimated:YES];
     }
-    self.mbHUD.mode = MBProgressHUDModeIndeterminate;
+    self.mbHUD.mode = HBDProgressHUDModeIndeterminate;
     self.mbHUD.label.text = text;
     if ([ToastConfig sharedConfig].fontSize > 0) {
         self.mbHUD.label.font = [UIFont systemFontOfSize:[ToastConfig sharedConfig].fontSize];
@@ -105,10 +105,10 @@
     }
     
     if (!self.mbHUD) {
-        self.mbHUD =  [MBProgressHUD showHUDAddedTo: self.hostView animated:YES];
+        self.mbHUD =  [HBDProgressHUD showHUDAddedTo: self.hostView animated:YES];
          [self configHUD:self.mbHUD];
     }
-    self.mbHUD.mode = MBProgressHUDModeText;
+    self.mbHUD.mode = HBDProgressHUDModeText;
     self.mbHUD.label.text = text;
     if ([ToastConfig sharedConfig].fontSize > 0) {
         self.mbHUD.label.font = [UIFont systemFontOfSize:[ToastConfig sharedConfig].fontSize];
@@ -121,10 +121,10 @@
     }
     
     if (!self.mbHUD) {
-        self.mbHUD = [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
+        self.mbHUD = [HBDProgressHUD showHUDAddedTo:self.hostView animated:YES];
         [self configHUD:self.mbHUD];
     }
-    self.mbHUD.mode = MBProgressHUDModeCustomView;
+    self.mbHUD.mode = HBDProgressHUDModeCustomView;
     self.mbHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_info"]];
     self.mbHUD.label.text = text;
     if ([ToastConfig sharedConfig].fontSize > 0) {
@@ -138,10 +138,10 @@
     }
     
     if (!self.mbHUD) {
-        self.mbHUD =  [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
+        self.mbHUD =  [HBDProgressHUD showHUDAddedTo:self.hostView animated:YES];
         [self configHUD:self.mbHUD];
     }
-    self.mbHUD.mode = MBProgressHUDModeCustomView;
+    self.mbHUD.mode = HBDProgressHUDModeCustomView;
     self.mbHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_done"]];
     self.mbHUD.label.text = text;
     if ([ToastConfig sharedConfig].fontSize > 0) {
@@ -155,10 +155,10 @@
     }
     
     if (!self.mbHUD) {
-        self.mbHUD =  [MBProgressHUD showHUDAddedTo:self.hostView animated:YES];
+        self.mbHUD =  [HBDProgressHUD showHUDAddedTo:self.hostView animated:YES];
         [self configHUD:self.mbHUD];
     }
-    self.mbHUD.mode = MBProgressHUDModeCustomView;
+    self.mbHUD.mode = HBDProgressHUDModeCustomView;
     self.mbHUD.customView = [[UIImageView alloc] initWithImage:[self imageWithName:@"hud_error"]];
     self.mbHUD.label.text = text;
     if ([ToastConfig sharedConfig].fontSize > 0) {
@@ -166,9 +166,9 @@
     }
 }
 
-- (void)configHUD:(MBProgressHUD *)hud {
+- (void)configHUD:(HBDProgressHUD *)hud {
     if ([ToastConfig sharedConfig].bezelColor) {
-        hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+        hud.bezelView.style = HBDProgressHUDBackgroundStyleSolidColor;
         hud.bezelView.color = [ToastConfig sharedConfig].bezelColor;
     }
     

@@ -30,46 +30,46 @@
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-@class MBBackgroundView;
-@protocol MBProgressHUDDelegate;
+@class HBDBackgroundView;
+@protocol HBDProgressHUDDelegate;
 
 
-extern CGFloat const MBProgressMaxOffset;
+extern CGFloat const HBDProgressMaxOffset;
 
-typedef NS_ENUM(NSInteger, MBProgressHUDMode) {
+typedef NS_ENUM(NSInteger, HBDProgressHUDMode) {
     /// UIActivityIndicatorView.
-    MBProgressHUDModeIndeterminate,
+    HBDProgressHUDModeIndeterminate,
     /// A round, pie-chart like, progress view.
-    MBProgressHUDModeDeterminate,
+    HBDProgressHUDModeDeterminate,
     /// Horizontal progress bar.
-    MBProgressHUDModeDeterminateHorizontalBar,
+    HBDProgressHUDModeDeterminateHorizontalBar,
     /// Ring-shaped progress view.
-    MBProgressHUDModeAnnularDeterminate,
+    HBDProgressHUDModeAnnularDeterminate,
     /// Shows a custom view.
-    MBProgressHUDModeCustomView,
+    HBDProgressHUDModeCustomView,
     /// Shows only labels.
-    MBProgressHUDModeText
+    HBDProgressHUDModeText
 };
 
-typedef NS_ENUM(NSInteger, MBProgressHUDAnimation) {
+typedef NS_ENUM(NSInteger, HBDProgressHUDAnimation) {
     /// Opacity animation
-    MBProgressHUDAnimationFade,
+    HBDProgressHUDAnimationFade,
     /// Opacity + scale animation (zoom in when appearing zoom out when disappearing)
-    MBProgressHUDAnimationZoom,
+    HBDProgressHUDAnimationZoom,
     /// Opacity + scale animation (zoom out style)
-    MBProgressHUDAnimationZoomOut,
+    HBDProgressHUDAnimationZoomOut,
     /// Opacity + scale animation (zoom in style)
-    MBProgressHUDAnimationZoomIn
+    HBDProgressHUDAnimationZoomIn
 };
 
-typedef NS_ENUM(NSInteger, MBProgressHUDBackgroundStyle) {
+typedef NS_ENUM(NSInteger, HBDProgressHUDBackgroundStyle) {
     /// Solid color background
-    MBProgressHUDBackgroundStyleSolidColor,
+    HBDProgressHUDBackgroundStyleSolidColor,
     /// UIVisualEffectView or UIToolbar.layer background view
-    MBProgressHUDBackgroundStyleBlur
+    HBDProgressHUDBackgroundStyleBlur
 };
 
-typedef void (^MBProgressHUDCompletionBlock)(void);
+typedef void (^HBDProgressHUDCompletionBlock)(void);
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @note To still allow touches to pass through the HUD, you can set hud.userInteractionEnabled = NO.
  * @attention MBProgressHUD is a UI class and should therefore only be accessed on the main thread.
  */
-@interface MBProgressHUD : UIView
+@interface HBDProgressHUD : UIView
 
 /**
  * Creates a new HUD, adds it to provided view and shows it. The counterpart to this method is hideHUDForView:animated:.
@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param view The view that is going to be searched.
  * @return A reference to the last HUD subview discovered.
  */
-+ (nullable MBProgressHUD *)HUDForView:(UIView *)view;
++ (nullable HBDProgressHUD *)HUDForView:(UIView *)view;
 
 /**
  * A convenience constructor that initializes the HUD with the view's bounds. Calls the designated constructor with
@@ -176,12 +176,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The HUD delegate object. Receives HUD state notifications.
  */
-@property (weak, nonatomic) id<MBProgressHUDDelegate> delegate;
+@property (weak, nonatomic) id<HBDProgressHUDDelegate> delegate;
 
 /**
  * Called after the HUD is hiden.
  */
-@property (copy, nullable) MBProgressHUDCompletionBlock completionBlock;
+@property (copy, nullable) HBDProgressHUDCompletionBlock completionBlock;
 
 /*
  * Grace period is the time (in seconds) that the invoked method may be run without
@@ -212,7 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 
  * MBProgressHUD operation mode. The default is MBProgressHUDModeIndeterminate.
  */
-@property (assign, nonatomic) MBProgressHUDMode mode;
+@property (assign, nonatomic) HBDProgressHUDMode mode;
 
 /**
  * A color that gets forwarded to all labels and supported indicators. Also sets the tintColor
@@ -224,7 +224,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The animation type that should be used when the HUD is shown and hidden.
  */
-@property (assign, nonatomic) MBProgressHUDAnimation animationType UI_APPEARANCE_SELECTOR;
+@property (assign, nonatomic) HBDProgressHUDAnimation animationType UI_APPEARANCE_SELECTOR;
 
 /**
  * The bezel offset relative to the center of the view. You can use MBProgressMaxOffset
@@ -275,12 +275,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The view containing the labels and indicator (or customView).
  */
-@property (strong, nonatomic, readonly) MBBackgroundView *bezelView;
+@property (strong, nonatomic, readonly) HBDBackgroundView *bezelView;
 
 /**
  * View covering the entire HUD area, placed behind bezelView.
  */
-@property (strong, nonatomic, readonly) MBBackgroundView *backgroundView;
+@property (strong, nonatomic, readonly) HBDBackgroundView *backgroundView;
 
 /**
  * The UIView (e.g., a UIImageView) to be shown when the HUD is in MBProgressHUDModeCustomView.
@@ -307,14 +307,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@protocol MBProgressHUDDelegate <NSObject>
+@protocol HBDProgressHUDDelegate <NSObject>
 
 @optional
 
 /** 
  * Called after the HUD was fully hidden from the screen. 
  */
-- (void)hudWasHidden:(MBProgressHUD *)hud;
+- (void)hudWasHidden:(HBDProgressHUD *)hud;
 
 @end
 
@@ -322,7 +322,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * A progress view for showing definite progress by filling up a circle (pie chart).
  */
-@interface MBRoundProgressView : UIView 
+@interface HBDRoundProgressView : UIView 
 
 /**
  * Progress (0.0 to 1.0)
@@ -353,7 +353,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * A flat bar progress view. 
  */
-@interface MBBarProgressView : UIView
+@interface HBDBarProgressView : UIView
 
 /**
  * Progress (0.0 to 1.0)
@@ -381,14 +381,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface MBBackgroundView : UIView
+@interface HBDBackgroundView : UIView
 
 /**
  * The background style. 
  * Defaults to MBProgressHUDBackgroundStyleBlur on iOS 7 or later and MBProgressHUDBackgroundStyleSolidColor otherwise.
  * @note Due to iOS 7 not supporting UIVisualEffectView, the blur effect differs slightly between iOS 7 and later versions.
  */
-@property (nonatomic) MBProgressHUDBackgroundStyle style;
+@property (nonatomic) HBDProgressHUDBackgroundStyle style;
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000 || TARGET_OS_TV
 /**
