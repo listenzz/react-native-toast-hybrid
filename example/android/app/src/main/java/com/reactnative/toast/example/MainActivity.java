@@ -2,13 +2,12 @@ package com.reactnative.toast.example;
 
 import android.os.Bundle;
 
+import com.navigation.androidx.StackFragment;
 import com.navigation.androidx.TabBarFragment;
 import com.navigation.androidx.TabBarItem;
 import com.reactnative.hybridnavigation.HybridFragment;
 import com.reactnative.hybridnavigation.ReactAppCompatActivity;
-import com.reactnative.hybridnavigation.ReactNavigationFragment;
 import com.reactnative.hybridnavigation.ReactTabBarFragment;
-
 
 public class MainActivity extends ReactAppCompatActivity {
 
@@ -27,10 +26,10 @@ public class MainActivity extends ReactAppCompatActivity {
         options2.putBundle("titleItem", titleItem2);
         HybridFragment f2 = getReactBridgeManager().createFragment("Tab2", null, options2);
 
-        ReactNavigationFragment nav1 = new ReactNavigationFragment();
+        StackFragment nav1 = new StackFragment();
         nav1.setTabBarItem(new TabBarItem("React"));
         nav1.setRootFragment(f1);
-        ReactNavigationFragment nav2 = new ReactNavigationFragment();
+        StackFragment nav2 = new StackFragment();
         nav2.setTabBarItem(new TabBarItem("Native"));
         nav2.setRootFragment(f2);
         TabBarFragment tabs = new ReactTabBarFragment();

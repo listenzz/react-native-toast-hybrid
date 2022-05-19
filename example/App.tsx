@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Toast, { useToast } from 'react-native-toast-hybrid'
+import { useNavigator } from 'hybrid-navigation'
 
-export default function App({ navigator }) {
-  const timerRef = useRef()
+export default function App() {
+  const navigator = useNavigator()
+  const timerRef = useRef<ReturnType<typeof setTimeout>>()
 
   const [count, setCount] = useState(0)
 

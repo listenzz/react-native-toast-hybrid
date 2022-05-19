@@ -1,57 +1,64 @@
 {
   "name": "react-native-toast-hybrid",
   "description": "A toast that can be used for react-native, while available for native android, ios.",
-  "version": "2.4.5",
+  "version": "2.5.0",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "react-native": "src/index",
+  "nativePackage": true,
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "ToastHybrid.podspec",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__"
+  ],
+  "repository": "https://github.com/listenzz/react-native-toast-hybrid",
+  "homepage": "https://github.com/listenzz/react-native-toast-hybrid#readme",
+  "author": "listen <listenzz@163.com> (https://github.com/listenzz)",
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
   "keywords": [
     "react-native",
     "toast"
   ],
-  "nativePackage": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/listenzz/react-native-toast-hybrid.git"
-  },
-  "homepage": "https://github.com/listenzz/react-native-toast-hybrid",
-  "author": "listen <listenzz@163.com>",
-  "license": "MIT",
-  "licenseFilename": "LICENSE",
-  "main": "./lib/index.js",
-  "typings": "./lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./lib && tsc",
-    "prestart": "npm run build",
+    "build": "rm -rf ./lib && tsc -p tsconfig.build.json",
     "prepare": "npm run build",
-    "tsc": "tsc",
-    "lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
     "start": "react-native start --reset-cache",
     "run:ios": "react-native run-ios --project-path ./example/ios",
     "start:android": "adb shell am start -n com.reactnative.toast.example/.MainActivity",
     "run:android": "cd example/android && ./gradlew installDebug && npm run start:android",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc",
+    "lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx"
   },
   "peerDependencies": {
     "react": ">=16.8",
     "react-native": ">=0.60"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/runtime": "^7.14.8",
-    "@react-native-community/eslint-config": "^3.0.1",
+    "@react-native-community/eslint-config": "^3.0.2",
     "@types/jest": "^27.0.1",
     "@types/react": "^17.0.15",
-    "@types/react-native": "^0.65.0",
-    "@types/react-test-renderer": "17.0.1",
+    "@types/react-native": "^0.67.0",
+    "@types/react-test-renderer": "17.0.2",
     "babel-jest": "^27.1.1",
     "eslint": "^7.32.0",
-    "hybrid-navigation": "^2.4.0",
+    "hybrid-navigation": "^2.9.0",
     "jest": "^27.1.1",
     "metro-react-native-babel-preset": "^0.66.2",
     "react": "17.0.2",
-    "react-native": "^0.66.0",
+    "react-native": "^0.67.4",
     "react-test-renderer": "17.0.2",
-    "typescript": "^4.3.5"
+    "typescript": "^4.6.4"
   },
-  "dependencies": {},
   "jest": {
     "preset": "react-native",
     "moduleFileExtensions": [
