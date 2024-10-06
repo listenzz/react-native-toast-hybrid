@@ -1,7 +1,7 @@
 module.exports = {
   project: {
     ios: {
-      project: './example/ios/ToastHybrid.xcworkspace',
+      sourceDir: './example/ios/',
     },
     android: {
       sourceDir: './example/android/',

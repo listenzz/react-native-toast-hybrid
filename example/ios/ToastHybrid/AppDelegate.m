@@ -4,7 +4,6 @@
 #import <React/RCTRootView.h>
 #import <React/RCTBridgeModule.h>
 #import <HybridNavigation/HybridNavigation.h>
-#import <React/RCTBundleURLProvider.h>
 #import <ToastHybrid/ToastHybrid.h>
 #import "ViewController.h"
 
@@ -19,8 +18,9 @@
     // 设置 hud 的 hostView, 可以不设置
     [ToastConfig sharedConfig].hostViewProvider = self;
     
-    NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"example/index" fallbackResource:nil];
-    [[HBDReactBridgeManager get] installWithBundleURL:jsCodeLocation launchOptions:launchOptions];
+    RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+    [[HBDReactBridgeManager get] installWithBridge:bridge];
+    
     [HBDReactBridgeManager get].delegate = self;
     // 注册原生页面
     [[HBDReactBridgeManager get] registerNativeModule:@"Tab2" forController:[ViewController class]];
@@ -34,6 +34,14 @@
     [self.window makeKeyAndVisible];
 
     return YES;
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
+#if DEBUG
+    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"example/index"];
+#else
+    return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
 }
 
 - (void)reactModuleRegisterDidCompleted:(HBDReactBridgeManager *)manager {
