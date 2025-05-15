@@ -1,14 +1,14 @@
 {
   "name": "react-native-toast-hybrid",
   "description": "A toast that can be used for react-native, while available for native android, ios.",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "react-native": "src/index",
   "nativePackage": true,
   "files": [
     "src",
-    "lib",
+    "dist",
     "android",
     "ios",
     "ToastHybrid.podspec",
