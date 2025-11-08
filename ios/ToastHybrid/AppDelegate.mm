@@ -1,13 +1,38 @@
 #import "AppDelegate.h"
-
-#import <React/RCTBundleURLProvider.h>
-#import <React/RCTRootView.h>
-#import <React/RCTBridgeModule.h>
-#import <HybridNavigation/HybridNavigation.h>
-#import <ToastHybrid/ToastHybrid.h>
 #import "ViewController.h"
 
+#import <React-RCTAppDelegate/RCTDefaultReactNativeFactoryDelegate.h>
+#import <React-RCTAppDelegate/RCTReactNativeFactory.h>
+#import <ReactAppDependencyProvider/RCTAppDependencyProvider.h>
+
+#import <React/RCTLinkingManager.h>
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTLog.h>
+
+#import <HybridNavigation/HybridNavigation.h>
+#import <ToastHybrid/ToastHybrid.h>
+
+
+@interface ReactNativeDelegate : RCTDefaultReactNativeFactoryDelegate
+@end
+
+@implementation ReactNativeDelegate
+
+- (NSURL *)bundleURL {
+#if DEBUG
+    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+#else
+    return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
+}
+
+@end
+
 @interface AppDelegate () <HBDReactBridgeManagerDelegate, HostViewProvider>
+
+@property (strong, nonatomic) RCTRootViewFactory *rootViewFactory;
+@property (strong, nonatomic) id<RCTReactNativeFactoryDelegate> reactNativeDelegate;
+@property (strong, nonatomic) RCTReactNativeFactory *reactNativeFactory;
 
 @end
 
@@ -18,8 +43,17 @@
     // 设置 hud 的 hostView, 可以不设置
     [ToastConfig sharedConfig].hostViewProvider = self;
     
-    RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-    [[HBDReactBridgeManager get] installWithBridge:bridge];
+    ReactNativeDelegate *delegate = [[ReactNativeDelegate alloc] init];
+    RCTReactNativeFactory *factory = [[RCTReactNativeFactory alloc] initWithDelegate:delegate];
+    delegate.dependencyProvider = [[RCTAppDependencyProvider alloc] init];
+    
+    
+    self.reactNativeDelegate = delegate;
+    self.reactNativeFactory = factory;
+    self.rootViewFactory = factory.rootViewFactory;
+    
+    [self.rootViewFactory initializeReactHostWithLaunchOptions:launchOptions];
+    [[HBDReactBridgeManager get] installWithReactHost:self.rootViewFactory.reactHost];
     
     [HBDReactBridgeManager get].delegate = self;
     // 注册原生页面
@@ -36,16 +70,7 @@
     return YES;
 }
 
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
-#if DEBUG
-    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
-#else
-    return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-#endif
-}
-
 - (void)reactModuleRegisterDidCompleted:(HBDReactBridgeManager *)manager {
-    
     // Tab1 是 RN 模块
     HBDViewController *vc1 = [manager viewControllerWithModuleName:@"Tab1" props:nil options:@{@"titleItem":@{@"title":@"React"}}];
     // Tab2 是原生模块

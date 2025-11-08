@@ -9,27 +9,27 @@
 /* Begin PBXBuildFile section */
 		0C7E49211120C500E1C121D2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 957BB667CEB98B43C17BB71B /* PrivacyInfo.xcprivacy */; };
 		597513CFDC1D3C294EF304E7 /* libPods-ToastHybrid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E3FA1850B76D9CBDF8CA860 /* libPods-ToastHybrid.a */; };
-		91165ED723C348A10043523C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91165ED423C348A10043523C /* ViewController.m */; };
 		91165EF423C34B700043523C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91165ED623C348A10043523C /* ViewController.xib */; };
-		91887264236AD544003DC79E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91887263236AD544003DC79E /* AppDelegate.m */; };
 		9188726F236AD545003DC79E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9188726E236AD545003DC79E /* Assets.xcassets */; };
 		91887272236AD545003DC79E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91887270236AD545003DC79E /* LaunchScreen.storyboard */; };
 		91887275236AD545003DC79E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91887274236AD545003DC79E /* main.m */; };
+		91ECC9552EBF5B83001965F7 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 91ECC9542EBF5B83001965F7 /* ViewController.mm */; };
+		91ECC9562EBF5B83001965F7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 91ECC9532EBF5B83001965F7 /* AppDelegate.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6A0EEA4A369EA409E9D0B59E /* Pods-ToastHybrid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToastHybrid.debug.xcconfig"; path = "Target Support Files/Pods-ToastHybrid/Pods-ToastHybrid.debug.xcconfig"; sourceTree = "<group>"; };
 		7E3FA1850B76D9CBDF8CA860 /* libPods-ToastHybrid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToastHybrid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		91165ED423C348A10043523C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		91165ED523C348A10043523C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		91165ED623C348A10043523C /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		9188725F236AD544003DC79E /* ToastHybrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToastHybrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91887262236AD544003DC79E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		91887263236AD544003DC79E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9188726E236AD545003DC79E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91887271236AD545003DC79E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91887273236AD545003DC79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91887274236AD545003DC79E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		91ECC9532EBF5B83001965F7 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		91ECC9542EBF5B83001965F7 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		957BB667CEB98B43C17BB71B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		9C4A0781597F7E05C2E14120 /* Pods-ToastHybrid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToastHybrid.release.xcconfig"; path = "Target Support Files/Pods-ToastHybrid/Pods-ToastHybrid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,9 +85,9 @@
 			isa = PBXGroup;
 			children = (
 				91887262236AD544003DC79E /* AppDelegate.h */,
-				91887263236AD544003DC79E /* AppDelegate.m */,
+				91ECC9532EBF5B83001965F7 /* AppDelegate.mm */,
 				91165ED523C348A10043523C /* ViewController.h */,
-				91165ED423C348A10043523C /* ViewController.m */,
+				91ECC9542EBF5B83001965F7 /* ViewController.mm */,
 				91165ED623C348A10043523C /* ViewController.xib */,
 				9188726E236AD545003DC79E /* Assets.xcassets */,
 				91887270236AD545003DC79E /* LaunchScreen.storyboard */,
@@ -177,13 +177,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ToastHybrid/Pods-ToastHybrid-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ToastHybrid/Pods-ToastHybrid-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -198,13 +194,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ToastHybrid/Pods-ToastHybrid-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ToastHybrid/Pods-ToastHybrid-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -258,8 +250,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91165ED723C348A10043523C /* ViewController.m in Sources */,
-				91887264236AD544003DC79E /* AppDelegate.m in Sources */,
+				91ECC9552EBF5B83001965F7 /* ViewController.mm in Sources */,
+				91ECC9562EBF5B83001965F7 /* AppDelegate.mm in Sources */,
 				91887275236AD545003DC79E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,7 +326,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -391,7 +386,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

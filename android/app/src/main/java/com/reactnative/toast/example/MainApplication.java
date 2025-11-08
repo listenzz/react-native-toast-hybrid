@@ -12,7 +12,7 @@ import com.facebook.react.defaults.DefaultReactHost;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.react.soloader.OpenSourceMergedSoMapping;
 import com.facebook.soloader.SoLoader;
-import com.reactnative.hybridnavigation.ReactBridgeManager;
+import com.reactnative.hybridnavigation.ReactManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,21 +42,16 @@ public class MainApplication extends Application implements ReactApplication {
         public boolean isNewArchEnabled() {
             return BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
         }
-        
+
         @Override
-        public Boolean isHermesEnabled() {
+        public boolean isHermesEnabled() {
             return BuildConfig.IS_HERMES_ENABLED;
         }
     };
-
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return reactNativeHost;
-    }
-
+    
     @Override
     public ReactHost getReactHost() {
-        return DefaultReactHost.getDefaultReactHost(getApplicationContext(), reactNativeHost);
+        return DefaultReactHost.getDefaultReactHost(getApplicationContext(), reactNativeHost, null);
     }
 
     @Override
@@ -71,11 +66,12 @@ public class MainApplication extends Application implements ReactApplication {
             // If you opted-in for the New Architecture, we load the native entry point for this app.
             DefaultNewArchitectureEntryPoint.load();
         }
-        ReactBridgeManager bridgeManager = ReactBridgeManager.get();
-        bridgeManager.install(reactNativeHost);
+
+        ReactManager reactManager = ReactManager.get();
+        reactManager.install(getReactHost());
 
         // 注册原生页面
-        bridgeManager.registerNativeModule("Tab2", DemoFragment.class);
+        reactManager.registerNativeModule("Tab2", DemoFragment.class);
         FLog.setMinimumLoggingLevel(FLog.INFO);
     }
 }

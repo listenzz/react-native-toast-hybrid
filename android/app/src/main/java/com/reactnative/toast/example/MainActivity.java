@@ -18,13 +18,13 @@ public class MainActivity extends ReactAppCompatActivity {
         Bundle titleItem1 = new Bundle();
         titleItem1.putString("title", "React");
         options1.putBundle("titleItem", titleItem1);
-        HybridFragment f1 = getReactBridgeManager().createFragment("Tab1", null, options1);
+        HybridFragment f1 = getReactManager().createFragment("Tab1", null, options1);
 
         Bundle options2 = new Bundle();
         Bundle titleItem2 = new Bundle();
         titleItem2.putString("title", "Native");
         options2.putBundle("titleItem", titleItem2);
-        HybridFragment f2 = getReactBridgeManager().createFragment("Tab2", null, options2);
+        HybridFragment f2 = getReactManager().createFragment("Tab2", null, options2);
 
         StackFragment nav1 = new StackFragment();
         nav1.setTabBarItem(new TabBarItem("React"));

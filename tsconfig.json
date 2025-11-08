@@ -5,5 +5,7 @@
     "paths": {
       "react-native-toast-hybrid": ["./packages/toast/src/index"]
     }
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/node_modules", "**/Pods"]
 }
