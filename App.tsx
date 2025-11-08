@@ -5,7 +5,7 @@ import { useNavigator } from 'hybrid-navigation';
 
 export default function App() {
   const navigator = useNavigator();
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const [count, setCount] = useState(0);
 
