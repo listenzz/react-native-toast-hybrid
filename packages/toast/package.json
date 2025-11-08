@@ -12,6 +12,7 @@
     "android",
     "ios",
     "ToastHybrid.podspec",
+    "README.md",
     "!android/build",
     "!ios/build",
     "!**/__tests__"
@@ -36,5 +37,13 @@
     "react": ">=16.8",
     "react-native": ">=0.60"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "codegenConfig": {
+    "name": "rntoast",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.reactnative.toast"
+    }
+  }
 }

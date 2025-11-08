@@ -5,20 +5,18 @@ import android.graphics.Color;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.UiThreadUtil;
 
-public class ToastHybridModule extends ReactContextBaseJavaModule {
-
+public class ToastHybridModule extends NativeToastSpec {
     private final SparseArray<Toast> toastSparseArray = new SparseArray<>();
 
     private static int toastKeyGenerator = 0;
-
 
     public ToastHybridModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -32,7 +30,7 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
 
     @Override
     public void invalidate() {
-        final Activity activity = getCurrentActivity();
+        final Activity activity = getActiveActivity();
         if (activity != null && !activity.isFinishing()) {
             UiThreadUtil.runOnUiThread(() -> {
                 if (!activity.isFinishing()) {
@@ -45,12 +43,13 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
             });
         }
     }
-    
-    @ReactMethod
-    public void create(final Promise promise) {
+
+
+    @Override
+    public void createToast(Promise promise) {
         UiThreadUtil.runOnUiThread(() -> {
-            if (getCurrentActivity() != null) {
-                Toast toast = new Toast(getCurrentActivity());
+            if (getActiveActivity() != null) {
+                Toast toast = new Toast(getActiveActivity());
                 final int key = setupToast(toast);
                 promise.resolve(key);
             } else {
@@ -58,15 +57,75 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
             }
         });
     }
-
-    @ReactMethod
-    public void ensure(final int key, final Promise promise) {
+    
+    @Override
+    public void hide(double key) {
         UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
+            Toast toast = toastSparseArray.get((int) key);
+            if (toast != null) {
+                toast.hide();
+            }
+        });
+    }
+
+    @Override
+    public void ensure(double key, Promise promise) {
+        UiThreadUtil.runOnUiThread(() -> {
+            Toast toast = toastSparseArray.get((int) key);
             if (toast != null) {
                 promise.resolve(key);
             } else {
-                create(promise);
+                createToast(promise);
+            }
+        });
+    }
+
+    @Override
+    public void loading(double key, @Nullable String text) {
+        UiThreadUtil.runOnUiThread(() -> {
+            Toast toast = toastSparseArray.get((int) key);
+            if (toast != null) {
+                toast.loading(text == null ? ToastConfig.loadingText : text);
+            }
+        });
+    }
+
+    @Override
+    public void text(double key, String text) {
+        UiThreadUtil.runOnUiThread(() -> {
+            Toast toast = toastSparseArray.get((int) key);
+            if (toast != null) {
+                toast.text(text);
+            }
+        });
+    }
+
+    @Override
+    public void info(double key, String text) {
+        UiThreadUtil.runOnUiThread(() -> {
+            Toast toast = toastSparseArray.get((int) key);
+            if (toast != null) {
+                toast.info(text);
+            }
+        });
+    }
+
+    @Override
+    public void done(double key, String text) {
+        UiThreadUtil.runOnUiThread(() -> {
+            Toast toast = toastSparseArray.get((int) key);
+            if (toast != null) {
+                toast.done(text);
+            }
+        });
+    }
+
+    @Override
+    public void error(double key, String text) {
+        UiThreadUtil.runOnUiThread(() -> {
+            Toast toast = toastSparseArray.get((int) key);
+            if (toast != null) {
+                toast.error(text);
             }
         });
     }
@@ -78,68 +137,7 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
         return key;
     }
 
-    @ReactMethod
-    public void loading(final int key, final String text) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.loading(text == null ? ToastConfig.loadingText : text);
-            }
-        });
-    }
-
-    @ReactMethod
-    public void hide(final int key) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.hide();
-            }
-        });
-    }
-
-    @ReactMethod
-    public void text(final int key, final String text) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.text(text);
-            }
-        });
-    }
-
-    @ReactMethod
-    public void info(final int key, final String text) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.info(text);
-            }
-        });
-    }
-
-    @ReactMethod
-    public void done(final int key, final String text) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.done(text);
-            }
-        });
-    }
-
-
-    @ReactMethod
-    public void error(final int key, final String text) {
-        UiThreadUtil.runOnUiThread(() -> {
-            Toast toast = toastSparseArray.get(key);
-            if (toast != null) {
-                toast.error(text);
-            }
-        });
-    }
-
-    @ReactMethod
+    @Override
     public void config(final ReadableMap config) {
         UiThreadUtil.runOnUiThread(() -> {
             if (config.hasKey("backgroundColor")) {
@@ -191,6 +189,16 @@ public class ToastHybridModule extends ReactContextBaseJavaModule {
                 ToastConfig.loadingText = ToastConfig.DEFAULT_LOADING_TEXT;
             }
         });
+    }
+    
+    @Nullable
+    private Activity getActiveActivity() {
+        ReactContext reactContext = getReactApplicationContext();
+        if (!reactContext.hasActiveReactInstance()) {
+            return null;
+        }
+
+        return reactContext.getCurrentActivity();
     }
 
 }

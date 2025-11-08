@@ -1,8 +1,9 @@
 #import "ToastHybrid.h"
-#import <React/RCTLog.h>
-#import <React/RCTBridge.h>
 
-@interface ToastHybrid()
+#import <React/RCTLog.h>
+#import <React/RCTInvalidating.h>
+
+@interface ToastHybrid() <RCTInvalidating>
 
 @property(nonatomic, assign) NSInteger toastKeyGenerator;
 @property(nonatomic, strong) NSMutableDictionary *toasts;
@@ -11,18 +12,10 @@
 
 @implementation ToastHybrid
 
-RCT_EXPORT_MODULE()
-
-- (instancetype)init {
-    if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleReload) name:RCTBridgeWillReloadNotification object:nil];
-    }
-    return self;
++ (NSString *)moduleName { 
+    return @"ToastHybrid";
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:RCTBridgeWillReloadNotification object:nil];
-}
 
 + (BOOL)requiresMainQueueSetup {
     return YES;
@@ -32,7 +25,21 @@ RCT_EXPORT_MODULE()
     return dispatch_get_main_queue();
 }
 
-RCT_EXPORT_METHOD(create:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+- (void)invalidate {
+    if (self.toasts) {
+        for (NSNumber *key in self.toasts) {
+            Toast *toast = self.toasts[key];
+            [toast hide];
+        }
+        [self.toasts removeAllObjects];
+    }
+}
+
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params { 
+    return std::make_shared<facebook::react::NativeToastSpecJSI>(params);
+}
+
+- (void)createToast:(nonnull RCTPromiseResolveBlock)resolve reject:(nonnull RCTPromiseRejectBlock)reject { 
     if (!_toasts) {
         _toasts = [[NSMutableDictionary alloc] init];
     }
@@ -47,69 +54,16 @@ RCT_EXPORT_METHOD(create:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRej
     }
 }
 
-RCT_EXPORT_METHOD(ensure:(NSNumber* __nonnull)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    Toast *toast = [self.toasts objectForKey:key];
+- (void)ensure:(double)key resolve:(nonnull RCTPromiseResolveBlock)resolve reject:(nonnull RCTPromiseRejectBlock)reject { 
+    Toast *toast = [self.toasts objectForKey:@(key)];
     if (toast) {
-        resolve(key);
+        resolve(@(key));
     } else {
-        [self create:resolve rejecter:reject];
+        [self createToast:resolve reject:reject];
     }
 }
 
-RCT_EXPORT_METHOD(loading:(NSNumber * __nonnull)key text:(NSString *)text) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [toast loading:text ?: [ToastConfig sharedConfig].loadingText];
-    }
-}
-
-RCT_EXPORT_METHOD(hide:(NSNumber* __nonnull)key) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [self.toasts removeObjectForKey:key];
-        [toast hide];
-    }
-}
-
-RCT_EXPORT_METHOD(text:(NSNumber * __nonnull)key text:(NSString *)text) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [toast text:text];
-    }
-}
-
-RCT_EXPORT_METHOD(info:(NSNumber * __nonnull)key text:(NSString *)text) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [toast info:text];
-    }
-}
-
-RCT_EXPORT_METHOD(done:(NSNumber * __nonnull)key text:(NSString *)text) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [toast done:text];
-    }
-}
-
-RCT_EXPORT_METHOD(error:(NSNumber * __nonnull)key text:(NSString *)text) {
-    Toast *toast = [self.toasts objectForKey:key];
-    if (toast) {
-        [toast error:text];
-    }
-}
-
-- (void)handleReload {
-    if (self.toasts) {
-        for (NSNumber *key in self.toasts) {
-            Toast *toast = self.toasts[key];
-            [toast hide];
-        }
-        [self.toasts removeAllObjects];
-    }
-}
-
-RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
+- (void)config:(nonnull NSDictionary *)options { 
     if (options[@"backgroundColor"]) {
         [ToastConfig sharedConfig].bezelColor = [ToastHybrid colorWithHexString:options[@"backgroundColor"]];
     } else {
@@ -156,6 +110,55 @@ RCT_EXPORT_METHOD(config:(NSDictionary *)options) {
         [ToastConfig sharedConfig].loadingText = options[@"loadingText"];
     } else {
         [ToastConfig sharedConfig].loadingText = [ToastConfig defaultLoadingText];
+    }
+}
+
+
+- (void)done:(double)key text:(nonnull NSString *)text { 
+    Toast *toast = [self.toasts objectForKey:@(key)];
+    if (toast) {
+        [toast done:text];
+    }
+}
+
+
+- (void)error:(double)key text:(nonnull NSString *)text { 
+    Toast *toast = [self.toasts objectForKey:@(key)];
+    if (toast) {
+        [toast error:text];
+    }
+}
+
+
+- (void)hide:(double)key { 
+    Toast *toast = [self.toasts objectForKey:@(key)];
+    if (toast) {
+        [self.toasts removeObjectForKey:@(key)];
+        [toast hide];
+    }
+}
+
+
+- (void)info:(double)key text:(nonnull NSString *)text { 
+    Toast *toast = [self.toasts objectForKey:@(key)];
+    if (toast) {
+        [toast info:text];
+    }
+}
+
+
+- (void)loading:(double)key text:(nonnull NSString *)text { 
+    Toast *toast = [self.toasts objectForKey:@(key)];
+    if (toast) {
+        [toast loading:text ?: [ToastConfig sharedConfig].loadingText];
+    }
+}
+
+
+- (void)text:(double)key text:(nonnull NSString *)text { 
+    Toast *toast = [self.toasts objectForKey:@(key)];
+    if (toast) {
+        [toast text:text];
     }
 }
 

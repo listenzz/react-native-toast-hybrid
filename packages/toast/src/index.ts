@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
-import { NativeModules, BackHandler } from 'react-native';
-const { ToastHybrid } = NativeModules;
+import { BackHandler } from 'react-native';
+import ToastHybrid from './NativeToast';
 
 export interface ToastConfig {
   backgroundColor?: string
@@ -47,7 +47,7 @@ export default class Toast {
     if (this.underlying !== null) {
       return this.underlying;
     }
-    const underlying = ToastHybrid.create();
+    const underlying = ToastHybrid.createToast();
     return underlying;
   }
 
