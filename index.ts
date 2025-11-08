@@ -3,7 +3,7 @@ import App from './App';
 
 Navigation.setDefaultOptions({
   screenBackgroundColor: '#F8F8F8',
-  topBarStyle: BarStyleDarkContent,
+   topBarStyle: BarStyleDarkContent,
 });
 
 Navigation.startRegisterComponent();

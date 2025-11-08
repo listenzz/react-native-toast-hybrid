@@ -69,18 +69,9 @@
 
 - (UIViewController *)controller:(UIViewController *)controller {
     UIViewController *presentedController = controller.presentedViewController;
-    if (presentedController && ![presentedController isBeingDismissed]) {
-        return [self controller:presentedController];
-    } else if ([controller isKindOfClass:[HBDDrawerController class]]) {
-        HBDDrawerController *drawer = (HBDDrawerController *)controller;
-        if ([drawer isMenuOpened]) {
-            return drawer;
-        } else {
-            return [self controller:drawer.contentController];
-        }
-    } else if ([controller isKindOfClass:[HBDTabBarController class]]) {
-        HBDTabBarController *tabs = (HBDTabBarController *)controller;
-        return [self controller:tabs.selectedViewController];
+    if ([controller isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabs = (UITabBarController *)controller;
+        return tabs.selectedViewController;
     }
     return controller;
 }

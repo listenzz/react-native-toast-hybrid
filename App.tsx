@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native';
 import Toast, { useToast } from 'react-native-toast-hybrid';
 import { useNavigator } from 'hybrid-navigation';
 
@@ -79,6 +79,18 @@ export default function App() {
     navigator.push('Tab1');
   };
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+    toast.text('Modal shown');
+  };
+
+  const hideModal = () => {
+    setModalVisible(false);
+    toast.text('Modal dismissed');
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={loading} activeOpacity={0.2} style={styles.button}>
@@ -101,9 +113,17 @@ export default function App() {
         <Text style={styles.buttonText}> error </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={push} activeOpacity={0.2} style={styles.button}>
-        <Text style={styles.buttonText}> push and auto pop back </Text>
+      <TouchableOpacity onPress={showModal} activeOpacity={0.2} style={styles.button}>
+        <Text style={styles.buttonText}>showModal</Text>
       </TouchableOpacity>
+      <Modal visible={modalVisible}  animationType="none" onRequestClose={hideModal}>
+        <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center',   marginTop: 100 }}>
+          <Text>This is a modal</Text>
+          <TouchableOpacity onPress={hideModal} activeOpacity={0.2} style={styles.button}>
+            <Text style={styles.buttonText}>Dismiss Modal</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 }
