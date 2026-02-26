@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => min_ios_version_supported }
   s.source       = { :git => "https://github.com/listenzz/react-native-toast-hybrid.git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/ToastHybrid/**/*.{h,m,mm,cpp}"
+  s.source_files = "ios/**/*.{h,m,mm,cpp}"
   s.resource_bundles = {
     'ToastHybrid' => ['ios/*.{storyboard,xib,xcassets,json,imageset,png}']
   }
