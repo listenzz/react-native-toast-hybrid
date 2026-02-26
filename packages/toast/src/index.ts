@@ -78,6 +78,13 @@ export default class Toast {
   }
 
   private show(fn: (key: number, text: string) => void, text: string, duration: number) {
+    if (duration === 0) {
+      if (this.underlying === null) {
+        return this;
+      }
+      this.hide();
+      return this;
+    }
     if (!this.closed) {
       this.clearTimeout();
       this.underlying = this.ensure();
