@@ -16,6 +16,8 @@ export interface ToastConfig {
 let defaultDuration = 2000;
 
 export default class Toast {
+  private static instances = new Set<Toast>();
+
   static config(options: ToastConfig = {}) {
     defaultDuration = options.duration || defaultDuration;
     ToastHybrid.config(options);
@@ -41,7 +43,15 @@ export default class Toast {
     return new Toast().loading(text);
   }
 
+  static hideAll() {
+    Array.from(Toast.instances).forEach(t => t.hide());
+  }
+
   private underlying: Promise<number> | null = null;
+
+  constructor() {
+    Toast.instances.add(this);
+  }
 
   private ensure(): Promise<number> {
     if (this.underlying !== null) {
@@ -114,6 +124,7 @@ export default class Toast {
   }
 
   hide() {
+    Toast.instances.delete(this);
     this.clearTimeout();
     if (this.underlying !== null) {
       this.underlying.then(key => {
